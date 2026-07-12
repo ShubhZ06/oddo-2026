@@ -453,7 +453,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
             {trip.vehicle ? (
               <div className="flex flex-col gap-2">
                 <Link
-                  href={`/vehicles/${trip.vehicle.id}`}
+                  href={`/fleet/${trip.vehicle.id}`}
                   className="font-bold text-sm text-text-primary hover:text-primary-light transition-colors"
                 >
                   {trip.vehicle.registrationNumber}

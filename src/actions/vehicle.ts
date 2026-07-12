@@ -18,7 +18,7 @@ export async function addVehicle(data: any) {
       }
     });
     
-    revalidatePath("/vehicles");
+    revalidatePath("/fleet");
     revalidatePath("/dashboard");
     return { success: true, data: vehicle };
   } catch (error: any) {
@@ -43,8 +43,8 @@ export async function updateVehicle(id: number, data: any) {
       }
     });
     
-    revalidatePath("/vehicles");
-    revalidatePath(`/vehicles/${id}`);
+    revalidatePath("/fleet");
+    revalidatePath(`/fleet/${id}`);
     revalidatePath("/dashboard");
     return { success: true, data: vehicle };
   } catch (error: any) {
@@ -60,7 +60,7 @@ export async function retireVehicle(id: number) {
       data: { status: "RETIRED" }
     });
     
-    revalidatePath("/vehicles");
+    revalidatePath("/fleet");
     revalidatePath("/dashboard");
     return { success: true, data: vehicle };
   } catch (error: any) {

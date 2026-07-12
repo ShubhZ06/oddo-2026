@@ -254,7 +254,7 @@ export default function TripListPage() {
                           <div className="flex items-center gap-1.5 text-xs text-text-primary-primary-secondary">
                             <Truck size={12} className="text-primary-light" />
                             <Link
-                              href={`/vehicles/${trip.vehicleId}`}
+                              href={`/fleet/${trip.vehicleId}`}
                               className="hover:text-primary-light font-medium"
                             >
                               {trip.vehicle?.registrationNumber || `Vehicle #${trip.vehicleId}`}

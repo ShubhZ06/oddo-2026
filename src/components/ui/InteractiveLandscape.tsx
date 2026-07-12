@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 // Import Sky from three examples. Depending on your three.js version, it could be 'three/addons/...' or 'three/examples/jsm/...'
-import { Sky } from "three/examples/jsm/objects/Sky.js";
+import { Sky } from "three/addons/objects/Sky.js";
 
 const vertexShader = `
 vec3 mod289(vec3 x) {

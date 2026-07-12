@@ -58,8 +58,8 @@ export const NAV_ITEMS: NavItem[] = [
     roles: ["FLEET_MANAGER", "DRIVER", "SAFETY_OFFICER", "FINANCIAL_ANALYST"],
   },
   {
-    label: "Vehicles",
-    href: "/vehicles",
+    label: "Fleet",
+    href: "/fleet",
     icon: "Truck",
     roles: ["FLEET_MANAGER", "DRIVER", "SAFETY_OFFICER", "FINANCIAL_ANALYST"],
   },
