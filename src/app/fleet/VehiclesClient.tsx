@@ -5,7 +5,7 @@ import { Plus, Edit2, Trash2, Eye } from "lucide-react";
 import Link from "next/link";
 import DataTable from "@/components/ui/DataTable";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, formatCurrency } from "@/lib/utils";
 import VehicleModal from "./VehicleModal";
 import { showToast } from "@/components/ui/Toast";
 import { retireVehicle } from "@/actions/vehicle";
@@ -49,6 +49,7 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
     { header: "Type", accessorKey: "type" as const },
     { header: "Capacity", cell: (v: any) => `${formatNumber(v.maxLoadCapacityKg)} kg` },
     { header: "Odometer", cell: (v: any) => `${formatNumber(v.odometerKm)} km` },
+    { header: "Acquisition Cost", cell: (v: any) => formatCurrency(v.acquisitionCost) },
     { header: "Status", cell: (v: any) => <StatusBadge status={v.status} /> },
     { 
       header: "Actions", 
