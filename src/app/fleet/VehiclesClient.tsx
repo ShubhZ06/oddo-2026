@@ -56,7 +56,7 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
       cell: (v: any) => (
         <div className="flex items-center gap-2">
           <Link 
-            href={`/vehicles/${v.id}`}
+            href={`/fleet/${v.id}`}
             className="p-1.5 text-text-secondary hover:text-primary-light hover:bg-white/5 rounded-md transition-colors"
             title="View Details"
           >
