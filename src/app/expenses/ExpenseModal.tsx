@@ -135,8 +135,6 @@ export default function ExpenseModal({
               options={[
                 { label: "Misc", value: "MISC" },
                 { label: "Toll", value: "TOLL" },
-                { label: "Maintenance", value: "MAINTENANCE" },
-                { label: "Fuel", value: "FUEL" },
                 { label: "Insurance", value: "INSURANCE" },
               ]}
               className="w-full"

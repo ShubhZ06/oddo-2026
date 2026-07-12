@@ -179,8 +179,6 @@ enum MaintenanceStatus {
 
 enum ExpenseCategory {
   TOLL
-  MAINTENANCE
-  FUEL
   INSURANCE
   MISC
 }

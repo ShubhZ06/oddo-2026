@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Search, Filter, MoreHorizontal } from "lucide-react";
 import { useAuth } from "@/components/auth/AuthProvider";
+import Select from "@/components/ui/Select";
 
 export default function DashboardClient({ 
   vehicles, 
@@ -108,50 +109,40 @@ export default function DashboardClient({
         <div className="text-xs font-bold text-gray-400 tracking-wider mr-2 uppercase">Filters:</div>
         
         {/* 1) Vehicle Filter */}
-        <div className="relative w-40">
-          <select 
-            value={vehicleFilter}
-            onChange={(e) => setVehicleFilter(e.target.value)}
-            className="appearance-none w-full bg-white border border-gray-200 text-gray-700 text-sm font-semibold py-2.5 pl-4 pr-10 rounded-xl outline-none focus:border-black cursor-pointer shadow-sm"
-          >
-            <option value="All">Vehicle: All</option>
-            {uniqueVehicles.map(v => (
-              <option key={v} value={v}>{v}</option>
-            ))}
-          </select>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
-        </div>
+        <Select
+          value={vehicleFilter}
+          onChange={setVehicleFilter}
+          options={[
+            { label: "Vehicle: All", value: "All" },
+            ...uniqueVehicles.map(v => ({ label: String(v), value: String(v) }))
+          ]}
+          className="w-48"
+        />
 
         {/* 2) Status Filter */}
-        <div className="relative w-40">
-          <select 
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="appearance-none w-full bg-white border border-gray-200 text-gray-700 text-sm font-semibold py-2.5 pl-4 pr-10 rounded-xl outline-none focus:border-black cursor-pointer shadow-sm"
-          >
-            <option value="All">Status: All</option>
-            <option value="Draft">Draft</option>
-            <option value="Dispatched">Dispatched</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
-        </div>
+        <Select
+          value={statusFilter}
+          onChange={setStatusFilter}
+          options={[
+            { label: "Status: All", value: "All" },
+            { label: "Draft", value: "Draft" },
+            { label: "Dispatched", value: "Dispatched" },
+            { label: "Completed", value: "Completed" },
+            { label: "Cancelled", value: "Cancelled" }
+          ]}
+          className="w-40"
+        />
         
         {/* 3) Region Filter */}
-        <div className="relative w-40">
-          <select 
-            value={regionFilter}
-            onChange={(e) => setRegionFilter(e.target.value)}
-            className="appearance-none w-full bg-white border border-gray-200 text-gray-700 text-sm font-semibold py-2.5 pl-4 pr-10 rounded-xl outline-none focus:border-black cursor-pointer shadow-sm"
-          >
-            <option value="All">Region: All</option>
-            {uniqueRegions.map(r => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
-        </div>
+        <Select
+          value={regionFilter}
+          onChange={setRegionFilter}
+          options={[
+            { label: "Region: All", value: "All" },
+            ...uniqueRegions.map(r => ({ label: String(r), value: String(r) }))
+          ]}
+          className="w-40"
+        />
       </div>
 
       {/* KPIs */}
