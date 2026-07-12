@@ -49,7 +49,6 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
     { header: "Type", accessorKey: "type" as const },
     { header: "Capacity", cell: (v: any) => `${formatNumber(v.maxLoadCapacityKg)} kg` },
     { header: "Odometer", cell: (v: any) => `${formatNumber(v.odometerKm)} km` },
-    { header: "Region", accessorKey: "region" as const },
     { header: "Status", cell: (v: any) => <StatusBadge status={v.status} /> },
     { 
       header: "Actions", 
