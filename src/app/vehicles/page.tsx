@@ -7,19 +7,11 @@ import DataTable from "@/components/ui/DataTable";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { formatNumber } from "@/lib/utils";
 import VehicleModal from "./VehicleModal";
-
-// Mock Data
-const MOCK_VEHICLES = [
-  { id: "1", registrationNumber: "TRK-092", nameModel: "Volvo FH16", type: "TRUCK", maxLoadCapacityKg: 24000, odometerKm: 145000, region: "North Zone", status: "AVAILABLE" },
-  { id: "2", registrationNumber: "VAN-014", nameModel: "Mercedes Sprinter", type: "VAN", maxLoadCapacityKg: 3500, odometerKm: 85000, region: "South Zone", status: "ON_TRIP" },
-  { id: "3", registrationNumber: "TRK-105", nameModel: "Scania R500", type: "TRUCK", maxLoadCapacityKg: 22000, odometerKm: 210000, region: "East Zone", status: "IN_SHOP" },
-  { id: "4", registrationNumber: "CAR-042", nameModel: "Toyota Corolla", type: "CAR", maxLoadCapacityKg: 450, odometerKm: 42000, region: "West Zone", status: "AVAILABLE" },
-  { id: "5", registrationNumber: "BUS-008", nameModel: "Volvo 9700", type: "BUS", maxLoadCapacityKg: 5000, odometerKm: 320000, region: "North Zone", status: "RETIRED" },
-  { id: "6", registrationNumber: "TRK-118", nameModel: "MAN TGX", type: "TRUCK", maxLoadCapacityKg: 26000, odometerKm: 95000, region: "South Zone", status: "AVAILABLE" },
-];
+import { useApp } from "@/context/AppContext";
+import { showToast } from "@/components/ui/Toast";
 
 export default function VehiclesPage() {
-  const [vehicles, setVehicles] = useState(MOCK_VEHICLES);
+  const { vehicles, retireVehicle } = useApp();
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<any>(null);
@@ -32,6 +24,13 @@ export default function VehiclesPage() {
   const handleEdit = (vehicle: any) => {
     setEditingVehicle(vehicle);
     setIsModalOpen(true);
+  };
+
+  const handleRetire = (id: number, regNum: string) => {
+    if (window.confirm(`Are you sure you want to retire vehicle ${regNum}?`)) {
+      retireVehicle(id);
+      showToast("warning", `Vehicle ${regNum} has been retired.`);
+    }
   };
 
   const handleCloseModal = () => {
@@ -68,7 +67,9 @@ export default function VehiclesPage() {
             <Edit2 size={16} />
           </button>
           <button 
-            className="p-1.5 text-text-primary-secondary hover:text-danger hover:bg-white/5 rounded-md transition-colors"
+            onClick={() => handleRetire(v.id, v.registrationNumber)}
+            disabled={v.status === "RETIRED"}
+            className="p-1.5 text-text-primary-secondary hover:text-danger hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed rounded-md transition-colors"
             title="Retire / Delete"
           >
             <Trash2 size={16} />

@@ -5,19 +5,10 @@ import StatCard from "@/components/ui/StatCard";
 import BarChart from "@/components/charts/BarChart";
 import DoughnutChart from "@/components/charts/DoughnutChart";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { formatNumber, formatPercent } from "@/lib/utils";
+import { formatNumber, formatPercent, titleCase } from "@/lib/utils";
+import { useApp } from "@/context/AppContext";
 
-// Mock Data (until DB is connected)
-const KPIS = {
-  activeVehicles: 24,
-  availableVehicles: 18,
-  vehiclesInShop: 3,
-  activeTrips: 12,
-  pendingTrips: 5,
-  driversOnDuty: 18,
-  fleetUtilization: 87.5,
-};
-
+// Mock Data (remaining static components)
 const barChartData = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
@@ -36,31 +27,60 @@ const barChartData = {
   ],
 };
 
-const doughnutData = {
-  labels: ["Available", "On Trip", "In Shop", "Retired"],
-  datasets: [
-    {
-      data: [18, 12, 3, 1],
-      backgroundColor: [
-        "rgba(0, 184, 148, 0.8)", // success
-        "rgba(116, 185, 255, 0.8)", // info
-        "rgba(253, 203, 110, 0.8)", // warning
-        "rgba(225, 112, 85, 0.8)", // danger
-      ],
-      borderWidth: 0,
-      hoverOffset: 4,
-    },
-  ],
-};
-
-const RECENT_ACTIVITY = [
-  { id: 1, type: "TRIP_DISPATCHED", message: "Trip #1042 dispatched to North Zone", time: "10 mins ago", status: "info" },
-  { id: 2, type: "MAINTENANCE_LOGGED", message: "Vehicle TRK-092 reported for Engine Repair", time: "1 hour ago", status: "warning" },
-  { id: 3, type: "TRIP_COMPLETED", message: "Trip #1038 completed successfully", time: "2 hours ago", status: "success" },
-  { id: 4, type: "DRIVER_STATUS", message: "John Doe changed status to Off Duty", time: "3 hours ago", status: "muted" },
-];
-
 export default function DashboardPage() {
+  const { vehicles, maintenanceLogs } = useApp();
+
+  // Dynamic calculations from shared registry state
+  const totalVehicles = vehicles.length;
+  const inShopCount = vehicles.filter((v) => v.status === "IN_SHOP").length;
+  const availableCount = vehicles.filter((v) => v.status === "AVAILABLE").length;
+  const onTripCount = vehicles.filter((v) => v.status === "ON_TRIP").length;
+  const retiredCount = vehicles.filter((v) => v.status === "RETIRED").length;
+
+  const nonRetiredCount = totalVehicles - retiredCount;
+  const utilizationRate = nonRetiredCount > 0 ? (onTripCount / nonRetiredCount) * 100 : 0;
+
+  const dynamicKPIS = {
+    activeVehicles: totalVehicles - retiredCount,
+    availableVehicles: availableCount,
+    vehiclesInShop: inShopCount,
+    activeTrips: onTripCount,
+    pendingTrips: 5,
+    driversOnDuty: 18,
+    fleetUtilization: utilizationRate,
+  };
+
+  const dynamicDoughnutData = {
+    labels: ["Available", "On Trip", "In Shop", "Retired"],
+    datasets: [
+      {
+        data: [availableCount, onTripCount, inShopCount, retiredCount],
+        backgroundColor: [
+          "rgba(0, 184, 148, 0.8)", // success
+          "rgba(116, 185, 255, 0.8)", // info
+          "rgba(253, 203, 110, 0.8)", // warning
+          "rgba(225, 112, 85, 0.8)", // danger
+        ],
+        borderWidth: 0,
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  // Activity feed dynamically sourced from actual logs
+  const dynamicActivity = [
+    ...maintenanceLogs.slice(0, 3).map((l) => {
+      const v = vehicles.find((vehicle) => vehicle.id === l.vehicleId);
+      return {
+        id: `m-${l.id}`,
+        message: `Vehicle ${v?.registrationNumber || `ID:${l.vehicleId}`} reported for ${titleCase(l.type)} - ${l.status}`,
+        time: l.status === "OPEN" ? "Active Repair" : `Closed Case`,
+        status: l.status === "OPEN" ? "warning" : "success",
+      };
+    }),
+    { id: "sys-1", message: "Fleet smart systems initialized", time: "Ready", status: "muted" },
+  ];
+
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -69,7 +89,7 @@ export default function DashboardPage() {
           <p className="text-text-primary-secondary text-sm">Real-time metrics and fleet status</p>
         </div>
         
-        {/* Placeholder Filter Bar */}
+        {/* Filter Bar */}
         <div className="flex items-center gap-3 bg-surface-secondary p-1.5 rounded-lg border border-border-default">
           <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none border-r border-border-default">
             <option>All Regions</option>
@@ -90,7 +110,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           label="Total Active Vehicles"
-          value={formatNumber(KPIS.activeVehicles)}
+          value={formatNumber(dynamicKPIS.activeVehicles)}
           icon={Truck}
           iconBg="bg-primary/15"
           iconColor="text-primary-light"
@@ -98,7 +118,7 @@ export default function DashboardPage() {
         />
         <StatCard
           label="Active Trips"
-          value={formatNumber(KPIS.activeTrips)}
+          value={formatNumber(dynamicKPIS.activeTrips)}
           icon={Route}
           iconBg="bg-secondary/15"
           iconColor="text-secondary"
@@ -106,19 +126,19 @@ export default function DashboardPage() {
         />
         <StatCard
           label="Vehicles in Shop"
-          value={formatNumber(KPIS.vehiclesInShop)}
+          value={formatNumber(dynamicKPIS.vehiclesInShop)}
           icon={AlertTriangle}
           iconBg="bg-warning/15"
           iconColor="text-warning"
-          trend={{ value: "2", isPositive: false }}
+          trend={{ value: "Updated", isPositive: true }}
         />
         <StatCard
           label="Fleet Utilization"
-          value={formatPercent(KPIS.fleetUtilization)}
+          value={formatPercent(dynamicKPIS.fleetUtilization)}
           icon={TrendingUp}
           iconBg="bg-success/15"
           iconColor="text-success"
-          trend={{ value: "4.2%", isPositive: true }}
+          trend={{ value: "Dynamic", isPositive: true }}
         />
       </div>
 
@@ -133,9 +153,9 @@ export default function DashboardPage() {
         <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex flex-col items-center justify-center">
           <h3 className="w-full text-left font-semibold mb-4">Vehicle Status</h3>
           <div className="w-full h-[250px] relative">
-             <DoughnutChart data={doughnutData} />
+             <DoughnutChart data={dynamicDoughnutData} />
              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-4">
-                <span className="text-3xl font-bold">{KPIS.activeVehicles + KPIS.vehiclesInShop + 1}</span>
+                <span className="text-3xl font-bold">{totalVehicles}</span>
                 <span className="text-xs text-text-primary-muted">Total Fleet</span>
              </div>
           </div>
@@ -149,7 +169,7 @@ export default function DashboardPage() {
           </div>
           
           <div className="flex flex-col gap-4">
-            {RECENT_ACTIVITY.map((activity) => (
+            {dynamicActivity.map((activity) => (
               <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-white/3 border border-border-default transition-colors hover:bg-white/5">
                 <div className="shrink-0 mt-1">
                   <StatusBadge status={activity.status} label={activity.status === "muted" ? "SYSTEM" : "ALERT"} />
