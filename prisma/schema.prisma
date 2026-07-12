@@ -1,0 +1,187 @@
+// schema.prisma
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         Role     @default(FLEET_MANAGER)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}
+
+enum Role {
+  FLEET_MANAGER
+  DRIVER
+  SAFETY_OFFICER
+  FINANCIAL_ANALYST
+}
+
+model Vehicle {
+  id                 Int      @id @default(autoincrement())
+  registrationNumber String   @unique @map("registration_number")
+  nameModel          String   @map("name_model")
+  type               VehicleType
+  maxLoadCapacityKg  Float    @map("max_load_capacity_kg")
+  odometerKm         Float    @default(0) @map("odometer_km")
+  acquisitionCost    Float    @map("acquisition_cost")
+  status             VehicleStatus @default(AVAILABLE)
+  region             String?
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  trips           Trip[]
+  maintenanceLogs MaintenanceLog[]
+  fuelLogs        FuelLog[]
+  expenses        Expense[]
+
+  @@map("vehicles")
+}
+
+enum VehicleType {
+  TRUCK
+  VAN
+  CAR
+  BUS
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  ON_TRIP
+  IN_SHOP
+  RETIRED
+}
+
+model Driver {
+  id              Int          @id @default(autoincrement())
+  name            String
+  licenseNumber   String       @unique @map("license_number")
+  licenseCategory String       @map("license_category")
+  licenseExpiry   DateTime     @map("license_expiry")
+  contactNumber   String       @map("contact_number")
+  safetyScore     Float        @default(100.0) @map("safety_score")
+  status          DriverStatus @default(AVAILABLE)
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  trips Trip[]
+
+  @@map("drivers")
+}
+
+enum DriverStatus {
+  AVAILABLE
+  ON_TRIP
+  OFF_DUTY
+  SUSPENDED
+}
+
+model Trip {
+  id                 Int        @id @default(autoincrement())
+  vehicleId          Int        @map("vehicle_id")
+  driverId           Int        @map("driver_id")
+  source             String
+  destination        String
+  cargoWeightKg      Float      @map("cargo_weight_kg")
+  distanceKm         Float      @map("distance_km")
+  revenue            Float      @default(0)
+  status             TripStatus @default(DRAFT)
+  finalOdometer      Float?     @map("final_odometer")
+  fuelConsumedLiters Float?     @map("fuel_consumed_liters")
+  createdAt          DateTime   @default(now()) @map("created_at")
+  dispatchedAt       DateTime?  @map("dispatched_at")
+  completedAt        DateTime?  @map("completed_at")
+
+  vehicle  Vehicle   @relation(fields: [vehicleId], references: [id])
+  driver   Driver    @relation(fields: [driverId], references: [id])
+  fuelLogs FuelLog[]
+  expenses Expense[]
+
+  @@map("trips")
+}
+
+enum TripStatus {
+  DRAFT
+  DISPATCHED
+  COMPLETED
+  CANCELLED
+}
+
+model MaintenanceLog {
+  id          Int               @id @default(autoincrement())
+  vehicleId   Int               @map("vehicle_id")
+  type        MaintenanceType
+  description String?           @db.Text
+  cost        Float             @default(0)
+  status      MaintenanceStatus @default(OPEN)
+  createdAt   DateTime          @default(now()) @map("created_at")
+  closedAt    DateTime?         @map("closed_at")
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+
+  @@map("maintenance_logs")
+}
+
+enum MaintenanceType {
+  OIL_CHANGE
+  TIRE_REPLACEMENT
+  ENGINE_REPAIR
+  BRAKE_SERVICE
+  GENERAL
+}
+
+enum MaintenanceStatus {
+  OPEN
+  CLOSED
+}
+
+model FuelLog {
+  id             Int      @id @default(autoincrement())
+  vehicleId      Int      @map("vehicle_id")
+  tripId         Int?     @map("trip_id")
+  liters         Float
+  costPerLiter   Float    @map("cost_per_liter")
+  totalCost      Float    @map("total_cost")
+  odometerAtFill Float    @map("odometer_at_fill")
+  date           DateTime
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+  trip    Trip?   @relation(fields: [tripId], references: [id])
+
+  @@map("fuel_logs")
+}
+
+model Expense {
+  id          Int             @id @default(autoincrement())
+  vehicleId   Int             @map("vehicle_id")
+  tripId      Int?            @map("trip_id")
+  category    ExpenseCategory
+  description String?         @db.Text
+  amount      Float
+  date        DateTime
+  createdAt   DateTime        @default(now()) @map("created_at")
+
+  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
+  trip    Trip?   @relation(fields: [tripId], references: [id])
+
+  @@map("expenses")
+}
+
+enum ExpenseCategory {
+  TOLL
+  MAINTENANCE
+  FUEL
+  INSURANCE
+  MISC
+}
