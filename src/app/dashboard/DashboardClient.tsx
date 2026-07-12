@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Search, Filter, MoreHorizontal } from "lucide-react";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 export default function DashboardClient({ 
   vehicles, 
@@ -12,6 +13,8 @@ export default function DashboardClient({
   trips: any[],
   drivers: any[]
 }) {
+  const { user } = useAuth();
+  const isDriver = user?.role === "DRIVER";
   const [search, setSearch] = useState("");
   const [vehicleFilter, setVehicleFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -29,15 +32,16 @@ export default function DashboardClient({
     ? Math.round(((totalVehicles - availableCount - inShopCount) / totalVehicles) * 100) 
     : 0;
 
-  const kpis = [
+  const allKpis = [
     { label: "ACTIVE VEHICLES", value: activeVehiclesCount.toString(), border: "border-blue-500" },
     { label: "AVAILABLE VEHICLES", value: availableCount.toString(), border: "border-green-500" },
     { label: "VEHICLES IN MAINTENANCE", value: inShopCount.toString(), border: "border-orange-500" },
     { label: "ACTIVE TRIPS", value: activeTripsCount.toString(), border: "border-blue-400" },
     { label: "PENDING TRIPS", value: pendingTripsCount.toString(), border: "border-gray-400" },
-    { label: "DRIVERS ON DUTY", value: driversOnDuty.toString(), border: "border-purple-500" },
-    { label: "FLEET UTILIZATION", value: `${utilization}%`, border: "border-green-400" },
+    { label: "DRIVERS ON DUTY", value: driversOnDuty.toString(), border: "border-purple-500", hideForDriver: true },
+    { label: "FLEET UTILIZATION", value: `${utilization}%`, border: "border-green-400", hideForDriver: true },
   ];
+  const kpis = isDriver ? allKpis.filter(k => !k.hideForDriver) : allKpis;
 
   const vehicleStatus = [
     { label: "Available", percent: totalVehicles > 0 ? (availableCount / totalVehicles) * 100 : 0, color: "bg-green-500" },
@@ -197,25 +201,27 @@ export default function DashboardClient({
           </div>
         </div>
 
-        {/* Vehicle Status */}
-        <div className="lg:col-span-1 flex flex-col">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-black tracking-tight">Vehicle Status</h2>
+        {/* Vehicle Status (hidden for drivers) */}
+        {!isDriver && (
+          <div className="lg:col-span-1 flex flex-col">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-black tracking-tight">Vehicle Status</h2>
+            </div>
+            
+            <div className="bg-[#eef2ef] rounded-[32px] p-8 flex flex-col gap-6 shadow-sm border border-gray-100">
+               {vehicleStatus.map((status, i) => (
+                  <div key={i} className="flex flex-col gap-2">
+                     <div className="flex items-center justify-between text-sm">
+                        <span className="font-bold text-gray-700">{status.label}</span>
+                     </div>
+                     <div className="w-full h-2 bg-white rounded-full overflow-hidden shadow-inner">
+                        <div className={`h-full ${status.color} rounded-full`} style={{ width: `${status.percent}%` }}></div>
+                     </div>
+                  </div>
+               ))}
+            </div>
           </div>
-          
-          <div className="bg-[#eef2ef] rounded-[32px] p-8 flex flex-col gap-6 shadow-sm border border-gray-100">
-             {vehicleStatus.map((status, i) => (
-                <div key={i} className="flex flex-col gap-2">
-                   <div className="flex items-center justify-between text-sm">
-                      <span className="font-bold text-gray-700">{status.label}</span>
-                   </div>
-                   <div className="w-full h-2 bg-white rounded-full overflow-hidden shadow-inner">
-                      <div className={`h-full ${status.color} rounded-full`} style={{ width: `${status.percent}%` }}></div>
-                   </div>
-                </div>
-             ))}
-          </div>
-        </div>
+        )}
 
       </div>
     </div>
