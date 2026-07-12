@@ -1,30 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "@/components/ui/Modal";
+import { useApp } from "@/context/AppContext";
+import { showToast } from "@/components/ui/Toast";
 
 interface VehicleModalProps {
   isOpen: boolean;
   onClose: () => void;
-  vehicle?: any; // Will use proper type later
+  vehicle?: any;
 }
 
 export default function VehicleModal({ isOpen, onClose, vehicle }: VehicleModalProps) {
+  const { addVehicle, updateVehicle } = useApp();
+
   const [formData, setFormData] = useState({
-    registrationNumber: vehicle?.registrationNumber || "",
-    nameModel: vehicle?.nameModel || "",
-    type: vehicle?.type || "TRUCK",
-    maxLoadCapacityKg: vehicle?.maxLoadCapacityKg || "",
-    odometerKm: vehicle?.odometerKm || "",
-    acquisitionCost: vehicle?.acquisitionCost || "",
-    region: vehicle?.region || "",
-    status: vehicle?.status || "AVAILABLE",
+    registrationNumber: "",
+    nameModel: "",
+    type: "TRUCK" as const,
+    maxLoadCapacityKg: "",
+    odometerKm: "",
+    acquisitionCost: "",
+    region: "",
+    status: "AVAILABLE" as const,
   });
+
+  useEffect(() => {
+    if (vehicle) {
+      setFormData({
+        registrationNumber: vehicle.registrationNumber || "",
+        nameModel: vehicle.nameModel || "",
+        type: vehicle.type || "TRUCK",
+        maxLoadCapacityKg: String(vehicle.maxLoadCapacityKg) || "",
+        odometerKm: String(vehicle.odometerKm) || "",
+        acquisitionCost: String(vehicle.acquisitionCost) || "",
+        region: vehicle.region || "",
+        status: vehicle.status || "AVAILABLE",
+      });
+    } else {
+      setFormData({
+        registrationNumber: "",
+        nameModel: "",
+        type: "TRUCK",
+        maxLoadCapacityKg: "",
+        odometerKm: "",
+        acquisitionCost: "",
+        region: "",
+        status: "AVAILABLE",
+      });
+    }
+  }, [vehicle, isOpen]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In real app, call API to save
-    console.log("Saving vehicle:", formData);
+    
+    const parsedData = {
+      registrationNumber: formData.registrationNumber,
+      nameModel: formData.nameModel,
+      type: formData.type,
+      maxLoadCapacityKg: Number(formData.maxLoadCapacityKg),
+      odometerKm: Number(formData.odometerKm),
+      acquisitionCost: Number(formData.acquisitionCost),
+      region: formData.region,
+      status: formData.status,
+    };
+
+    if (vehicle) {
+      updateVehicle(vehicle.id, parsedData);
+      showToast("success", `Vehicle ${formData.registrationNumber.toUpperCase()} updated successfully.`);
+    } else {
+      addVehicle(parsedData);
+      showToast("success", `Vehicle ${formData.registrationNumber.toUpperCase()} added to registry.`);
+    }
+
     onClose();
   };
 
