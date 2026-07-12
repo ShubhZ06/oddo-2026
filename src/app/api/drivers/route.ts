@@ -10,6 +10,14 @@ export async function GET(request: Request) {
 
     let drivers;
     try {
+      // Check if search matches any enum values case-insensitively
+      const matchedStatuses: any[] = [];
+      const lowerSearch = search.toLowerCase();
+      if ("available".includes(lowerSearch)) matchedStatuses.push("AVAILABLE");
+      if ("on_trip".includes(lowerSearch) || "on trip".includes(lowerSearch)) matchedStatuses.push("ON_TRIP");
+      if ("off_duty".includes(lowerSearch) || "off duty".includes(lowerSearch)) matchedStatuses.push("OFF_DUTY");
+      if ("suspended".includes(lowerSearch)) matchedStatuses.push("SUSPENDED");
+
       // Try to fetch from Prisma if connected
       const dbDrivers = await prisma.driver.findMany({
         where: {
@@ -19,6 +27,10 @@ export async function GET(request: Request) {
                   OR: [
                     { name: { contains: search } },
                     { licenseNumber: { contains: search } },
+                    { licenseCategory: { contains: search } },
+                    ...(matchedStatuses.length > 0
+                      ? [{ status: { in: matchedStatuses } }]
+                      : []),
                   ],
                 }
               : {},
@@ -37,7 +49,11 @@ export async function GET(request: Request) {
         localDrivers = localDrivers.filter(
           (d) =>
             d.name.toLowerCase().includes(lowerSearch) ||
-            d.licenseNumber.toLowerCase().includes(lowerSearch)
+            d.licenseNumber.toLowerCase().includes(lowerSearch) ||
+            d.licenseCategory.toLowerCase().includes(lowerSearch) ||
+            d.status.toLowerCase().includes(lowerSearch) ||
+            (d.status === "ON_TRIP" && "on trip".includes(lowerSearch)) ||
+            (d.status === "OFF_DUTY" && "off duty".includes(lowerSearch))
         );
       }
       if (status) {

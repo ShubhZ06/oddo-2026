@@ -70,5 +70,17 @@
     "status": "AVAILABLE",
     "createdAt": "2026-07-12T04:48:24.090Z",
     "updatedAt": "2026-07-12T04:48:24.090Z"
+  },
+  {
+    "id": 7,
+    "name": "Pranjal Pal",
+    "licenseNumber": "DL-898989",
+    "licenseCategory": "Class A CDL",
+    "licenseExpiry": "2026-07-12T00:00:00.000Z",
+    "contactNumber": "91 8369344657",
+    "safetyScore": 100,
+    "status": "AVAILABLE",
+    "createdAt": "2026-07-12T09:28:51.238Z",
+    "updatedAt": "2026-07-12T09:28:51.238Z"
   }
 ]
