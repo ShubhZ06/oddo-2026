@@ -67,12 +67,14 @@ export default function ExpensesClient({
       e.description?.toLowerCase().includes(searchString) ||
       v?.registrationNumber.toLowerCase().includes(searchString)
     );
-  });
+  }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const filteredFuelLogs = initialFuelLogs.filter((f) => {
-    const v = vehicles.find((v) => v.id === f.vehicleId);
-    return v?.registrationNumber.toLowerCase().includes(searchString);
-  });
+  const filteredFuelLogs = initialFuelLogs
+    .filter((f) => {
+      const v = vehicles.find((v) => v.id === f.vehicleId);
+      return v?.registrationNumber.toLowerCase().includes(searchString);
+    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const expenseColumns = [
     {
