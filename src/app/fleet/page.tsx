@@ -4,16 +4,9 @@ import VehiclesClient from "./VehiclesClient";
 export const dynamic = "force-dynamic";
 
 export default async function VehiclesPage() {
-  let vehicles: any[] = [];
-  try {
-    if (prisma) {
-      vehicles = await prisma.vehicle.findMany({
-        orderBy: { createdAt: "desc" },
-      });
-    }
-  } catch (error) {
-    console.error("Failed to query vehicles from Prisma:", error);
-  }
+  const vehicles = await prisma.vehicle.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
   return <VehiclesClient initialVehicles={vehicles} />;
 }
