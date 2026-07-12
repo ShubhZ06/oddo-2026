@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "vehicleId": 1,
+    "tripId": 1,
+    "category": "TOLL",
+    "description": "NH48 Expressway tolls (Mumbai to Delhi)",
+    "amount": 4850,
+    "date": "2026-07-04T00:00:00.000Z",
+    "createdAt": "2026-07-04T01:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "vehicleId": 1,
+    "tripId": 1,
+    "category": "FUEL",
+    "description": "First mid-trip refueling",
+    "amount": 22200,
+    "date": "2026-07-04T00:00:00.000Z",
+    "createdAt": "2026-07-04T01:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "vehicleId": 1,
+    "tripId": 1,
+    "category": "FUEL",
+    "description": "End of trip refueling",
+    "amount": 22320,
+    "date": "2026-07-05T00:00:00.000Z",
+    "createdAt": "2026-07-05T01:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "vehicleId": 2,
+    "tripId": 2,
+    "category": "TOLL",
+    "description": "NICE Road + Bengaluru-Chennai highway tolls",
+    "amount": 850,
+    "date": "2026-07-11T09:00:00.000Z",
+    "createdAt": "2026-07-11T09:30:00.000Z"
+  },
+  {
+    "id": 5,
+    "vehicleId": 2,
+    "tripId": 2,
+    "category": "FUEL",
+    "description": "Initial dispatch refueling",
+    "amount": 4239,
+    "date": "2026-07-11T12:00:00.000Z",
+    "createdAt": "2026-07-11T12:30:00.000Z"
+  },
+  {
+    "id": 6,
+    "vehicleId": 7,
+    "tripId": 4,
+    "category": "FUEL",
+    "description": "Refueling",
+    "amount": 5967,
+    "date": "2026-07-08T00:00:00.000Z",
+    "createdAt": "2026-07-08T01:00:00.000Z"
+  },
+  {
+    "id": 7,
+    "vehicleId": 1,
+    "tripId": null,
+    "category": "MAINTENANCE",
+    "description": "Oil change and filters replacement expense",
+    "amount": 8500,
+    "date": "2026-06-27T00:00:00.000Z",
+    "createdAt": "2026-06-27T01:00:00.000Z"
+  },
+  {
+    "id": 8,
+    "vehicleId": 4,
+    "tripId": null,
+    "category": "MAINTENANCE",
+    "description": "Brake service and front rotors expense",
+    "amount": 22000,
+    "date": "2026-06-12T00:00:00.000Z",
+    "createdAt": "2026-06-12T01:00:00.000Z"
+  },
+  {
+    "id": 9,
+    "vehicleId": 3,
+    "tripId": null,
+    "category": "MAINTENANCE",
+    "description": "Radiator, fan, coolant repair expense",
+    "amount": 15500,
+    "date": "2026-07-10T00:00:00.000Z",
+    "createdAt": "2026-07-10T01:00:00.000Z"
+  },
+  {
+    "id": 10,
+    "vehicleId": 1,
+    "tripId": null,
+    "category": "INSURANCE",
+    "description": "Annual commercial vehicle insurance premium payment",
+    "amount": 48000,
+    "date": "2026-05-28T00:00:00.000Z",
+    "createdAt": "2026-05-28T01:00:00.000Z"
+  },
+  {
+    "id": 11,
+    "vehicleId": 4,
+    "tripId": null,
+    "category": "INSURANCE",
+    "description": "Annual commercial vehicle insurance premium payment",
+    "amount": 54000,
+    "date": "2026-05-13T00:00:00.000Z",
+    "createdAt": "2026-05-13T01:00:00.000Z"
+  },
+  {
+    "id": 12,
+    "vehicleId": 1,
+    "tripId": 1,
+    "category": "MISC",
+    "description": "State border permit permits (Rajasthan & Haryana entry)",
+    "amount": 3200,
+    "date": "2026-07-04T00:00:00.000Z",
+    "createdAt": "2026-07-04T01:00:00.000Z"
+  }
+]

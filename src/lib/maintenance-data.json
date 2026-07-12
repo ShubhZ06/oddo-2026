@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "vehicleId": 3,
+    "type": "ENGINE_REPAIR",
+    "description": "Overheating issue. Replaced radiator fan and coolant thermostat.",
+    "cost": 15500,
+    "status": "OPEN",
+    "createdAt": "2026-07-10T00:00:00.000Z",
+    "closedAt": null
+  },
+  {
+    "id": 2,
+    "vehicleId": 1,
+    "type": "OIL_CHANGE",
+    "description": "Scheduled 45k km engine oil and filter change.",
+    "cost": 8500,
+    "status": "CLOSED",
+    "createdAt": "2026-06-27T00:00:00.000Z",
+    "closedAt": "2026-06-27T04:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "vehicleId": 4,
+    "type": "BRAKE_SERVICE",
+    "description": "Replaced front brake pads and serviced rotors.",
+    "cost": 22000,
+    "status": "CLOSED",
+    "createdAt": "2026-06-12T00:00:00.000Z",
+    "closedAt": "2026-06-12T08:00:00.000Z"
+  }
+]
