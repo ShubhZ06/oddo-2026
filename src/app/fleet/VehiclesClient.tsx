@@ -125,13 +125,13 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
           <p className="text-gray-500 text-sm mt-0.5">Manage your fleet assets and monitor real-time status.</p>
         </div>
         {isAdmin && (
-          <button
-            onClick={() => setIsModalOpen(true)}
+          <Link
+            href="/fleet/new"
             className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-[14px] text-sm font-semibold hover:bg-gray-800 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
           >
             <Plus size={16} />
             Add Vehicle
-          </button>
+          </Link>
         )}
       </div>
 

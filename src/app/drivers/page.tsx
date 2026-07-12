@@ -21,6 +21,7 @@ import { showToast } from "@/components/ui/Toast";
 import ToastContainer from "@/components/ui/Toast";
 import { formatDate, isExpired, isExpiringSoon } from "@/lib/utils";
 import type { Driver, DriverStatus } from "@/types";
+import Link from "next/link";
 
 export default function DriversPage() {
   const [drivers, setDrivers] = useState<Driver[]>([]);
@@ -93,11 +94,6 @@ export default function DriversPage() {
     setIsDetailOpen(true);
   };
 
-  const handleAdd = () => {
-    setSelectedDriver(null);
-    setIsFormOpen(true);
-  };
-
   // Metrics calculations
   const totalCount = drivers.length;
   const availableCount = drivers.filter((d) => d.status === "AVAILABLE").length;
@@ -126,13 +122,13 @@ export default function DriversPage() {
             Manage your fleet drivers, monitor credentials, and review safety statistics
           </p>
         </div>
-        <button
-          onClick={handleAdd}
+        <Link
+          href="/drivers/new"
           className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-lg transition-colors cursor-pointer text-sm font-semibold shadow-md shadow-primary/10 select-none"
         >
           <Plus size={16} />
           Register Driver
-        </button>
+        </Link>
       </div>
 
       {/* KPI Cards Grid */}

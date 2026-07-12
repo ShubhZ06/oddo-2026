@@ -1,10 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Wrench, CheckCircle, Clock, DollarSign, Plus, ShieldAlert, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { showToast } from "@/components/ui/Toast";
-import MaintenanceModal from "./MaintenanceModal";
+import Link from "next/link";
 import type { MaintenanceType } from "@/types";
 import { logMaintenance, closeMaintenance } from "@/actions/maintenance";
 
@@ -28,7 +28,6 @@ export default function MaintenanceClient({
 }) {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState<Tab>("All");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 8;
 
@@ -39,19 +38,6 @@ export default function MaintenanceClient({
     if (res.success && vehicle) {
       const s = vehicle.status === "RETIRED" ? "RETIRED" : "AVAILABLE";
       showToast("success", `Maintenance closed. ${vehicle.registrationNumber} is now ${s.toLowerCase()}.`);
-    }
-  };
-
-  const handleCreateMaintenance = async (data: {
-    vehicleId: number;
-    type: MaintenanceType;
-    cost: number;
-    description: string;
-  }) => {
-    const vehicle = vehicles.find((v) => v.id === data.vehicleId);
-    const res = await logMaintenance(data);
-    if (res.success && vehicle) {
-      showToast("success", `Maintenance logged. ${vehicle.registrationNumber} set to IN_SHOP.`);
     }
   };
 
@@ -79,7 +65,6 @@ export default function MaintenanceClient({
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
   const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-  const eligibleVehicles = vehicles.filter((v) => v.status !== "RETIRED" && v.status !== "IN_SHOP");
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in w-full max-w-[1400px] mx-auto">
@@ -89,13 +74,13 @@ export default function MaintenanceClient({
           <h1 className="text-[26px] font-bold text-black tracking-tight">Maintenance</h1>
           <p className="text-gray-500 text-sm mt-0.5">Manage shop orders, track repairs, and monitor fleet health.</p>
         </div>
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-[14px] text-sm font-semibold hover:bg-gray-800 transition-colors shadow-sm cursor-pointer"
+        <Link
+          href="/maintenance/new"
+          className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-[14px] text-sm font-semibold hover:bg-gray-800 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
         >
           <Plus size={16} />
           Log Repair
-        </button>
+        </Link>
       </div>
 
       {/* KPI Cards */}
@@ -253,13 +238,6 @@ export default function MaintenanceClient({
         )}
       </div>
 
-      {/* Modal */}
-      <MaintenanceModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        vehicles={eligibleVehicles}
-        onSubmit={handleCreateMaintenance}
-      />
     </div>
   );
 }
