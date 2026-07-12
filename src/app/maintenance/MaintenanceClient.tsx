@@ -195,7 +195,7 @@ export default function MaintenanceClient({
                         Close Case
                       </button>
                     ) : (
-                      <span className="flex items-center gap-1.5 text-xs text-gray-300 font-bold">
+                      <span className="flex items-center gap-1.5 text-xs text-black font-bold">
                         <CheckCircle size={13} />
                         Done
                       </span>
