@@ -46,14 +46,14 @@ export default function Modal({
       }}
     >
       <div
-        className="bg-surface-secondary border border-border-default rounded-xl w-[90%] max-w-[560px] max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in"
+        className="bg-surface-secondary border border-border-default-default-default rounded-xl w-[90%] max-w-[560px] max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in"
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-center justify-between p-6 border-b border-border-default">
+        <div className="flex items-center justify-between p-6 border-b border-border-default-default-default">
           <h2 className="text-lg font-semibold">{title}</h2>
           <button
-            className="flex items-center justify-center w-9 h-9 rounded-md text-text-primary-secondary hover:bg-white/8 hover:text-text-primary transition-colors cursor-pointer"
+            className="flex items-center justify-center w-9 h-9 rounded-md text-text-primary-primary-primary-secondary hover:bg-white/8 hover:text-text-primary-primary-primary transition-colors cursor-pointer"
             onClick={onClose}
             aria-label="Close modal"
           >
@@ -62,7 +62,7 @@ export default function Modal({
         </div>
         <div className="p-6">{children}</div>
         {footer && (
-          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-border-default">
+          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-border-default-default-default">
             {footer}
           </div>
         )}

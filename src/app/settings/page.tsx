@@ -61,13 +61,13 @@ export default function SettingsPage() {
         <div className="flex items-center gap-2">
           <button 
             onClick={() => handleEditUser(u)}
-            className="p-1.5 text-text-secondary hover:text-primary-light hover:bg-white/5 rounded-md transition-colors"
+            className="p-1.5 text-text-primary-primary-secondary hover:text-primary-light hover:bg-white/5 rounded-md transition-colors"
             title="Edit"
           >
             <Edit2 size={16} />
           </button>
           <button 
-            className="p-1.5 text-text-secondary hover:text-danger hover:bg-white/5 rounded-md transition-colors"
+            className="p-1.5 text-text-primary-primary-secondary hover:text-danger hover:bg-white/5 rounded-md transition-colors"
             title="Delete"
           >
             <Trash2 size={16} />
@@ -81,7 +81,7 @@ export default function SettingsPage() {
     <div className="flex flex-col gap-6 animate-fade-in max-w-[1200px] mx-auto">
       <div>
         <h1 className="text-2xl font-bold mb-1">Settings</h1>
-        <p className="text-text-secondary text-sm">Manage your profile, system users, and application preferences.</p>
+        <p className="text-text-primary-primary-secondary text-sm">Manage your profile, system users, and application preferences.</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
@@ -90,7 +90,7 @@ export default function SettingsPage() {
           <button
             onClick={() => setActiveTab("profile")}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
-              activeTab === "profile" ? "bg-primary/10 text-primary-light" : "hover:bg-bg-card-hover text-text-secondary hover:text-text"
+              activeTab === "profile" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
             }`}
           >
             <User size={18} />
@@ -99,7 +99,7 @@ export default function SettingsPage() {
           <button
             onClick={() => setActiveTab("users")}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
-              activeTab === "users" ? "bg-primary/10 text-primary-light" : "hover:bg-bg-card-hover text-text-secondary hover:text-text"
+              activeTab === "users" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
             }`}
           >
             <Users size={18} />
@@ -108,7 +108,7 @@ export default function SettingsPage() {
           <button
             onClick={() => setActiveTab("system")}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
-              activeTab === "system" ? "bg-primary/10 text-primary-light" : "hover:bg-bg-card-hover text-text-secondary hover:text-text"
+              activeTab === "system" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
             }`}
           >
             <Settings2 size={18} />
@@ -122,72 +122,72 @@ export default function SettingsPage() {
           {/* PROFILE TAB */}
           {activeTab === "profile" && (
             <div className="flex flex-col gap-8 animate-fade-in">
-              <div className="bg-bg-secondary border border-border rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
+              <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default-default">
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light">
                     <User size={20} />
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold">Personal Information</h2>
-                    <p className="text-sm text-text-secondary">Update your profile details.</p>
+                    <p className="text-sm text-text-primary-primary-secondary">Update your profile details.</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-medium text-text-secondary">Full Name</label>
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Full Name</label>
                     <input 
                       type="text"
                       value={profileData.name}
                       onChange={(e) => setProfileData({...profileData, name: e.target.value})}
-                      className="bg-bg border border-border rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-sm font-medium text-text-secondary">Email Address</label>
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Email Address</label>
                     <input 
                       type="email"
                       value={profileData.email}
                       onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                      className="bg-bg border border-border rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="md:col-span-2 flex justify-end">
-                    <button className="px-5 py-2.5 bg-bg border border-border rounded-lg text-sm font-medium hover:bg-bg-card-hover transition-colors">
+                    <button className="px-5 py-2.5 bg-surface-primary border border-border-default-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
                       Save Changes
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-bg-secondary border border-border rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
+              <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default-default">
                   <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                     <Lock size={20} />
                   </div>
                   <div>
                     <h2 className="text-lg font-semibold">Security</h2>
-                    <p className="text-sm text-text-secondary">Update your password to keep your account secure.</p>
+                    <p className="text-sm text-text-primary-primary-secondary">Update your password to keep your account secure.</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
                   <div className="flex flex-col gap-1.5 md:col-span-2">
-                    <label className="text-sm font-medium text-text-secondary">Current Password</label>
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Current Password</label>
                     <input 
                       type="password"
                       value={profileData.currentPassword}
                       onChange={(e) => setProfileData({...profileData, currentPassword: e.target.value})}
-                      className="bg-bg border border-border rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5 md:col-span-2">
-                    <label className="text-sm font-medium text-text-secondary">New Password</label>
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">New Password</label>
                     <input 
                       type="password"
                       value={profileData.newPassword}
                       onChange={(e) => setProfileData({...profileData, newPassword: e.target.value})}
-                      className="bg-bg border border-border rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="md:col-span-2 flex justify-end">
@@ -203,13 +203,13 @@ export default function SettingsPage() {
           {/* USERS TAB */}
           {activeTab === "users" && (
             <div className="animate-fade-in flex flex-col gap-6">
-              <div className="bg-bg-secondary border border-border rounded-xl p-6 flex items-start gap-4">
+              <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6 flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary-light shrink-0">
                   <Shield size={24} />
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold mb-1">Access Control</h2>
-                  <p className="text-sm text-text-secondary leading-relaxed max-w-2xl">
+                  <p className="text-sm text-text-primary-primary-secondary leading-relaxed max-w-2xl">
                     Manage team members and their roles. Fleet Managers have full access. Safety Officers can manage drivers. Financial Analysts can view reports and expenses.
                   </p>
                 </div>
@@ -235,9 +235,9 @@ export default function SettingsPage() {
 
           {/* SYSTEM TAB */}
           {activeTab === "system" && (
-            <div className="bg-bg-secondary border border-border rounded-xl p-6 animate-fade-in">
+            <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6 animate-fade-in">
               <h2 className="text-lg font-semibold mb-6">System Preferences</h2>
-              <div className="text-text-muted text-sm py-12 text-center border-2 border-dashed border-border rounded-xl">
+              <div className="text-text-primary-primary-muted text-sm py-12 text-center border-2 border-dashed border-border-default-default rounded-xl">
                 Global settings, notifications, and integration options will go here.
               </div>
             </div>

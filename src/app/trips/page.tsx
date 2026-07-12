@@ -109,7 +109,7 @@ export default function TripListPage() {
             <Route className="text-primary-light" size={24} />
             Trip Management
           </h1>
-          <p className="text-text-secondary text-sm">
+          <p className="text-text-primary-primary-secondary text-sm">
             Dispatch fleet assets, monitor active routes, and review logs.
           </p>
         </div>
@@ -126,14 +126,14 @@ export default function TripListPage() {
       {/* Mini Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         {[
-          { label: "Total Trips", val: stats.total, color: "text-text", bg: "bg-white/5" },
-          { label: "Drafts", val: stats.draft, color: "text-text-secondary", bg: "bg-white/5" },
+          { label: "Total Trips", val: stats.total, color: "text-text-primary-primary", bg: "bg-white/5" },
+          { label: "Drafts", val: stats.draft, color: "text-text-primary-primary-secondary", bg: "bg-white/5" },
           { label: "Dispatched", val: stats.dispatched, color: "text-info", bg: "bg-info/10" },
           { label: "Completed", val: stats.completed, color: "text-success", bg: "bg-success/10" },
           { label: "Cancelled", val: stats.cancelled, color: "text-danger", bg: "bg-danger/10" },
         ].map((item, idx) => (
-          <div key={idx} className={`p-4 rounded-xl border border-border ${item.bg}`}>
-            <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
+          <div key={idx} className={`p-4 rounded-xl border border-border-default-default ${item.bg}`}>
+            <span className="text-xs text-text-primary-primary-muted font-medium uppercase tracking-wider block mb-1">
               {item.label}
             </span>
             <span className={`text-2xl font-bold ${item.color}`}>
@@ -144,23 +144,23 @@ export default function TripListPage() {
       </div>
 
       {/* Filters & Search */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-bg-secondary p-4 rounded-xl border border-border">
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-surface-secondary p-4 rounded-xl border border-border-default-default">
         {/* Search */}
         <div className="relative w-full md:w-80">
-          <Search className="absolute left-3 top-2.5 text-text-muted" size={18} />
+          <Search className="absolute left-3 top-2.5 text-text-primary-primary-muted" size={18} />
           <input
             type="text"
             placeholder="Search source, dest, registration..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text placeholder:text-text-muted"
+            className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
           />
         </div>
 
         {/* Filters */}
         <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto self-start md:self-auto pb-2 md:pb-0">
-          <Filter size={16} className="text-text-muted shrink-0" />
-          <span className="text-xs text-text-muted font-semibold uppercase tracking-wider shrink-0">
+          <Filter size={16} className="text-text-primary-primary-muted shrink-0" />
+          <span className="text-xs text-text-primary-primary-muted font-semibold uppercase tracking-wider shrink-0">
             Filter Status:
           </span>
           <div className="flex gap-2">
@@ -171,7 +171,7 @@ export default function TripListPage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
                   statusFilter === status
                     ? "bg-primary text-white"
-                    : "bg-bg hover:bg-white/5 text-text-secondary hover:text-text border border-border"
+                    : "bg-surface-primary hover:bg-white/5 text-text-primary-primary-secondary hover:text-text-primary-primary border border-border-default-default"
                 }`}
               >
                 {status}
@@ -182,15 +182,15 @@ export default function TripListPage() {
       </div>
 
       {/* List Container */}
-      <div className="bg-bg-secondary border border-border rounded-xl overflow-hidden">
+      <div className="bg-surface-secondary border border-border-default-default rounded-xl overflow-hidden">
         {loading ? (
-          <div className="py-20 flex flex-col items-center justify-center text-text-secondary gap-3">
+          <div className="py-20 flex flex-col items-center justify-center text-text-primary-primary-secondary gap-3">
             <Clock className="animate-spin text-primary-light" size={32} />
             <span className="text-sm">Loading trips from operational database...</span>
           </div>
         ) : filteredTrips.length === 0 ? (
-          <div className="py-20 flex flex-col items-center justify-center text-text-secondary gap-3">
-            <AlertCircle size={32} className="text-text-muted" />
+          <div className="py-20 flex flex-col items-center justify-center text-text-primary-primary-secondary gap-3">
+            <AlertCircle size={32} className="text-text-primary-primary-muted" />
             <span className="text-sm">No trips match your current search/filters.</span>
             {search || statusFilter !== "ALL" ? (
               <button
@@ -216,7 +216,7 @@ export default function TripListPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-border bg-white/2 text-xs font-semibold text-text-muted uppercase tracking-wider">
+                <tr className="border-b border-border-default-default bg-white/2 text-xs font-semibold text-text-primary-primary-muted uppercase tracking-wider">
                   <th className="px-6 py-4">ID / Route</th>
                   <th className="px-6 py-4">Vehicle & Driver</th>
                   <th className="px-6 py-4">Cargo & Distance</th>
@@ -237,12 +237,12 @@ export default function TripListPage() {
                       {/* ID / Route */}
                       <td className="px-6 py-4">
                         <div className="flex flex-col">
-                          <span className="font-semibold text-xs text-text-muted mb-1">
+                          <span className="font-semibold text-xs text-text-primary-primary-muted mb-1">
                             TRIP #{trip.id}
                           </span>
-                          <div className="flex items-center gap-1.5 font-medium text-text">
+                          <div className="flex items-center gap-1.5 font-medium text-text-primary-primary">
                             <span>{trip.source}</span>
-                            <ArrowRight size={12} className="text-text-muted" />
+                            <ArrowRight size={12} className="text-text-primary-primary-muted" />
                             <span>{trip.destination}</span>
                           </div>
                         </div>
@@ -251,7 +251,7 @@ export default function TripListPage() {
                       {/* Vehicle & Driver */}
                       <td className="px-6 py-4">
                         <div className="flex flex-col gap-1">
-                          <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                          <div className="flex items-center gap-1.5 text-xs text-text-primary-primary-secondary">
                             <Truck size={12} className="text-primary-light" />
                             <Link
                               href={`/vehicles/${trip.vehicleId}`}
@@ -260,7 +260,7 @@ export default function TripListPage() {
                               {trip.vehicle?.registrationNumber || `Vehicle #${trip.vehicleId}`}
                             </Link>
                           </div>
-                          <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+                          <div className="flex items-center gap-1.5 text-xs text-text-primary-primary-secondary">
                             <User size={12} className="text-secondary" />
                             <span className="font-medium">
                               {trip.driver?.name || `Driver #${trip.driverId}`}
@@ -275,7 +275,7 @@ export default function TripListPage() {
                           <span className="font-medium">
                             {formatNumber(trip.cargoWeightKg)} kg
                           </span>
-                          <span className="text-xs text-text-muted">
+                          <span className="text-xs text-text-primary-primary-muted">
                             {trip.distanceKm} km
                           </span>
                         </div>
@@ -297,7 +297,7 @@ export default function TripListPage() {
 
                       {/* Dates */}
                       <td className="px-6 py-4">
-                        <div className="flex flex-col text-xs text-text-muted">
+                        <div className="flex flex-col text-xs text-text-primary-primary-muted">
                           <span>Created: {formatDate(trip.createdAt)}</span>
                           {trip.dispatchedAt && (
                             <span>Disp: {formatDate(trip.dispatchedAt)}</span>
@@ -309,7 +309,7 @@ export default function TripListPage() {
                       <td className="px-6 py-4 text-right">
                         <Link
                           href={`/trips/${trip.id}`}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-bg hover:bg-white/5 border border-border text-xs font-semibold text-text hover:text-primary-light transition-colors cursor-pointer"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded bg-surface-primary hover:bg-white/5 border border-border-default-default text-xs font-semibold text-text-primary-primary hover:text-primary-light transition-colors cursor-pointer"
                         >
                           <Eye size={12} />
                           Details

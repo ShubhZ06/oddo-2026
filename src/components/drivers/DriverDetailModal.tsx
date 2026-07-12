@@ -62,7 +62,7 @@ export default function DriverDetailModal({
 
   const footer = (
     <button
-      className="px-4 py-2 bg-white/5 hover:bg-white/10 text-text-secondary hover:text-text border border-border rounded-lg transition-colors cursor-pointer text-sm font-medium"
+      className="px-4 py-2 bg-white/5 hover:bg-white/10 text-text-primary-primary-secondary hover:text-text-primary-primary border border-border-default-default rounded-lg transition-colors cursor-pointer text-sm font-medium"
       onClick={onClose}
     >
       Close Details
@@ -78,7 +78,7 @@ export default function DriverDetailModal({
     >
       <div className="flex flex-col gap-6 max-h-[75vh] overflow-y-auto pr-1">
         {/* Header Profile Summary */}
-        <div className="flex items-center gap-4 p-4 rounded-xl bg-white/3 border border-border">
+        <div className="flex items-center gap-4 p-4 rounded-xl bg-white/3 border border-border-default-default">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-primary-light/10 border border-primary/20 flex items-center justify-center text-primary-light">
             <User size={32} />
           </div>
@@ -87,8 +87,8 @@ export default function DriverDetailModal({
               <h3 className="text-lg font-bold leading-none">{driver.name}</h3>
               <StatusBadge status={driver.status} />
             </div>
-            <p className="text-sm text-text-secondary flex items-center gap-1.5">
-              <Phone size={14} className="text-text-muted" /> {driver.contactNumber}
+            <p className="text-sm text-text-primary-primary-secondary flex items-center gap-1.5">
+              <Phone size={14} className="text-text-primary-primary-muted" /> {driver.contactNumber}
             </p>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function DriverDetailModal({
             <AlertTriangle size={18} className="shrink-0 mt-0.5" />
             <div>
               <p className="font-semibold">License Expired!</p>
-              <p className="text-xs text-text-secondary mt-0.5">
+              <p className="text-xs text-text-primary-primary-secondary mt-0.5">
                 This driver's license expired on {formatDate(driver.licenseExpiry)}. They must be suspended immediately.
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function DriverDetailModal({
             <AlertTriangle size={18} className="shrink-0 mt-0.5" />
             <div>
               <p className="font-semibold">License Expiring Soon</p>
-              <p className="text-xs text-text-secondary mt-0.5">
+              <p className="text-xs text-text-primary-primary-secondary mt-0.5">
                 This driver's license expires in less than 30 days ({formatDate(driver.licenseExpiry)}). Plan renewal soon.
               </p>
             </div>
@@ -120,25 +120,25 @@ export default function DriverDetailModal({
         {/* Detailed Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* License Details */}
-          <div className="p-4 rounded-xl border border-border bg-white/2 flex flex-col gap-3">
-            <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
+          <div className="p-4 rounded-xl border border-border-default-default bg-white/2 flex flex-col gap-3">
+            <h4 className="text-xs font-bold text-text-primary-primary-muted uppercase tracking-wider flex items-center gap-1.5">
               <Award size={14} className="text-primary-light" /> Credentials & License
             </h4>
             
             <div className="flex flex-col gap-2.5 text-sm">
-              <div className="flex justify-between items-center py-1 border-b border-border/40">
-                <span className="text-text-secondary">License Number:</span>
+              <div className="flex justify-between items-center py-1 border-b border-border-default-default/40">
+                <span className="text-text-primary-primary-secondary">License Number:</span>
                 <span className="font-semibold font-mono">{driver.licenseNumber}</span>
               </div>
-              <div className="flex justify-between items-center py-1 border-b border-border/40">
-                <span className="text-text-secondary">Category:</span>
+              <div className="flex justify-between items-center py-1 border-b border-border-default-default/40">
+                <span className="text-text-primary-primary-secondary">Category:</span>
                 <span className="font-semibold px-2 py-0.5 bg-primary/10 text-primary-light rounded text-xs">
                   {driver.licenseCategory}
                 </span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span className="text-text-secondary">Expiration Date:</span>
-                <span className={`font-semibold flex items-center gap-1.5 ${expired ? "text-danger" : expiringSoon ? "text-warning" : "text-text"}`}>
+                <span className="text-text-primary-primary-secondary">Expiration Date:</span>
+                <span className={`font-semibold flex items-center gap-1.5 ${expired ? "text-danger" : expiringSoon ? "text-warning" : "text-text-primary-primary"}`}>
                   <Calendar size={14} />
                   {formatDate(driver.licenseExpiry)}
                 </span>
@@ -147,16 +147,16 @@ export default function DriverDetailModal({
           </div>
 
           {/* Safety Performance */}
-          <div className={`p-4 rounded-xl border border-border bg-white/2 flex flex-col gap-3`}>
-            <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
+          <div className={`p-4 rounded-xl border border-border-default-default bg-white/2 flex flex-col gap-3`}>
+            <h4 className="text-xs font-bold text-text-primary-primary-muted uppercase tracking-wider flex items-center gap-1.5">
               <Shield size={14} className="text-primary-light" /> Safety Scorecard
             </h4>
 
             <div className="flex flex-col gap-2.5">
               <div className="flex items-end justify-between">
-                <span className="text-sm text-text-secondary">Current Score:</span>
+                <span className="text-sm text-text-primary-primary-secondary">Current Score:</span>
                 <span className={`text-2xl font-black ${scoreConfig.color}`}>
-                  {driver.safetyScore.toFixed(1)}<span className="text-xs font-normal text-text-muted">/100</span>
+                  {driver.safetyScore.toFixed(1)}<span className="text-xs font-normal text-text-primary-primary-muted">/100</span>
                 </span>
               </div>
 
@@ -176,42 +176,42 @@ export default function DriverDetailModal({
         </div>
 
         {/* Operational Statistics (Simulated Performance Analytics) */}
-        <div className="p-4 rounded-xl border border-border bg-white/2 flex flex-col gap-4">
-          <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider flex items-center gap-1.5">
+        <div className="p-4 rounded-xl border border-border-default-default bg-white/2 flex flex-col gap-4">
+          <h4 className="text-xs font-bold text-text-primary-primary-muted uppercase tracking-wider flex items-center gap-1.5">
             <Truck size={14} className="text-primary-light" /> Operational Performance (YTD)
           </h4>
 
           <div className="grid grid-cols-3 gap-2 text-center">
-            <div className="p-3 bg-white/2 rounded-lg border border-border/40">
+            <div className="p-3 bg-white/2 rounded-lg border border-border-default-default/40">
               <div className="text-2xl font-bold text-primary-light">
                 {driver.id * 3 + 14}
               </div>
-              <div className="text-[10px] text-text-secondary uppercase tracking-wider mt-1">
+              <div className="text-[10px] text-text-primary-primary-secondary uppercase tracking-wider mt-1">
                 Trips Done
               </div>
             </div>
-            <div className="p-3 bg-white/2 rounded-lg border border-border/40">
+            <div className="p-3 bg-white/2 rounded-lg border border-border-default-default/40">
               <div className="text-2xl font-bold text-secondary">
                 {((driver.id * 280) + 2400).toLocaleString()} <span className="text-xs font-normal">km</span>
               </div>
-              <div className="text-[10px] text-text-secondary uppercase tracking-wider mt-1">
+              <div className="text-[10px] text-text-primary-primary-secondary uppercase tracking-wider mt-1">
                 Distance
               </div>
             </div>
-            <div className="p-3 bg-white/2 rounded-lg border border-border/40">
+            <div className="p-3 bg-white/2 rounded-lg border border-border-default-default/40">
               <div className="text-2xl font-bold text-success">
                 {(6.8 - (driver.id * 0.2)).toFixed(1)} <span className="text-xs font-normal">km/L</span>
               </div>
-              <div className="text-[10px] text-text-secondary uppercase tracking-wider mt-1">
+              <div className="text-[10px] text-text-primary-primary-secondary uppercase tracking-wider mt-1">
                 Fuel Avg
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 text-xs text-text-secondary bg-white/3 p-3 rounded-lg border border-border/30">
+          <div className="flex flex-col gap-2 text-xs text-text-primary-primary-secondary bg-white/3 p-3 rounded-lg border border-border-default-default/30">
             <div className="flex justify-between items-center">
               <span>Average Incident Rate:</span>
-              <span className="font-semibold text-text">0.02 / 1,000 km</span>
+              <span className="font-semibold text-text-primary-primary">0.02 / 1,000 km</span>
             </div>
             <div className="flex justify-between items-center">
               <span>On-Time Delivery Rate:</span>
@@ -219,7 +219,7 @@ export default function DriverDetailModal({
             </div>
             <div className="flex justify-between items-center">
               <span>Last Active Dispatch:</span>
-              <span className="font-semibold text-text">
+              <span className="font-semibold text-text-primary-primary">
                 {driver.status === "ON_TRIP" ? "Trip #1042 - North Zone" : "N/A"}
               </span>
             </div>

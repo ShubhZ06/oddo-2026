@@ -55,20 +55,20 @@ export default function VehiclesPage() {
         <div className="flex items-center gap-2">
           <Link 
             href={`/vehicles/${v.id}`}
-            className="p-1.5 text-text-primary-secondary hover:text-primary-light hover:bg-white/5 rounded-md transition-colors"
+            className="p-1.5 text-text-primary-primary-primary-secondary hover:text-primary-light hover:bg-white/5 rounded-md transition-colors"
             title="View Details"
           >
             <Eye size={16} />
           </Link>
           <button 
             onClick={() => handleEdit(v)}
-            className="p-1.5 text-text-primary-secondary hover:text-warning hover:bg-white/5 rounded-md transition-colors"
+            className="p-1.5 text-text-primary-primary-primary-secondary hover:text-warning hover:bg-white/5 rounded-md transition-colors"
             title="Edit"
           >
             <Edit2 size={16} />
           </button>
           <button 
-            className="p-1.5 text-text-primary-secondary hover:text-danger hover:bg-white/5 rounded-md transition-colors"
+            className="p-1.5 text-text-primary-primary-primary-secondary hover:text-danger hover:bg-white/5 rounded-md transition-colors"
             title="Retire / Delete"
           >
             <Trash2 size={16} />
@@ -83,7 +83,7 @@ export default function VehiclesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-1">Vehicle Registry</h1>
-          <p className="text-text-primary-secondary text-sm">Manage your fleet assets and monitor their real-time status.</p>
+          <p className="text-text-primary-primary-primary-secondary text-sm">Manage your fleet assets and monitor their real-time status.</p>
         </div>
       </div>
 

@@ -181,13 +181,13 @@ export default function LandingPage() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm font-medium text-text-primary-secondary hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
+            <a href="#features" className="text-sm font-medium text-text-primary-primary-primary-secondary hover:text-text-primary-primary-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
               Features
             </a>
-            <a href="#workflow" className="text-sm font-medium text-text-primary-secondary hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
+            <a href="#workflow" className="text-sm font-medium text-text-primary-primary-primary-secondary hover:text-text-primary-primary-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
               How It Works
             </a>
-            <a href="#roles" className="text-sm font-medium text-text-primary-secondary hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
+            <a href="#roles" className="text-sm font-medium text-text-primary-primary-primary-secondary hover:text-text-primary-primary-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
               Roles
             </a>
           </div>
@@ -195,7 +195,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/login"
-              className="px-5 py-2.5 text-sm font-semibold border border-border-default rounded-lg hover:border-primary-light hover:bg-primary/10 transition-all hover:-translate-y-0.5"
+              className="px-5 py-2.5 text-sm font-semibold border border-border-default-default-default rounded-lg hover:border-primary-light hover:bg-primary/10 transition-all hover:-translate-y-0.5"
             >
               Sign In
             </Link>
@@ -209,7 +209,7 @@ export default function LandingPage() {
           </div>
 
           <button
-            className="md:hidden text-text-primary p-2 cursor-pointer"
+            className="md:hidden text-text-primary-primary-primary p-2 cursor-pointer"
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Open menu"
             id="mobile-menu-open"
@@ -223,7 +223,7 @@ export default function LandingPage() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[60] bg-surface-primary/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 animate-fade-in">
           <button
-            className="absolute top-6 right-6 text-text-primary p-2 cursor-pointer"
+            className="absolute top-6 right-6 text-text-primary-primary-primary p-2 cursor-pointer"
             onClick={() => setMobileMenuOpen(false)}
             aria-label="Close menu"
           >
@@ -275,7 +275,7 @@ export default function LandingPage() {
             Like Never Before
           </h1>
 
-          <p className="text-lg text-text-primary-secondary max-w-[650px] mx-auto mb-10 leading-relaxed animate-fade-in-up [animation-delay:200ms] [animation-fill-mode:both]">
+          <p className="text-lg text-text-primary-primary-primary-secondary max-w-[650px] mx-auto mb-10 leading-relaxed animate-fade-in-up [animation-delay:200ms] [animation-fill-mode:both]">
             Digitize vehicle management, driver dispatch, maintenance workflows,
             and expense tracking — all from one powerful, real-time platform
             built for modern fleet operators.
@@ -292,7 +292,7 @@ export default function LandingPage() {
             </Link>
             <a
               href="#features"
-              className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border-default rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border-default-default-default rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
               id="hero-cta-secondary"
             >
               Explore Features
@@ -303,17 +303,17 @@ export default function LandingPage() {
           <div className="flex items-center justify-center gap-12 flex-col sm:flex-row animate-fade-in-up [animation-delay:600ms] [animation-fill-mode:both]">
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">99.9%</div>
-              <div className="text-sm text-text-primary-muted">Uptime SLA</div>
+              <div className="text-sm text-text-primary-primary-primary-muted">Uptime SLA</div>
             </div>
             <div className="w-px h-10 bg-border-default hidden sm:block" />
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">10x</div>
-              <div className="text-sm text-text-primary-muted">Faster Dispatch</div>
+              <div className="text-sm text-text-primary-primary-primary-muted">Faster Dispatch</div>
             </div>
             <div className="w-px h-10 bg-border-default hidden sm:block" />
             <div className="text-center">
               <div className="text-3xl font-bold mb-1">30%</div>
-              <div className="text-sm text-text-primary-muted">Cost Reduction</div>
+              <div className="text-sm text-text-primary-primary-primary-muted">Cost Reduction</div>
             </div>
           </div>
         </div>
@@ -332,7 +332,7 @@ export default function LandingPage() {
               <br />
               Run Your Fleet
             </h2>
-            <p className="text-lg text-text-primary-secondary max-w-[600px] mx-auto">
+            <p className="text-lg text-text-primary-primary-primary-secondary max-w-[600px] mx-auto">
               Six tightly integrated modules that cover every aspect of
               transport operations — from asset registration to profitability
               analysis.
@@ -343,7 +343,7 @@ export default function LandingPage() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="relative p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-xl transition-all hover:border-border-default-hover hover:bg-surface-hover hover:-translate-y-1 hover:shadow-xl group overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-primary-light before:opacity-0 before:transition-opacity hover:before:opacity-100"
+                className="relative p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default-default-default rounded-xl transition-all hover:border-border-default-default-default-hover hover:bg-surface-hover hover:-translate-y-1 hover:shadow-xl group overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-primary-light before:opacity-0 before:transition-opacity hover:before:opacity-100"
               >
                 <div
                   className={`w-[52px] h-[52px] rounded-lg flex items-center justify-center mb-5 transition-transform group-hover:scale-110 ${feature.iconBg} ${feature.iconColor}`}
@@ -351,7 +351,7 @@ export default function LandingPage() {
                   <feature.icon size={24} />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">{feature.title}</h3>
-                <p className="text-sm text-text-primary-secondary leading-relaxed">
+                <p className="text-sm text-text-primary-primary-primary-secondary leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -375,7 +375,7 @@ export default function LandingPage() {
               <br />
               to Insight in 4 Steps
             </h2>
-            <p className="text-lg text-text-primary-secondary max-w-[600px] mx-auto">
+            <p className="text-lg text-text-primary-primary-primary-secondary max-w-[600px] mx-auto">
               A streamlined workflow that automates status transitions and
               enforces business rules at every step.
             </p>
@@ -383,31 +383,31 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Visual card */}
-            <div className="bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-xl p-8">
+            <div className="bg-gradient-to-br from-white/5 to-white/2 border border-border-default-default-default rounded-xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-3 h-3 rounded-full bg-danger" />
                 <div className="w-3 h-3 rounded-full bg-warning" />
                 <div className="w-3 h-3 rounded-full bg-success" />
-                <span className="text-sm text-text-primary-muted font-medium">
+                <span className="text-sm text-text-primary-primary-primary-muted font-medium">
                   Live Fleet Dashboard
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border-default-default-default">
                   <div className="text-2xl font-bold text-primary-light mb-1">24</div>
-                  <div className="text-xs text-text-primary-muted uppercase tracking-wider">Active Vehicles</div>
+                  <div className="text-xs text-text-primary-primary-primary-muted uppercase tracking-wider">Active Vehicles</div>
                 </div>
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border-default-default-default">
                   <div className="text-2xl font-bold text-secondary mb-1">18</div>
-                  <div className="text-xs text-text-primary-muted uppercase tracking-wider">Drivers On Duty</div>
+                  <div className="text-xs text-text-primary-primary-primary-muted uppercase tracking-wider">Drivers On Duty</div>
                 </div>
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border-default-default-default">
                   <div className="text-2xl font-bold text-accent mb-1">12</div>
-                  <div className="text-xs text-text-primary-muted uppercase tracking-wider">Active Trips</div>
+                  <div className="text-xs text-text-primary-primary-primary-muted uppercase tracking-wider">Active Trips</div>
                 </div>
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border-default-default-default">
                   <div className="text-2xl font-bold text-success mb-1">87%</div>
-                  <div className="text-xs text-text-primary-muted uppercase tracking-wider">Fleet Utilization</div>
+                  <div className="text-xs text-text-primary-primary-primary-muted uppercase tracking-wider">Fleet Utilization</div>
                 </div>
               </div>
             </div>
@@ -423,7 +423,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-base font-semibold mb-2">{step.title}</h3>
-                    <p className="text-sm text-text-primary-secondary leading-relaxed">
+                    <p className="text-sm text-text-primary-primary-primary-secondary leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -447,7 +447,7 @@ export default function LandingPage() {
               <br />
               Team Member
             </h2>
-            <p className="text-lg text-text-primary-secondary max-w-[600px] mx-auto">
+            <p className="text-lg text-text-primary-primary-primary-secondary max-w-[600px] mx-auto">
               Four distinct roles with tailored dashboards, permissions, and
               workflows — ensuring everyone sees exactly what they need.
             </p>
@@ -457,7 +457,7 @@ export default function LandingPage() {
             {roles.map((role) => (
               <div
                 key={role.name}
-                className="text-center p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-xl transition-all hover:-translate-y-1.5 hover:border-border-default-hover hover:shadow-xl group"
+                className="text-center p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default-default-default rounded-xl transition-all hover:-translate-y-1.5 hover:border-border-default-default-default-hover hover:shadow-xl group"
               >
                 <div
                   className={`w-[72px] h-[72px] rounded-full flex items-center justify-center mx-auto mb-5 transition-transform group-hover:scale-110 ${role.avatarBg} ${role.avatarColor}`}
@@ -465,7 +465,7 @@ export default function LandingPage() {
                   <role.icon size={32} />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">{role.name}</h3>
-                <p className="text-sm text-text-primary-secondary leading-relaxed">
+                <p className="text-sm text-text-primary-primary-primary-secondary leading-relaxed">
                   {role.description}
                 </p>
               </div>
@@ -477,13 +477,13 @@ export default function LandingPage() {
       {/* ===== CTA ===== */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="relative text-center py-16 px-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-2xl overflow-hidden">
+          <div className="relative text-center py-16 px-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default-default-default rounded-2xl overflow-hidden">
             <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(ellipse_at_center,rgba(108,92,231,0.08)_0%,transparent_60%)] pointer-events-none" />
 
             <h2 className="text-4xl font-bold mb-4 relative">
               Ready to Transform Your Fleet Operations?
             </h2>
-            <p className="text-lg text-text-primary-secondary mb-8 max-w-[500px] mx-auto relative">
+            <p className="text-lg text-text-primary-primary-primary-secondary mb-8 max-w-[500px] mx-auto relative">
               Start managing your vehicles, drivers, and trips with intelligent
               automation and real-time insights.
             </p>
@@ -498,7 +498,7 @@ export default function LandingPage() {
               </Link>
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border-default rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border-default-default-default rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
                 id="cta-secondary"
               >
                 Learn More
@@ -509,22 +509,22 @@ export default function LandingPage() {
       </section>
 
       {/* ===== Footer ===== */}
-      <footer className="py-12 border-t border-border-default" id="footer">
+      <footer className="py-12 border-t border-border-default-default-default" id="footer">
         <div className="flex items-center justify-between max-w-[1200px] mx-auto px-6 flex-col md:flex-row gap-6">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-md bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
               <Truck size={16} color="white" />
             </div>
             <span className="font-semibold">TransitOps</span>
-            <span className="text-sm text-text-primary-muted">
+            <span className="text-sm text-text-primary-primary-primary-muted">
               © {new Date().getFullYear()} All rights reserved.
             </span>
           </div>
           <div className="flex gap-6">
-            <a href="#features" className="text-sm text-text-primary-secondary hover:text-primary-light transition-colors">Features</a>
-            <a href="#workflow" className="text-sm text-text-primary-secondary hover:text-primary-light transition-colors">Workflow</a>
-            <a href="#roles" className="text-sm text-text-primary-secondary hover:text-primary-light transition-colors">Roles</a>
-            <Link href="/login" className="text-sm text-text-primary-secondary hover:text-primary-light transition-colors">Sign In</Link>
+            <a href="#features" className="text-sm text-text-primary-primary-primary-secondary hover:text-primary-light transition-colors">Features</a>
+            <a href="#workflow" className="text-sm text-text-primary-primary-primary-secondary hover:text-primary-light transition-colors">Workflow</a>
+            <a href="#roles" className="text-sm text-text-primary-primary-primary-secondary hover:text-primary-light transition-colors">Roles</a>
+            <Link href="/login" className="text-sm text-text-primary-primary-primary-secondary hover:text-primary-light transition-colors">Sign In</Link>
           </div>
         </div>
       </footer>

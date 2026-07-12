@@ -32,7 +32,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
       <button 
         type="button" 
         onClick={onClose}
-        className="px-4 py-2 rounded-lg text-sm font-medium border border-border hover:bg-bg-card-hover transition-colors"
+        className="px-4 py-2 rounded-lg text-sm font-medium border border-border-default-default hover:bg-surface-hover transition-colors"
       >
         Cancel
       </button>
@@ -55,35 +55,35 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
     >
       <form id="user-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-secondary">Full Name</label>
+          <label className="text-sm font-medium text-text-primary-primary-secondary">Full Name</label>
           <input 
             required
             type="text"
             value={formData.name}
             onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
             placeholder="e.g. Jane Doe"
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-secondary">Email Address</label>
+          <label className="text-sm font-medium text-text-primary-primary-secondary">Email Address</label>
           <input 
             required
             type="email"
             value={formData.email}
             onChange={(e) => setFormData({...formData, email: e.target.value})}
-            className="bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
             placeholder="e.g. jane@transitops.com"
           />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-secondary">System Role</label>
+          <label className="text-sm font-medium text-text-primary-primary-secondary">System Role</label>
           <select
             value={formData.role}
             onChange={(e) => setFormData({...formData, role: e.target.value as Role})}
-            className="bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
           >
             {ROLES.map(r => (
               <option key={r} value={r}>{getRoleDisplayName(r)}</option>
@@ -92,7 +92,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-secondary">
+          <label className="text-sm font-medium text-text-primary-primary-secondary">
             {user ? "New Password (leave blank to keep current)" : "Password"}
           </label>
           <input 
@@ -100,7 +100,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
             type="password"
             value={formData.password}
             onChange={(e) => setFormData({...formData, password: e.target.value})}
-            className="bg-bg border border-border rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
             placeholder="••••••••"
           />
         </div>

@@ -7,7 +7,7 @@ export default function DriversLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-bg flex">
+    <div className="min-h-screen bg-surface-primary flex">
       <Sidebar />
       <div className="flex-1 ml-64 flex flex-col">
         <Header />

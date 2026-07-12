@@ -177,7 +177,7 @@ export default function NewTripPage() {
       <div>
         <Link
           href="/trips"
-          className="inline-flex items-center gap-1.5 text-xs text-text-secondary hover:text-primary-light transition-colors font-medium mb-3 cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs text-text-primary-primary-secondary hover:text-primary-light transition-colors font-medium mb-3 cursor-pointer"
         >
           <ArrowLeft size={14} />
           Back to Trips
@@ -186,16 +186,16 @@ export default function NewTripPage() {
           <Route className="text-primary-light" size={24} />
           Dispatch New Trip
         </h1>
-        <p className="text-text-secondary text-sm">
+        <p className="text-text-primary-primary-secondary text-sm">
           Plan routes, verify capacities, and assign qualified personnel.
         </p>
       </div>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-bg-secondary border border-border rounded-xl p-6 md:p-8 flex flex-col gap-6"
+        className="bg-surface-secondary border border-border-default-default rounded-xl p-6 md:p-8 flex flex-col gap-6"
       >
-        <div className="text-sm font-semibold text-text-secondary border-b border-border pb-2 uppercase tracking-wider">
+        <div className="text-sm font-semibold text-text-primary-primary-secondary border-b border-border-default-default pb-2 uppercase tracking-wider">
           Asset Assignments
         </div>
 
@@ -203,19 +203,19 @@ export default function NewTripPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Vehicle Selector */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Select Available Vehicle
             </label>
             <div className="relative">
               <Truck
-                className="absolute left-3 top-3 text-text-muted pointer-events-none"
+                className="absolute left-3 top-3 text-text-primary-primary-muted pointer-events-none"
                 size={18}
               />
               <select
                 value={formData.vehicleId}
                 onChange={handleVehicleChange}
                 disabled={loadingAssets || submitting}
-                className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <option value="">-- Choose a Vehicle --</option>
                 {vehicles.map((v) => (
@@ -235,19 +235,19 @@ export default function NewTripPage() {
 
           {/* Driver Selector */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Select Available Driver
             </label>
             <div className="relative">
               <User
-                className="absolute left-3 top-3 text-text-muted pointer-events-none"
+                className="absolute left-3 top-3 text-text-primary-primary-muted pointer-events-none"
                 size={18}
               />
               <select
                 value={formData.driverId}
                 onChange={handleDriverChange}
                 disabled={loadingAssets || submitting}
-                className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <option value="">-- Choose a Driver --</option>
                 {drivers.map((d) => (
@@ -266,19 +266,19 @@ export default function NewTripPage() {
           </div>
         </div>
 
-        <div className="text-sm font-semibold text-text-secondary border-b border-border pb-2 uppercase tracking-wider mt-2">
+        <div className="text-sm font-semibold text-text-primary-primary-secondary border-b border-border-default-default pb-2 uppercase tracking-wider mt-2">
           Route & Manifest Details
         </div>
 
         {/* Route Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Source Location
             </label>
             <div className="relative">
               <Navigation
-                className="absolute left-3 top-3 text-text-muted rotate-45"
+                className="absolute left-3 top-3 text-text-primary-primary-muted rotate-45"
                 size={18}
               />
               <input
@@ -287,24 +287,24 @@ export default function NewTripPage() {
                 value={formData.source}
                 onChange={(e) => setFormData((prev) => ({ ...prev, source: e.target.value }))}
                 required
-                className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text placeholder:text-text-muted"
+                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Destination Location
             </label>
             <div className="relative">
-              <Navigation className="absolute left-3 top-3 text-text-muted" size={18} />
+              <Navigation className="absolute left-3 top-3 text-text-primary-primary-muted" size={18} />
               <input
                 type="text"
                 placeholder="e.g. Delhi Yard"
                 value={formData.destination}
                 onChange={(e) => setFormData((prev) => ({ ...prev, destination: e.target.value }))}
                 required
-                className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text placeholder:text-text-muted"
+                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
@@ -314,11 +314,11 @@ export default function NewTripPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Cargo weight */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Cargo Weight (kg)
             </label>
             <div className="relative">
-              <Scale className="absolute left-3 top-3 text-text-muted" size={18} />
+              <Scale className="absolute left-3 top-3 text-text-primary-primary-muted" size={18} />
               <input
                 type="number"
                 placeholder="0"
@@ -326,10 +326,10 @@ export default function NewTripPage() {
                 onChange={handleCargoChange}
                 required
                 min="1"
-                className={`w-full bg-bg border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-1 transition-all text-text placeholder:text-text-muted ${
+                className={`w-full bg-surface-primary border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-1 transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted ${
                   cargoError
                     ? "border-danger focus:border-danger focus:ring-danger"
-                    : "border-border focus:border-primary-light focus:ring-primary-light"
+                    : "border-border-default-default focus:border-primary-light focus:ring-primary-light"
                 }`}
               />
             </div>
@@ -343,11 +343,11 @@ export default function NewTripPage() {
 
           {/* Distance */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Est. Distance (km)
             </label>
             <div className="relative">
-              <Route className="absolute left-3 top-3 text-text-muted" size={18} />
+              <Route className="absolute left-3 top-3 text-text-primary-primary-muted" size={18} />
               <input
                 type="number"
                 placeholder="0"
@@ -355,18 +355,18 @@ export default function NewTripPage() {
                 onChange={(e) => setFormData((prev) => ({ ...prev, distanceKm: e.target.value }))}
                 required
                 min="1"
-                className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text placeholder:text-text-muted"
+                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
 
           {/* Revenue */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Trip Revenue (₹)
             </label>
             <div className="relative">
-              <DollarSign className="absolute left-3 top-3 text-text-muted" size={18} />
+              <DollarSign className="absolute left-3 top-3 text-text-primary-primary-muted" size={18} />
               <input
                 type="number"
                 placeholder="0"
@@ -374,17 +374,17 @@ export default function NewTripPage() {
                 onChange={(e) => setFormData((prev) => ({ ...prev, revenue: e.target.value }))}
                 required
                 min="0"
-                className="w-full bg-bg border border-border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text placeholder:text-text-muted"
+                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
         </div>
 
         {/* Submit Bar */}
-        <div className="flex items-center justify-end gap-3 mt-4 border-t border-border pt-6">
+        <div className="flex items-center justify-end gap-3 mt-4 border-t border-border-default-default pt-6">
           <Link
             href="/trips"
-            className="px-5 py-2.5 text-sm font-semibold border border-border rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-text-secondary hover:text-text"
+            className="px-5 py-2.5 text-sm font-semibold border border-border-default-default rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-text-primary-primary-secondary hover:text-text-primary-primary"
           >
             Cancel
           </Link>

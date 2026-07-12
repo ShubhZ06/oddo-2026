@@ -136,7 +136,7 @@ export default function DriverFormModal({
     <>
       <button
         type="button"
-        className="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-white/5 transition-colors cursor-pointer text-sm font-medium"
+        className="px-4 py-2 border border-border-default-default rounded-lg text-text-primary-primary-secondary hover:bg-white/5 transition-colors cursor-pointer text-sm font-medium"
         onClick={onClose}
         disabled={loading}
       >
@@ -163,14 +163,14 @@ export default function DriverFormModal({
       <form id="driver-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
         {/* Name */}
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="name" className="text-xs font-semibold text-text-secondary uppercase">
+          <label htmlFor="name" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
             Full Name
           </label>
           <input
             type="text"
             id="name"
             name="name"
-            className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+            className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
             placeholder="e.g. John Doe"
             value={formData.name}
             onChange={handleChange}
@@ -183,14 +183,14 @@ export default function DriverFormModal({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* License Number */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="licenseNumber" className="text-xs font-semibold text-text-secondary uppercase">
+            <label htmlFor="licenseNumber" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               License Number
             </label>
             <input
               type="text"
               id="licenseNumber"
               name="licenseNumber"
-              className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               placeholder="e.g. DL-109283-A"
               value={formData.licenseNumber}
               onChange={handleChange}
@@ -201,13 +201,13 @@ export default function DriverFormModal({
 
           {/* License Category */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="licenseCategory" className="text-xs font-semibold text-text-secondary uppercase">
+            <label htmlFor="licenseCategory" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               License Class/Category
             </label>
             <select
               id="licenseCategory"
               name="licenseCategory"
-              className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.licenseCategory}
               onChange={handleChange}
             >
@@ -222,14 +222,14 @@ export default function DriverFormModal({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* License Expiry */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="licenseExpiry" className="text-xs font-semibold text-text-secondary uppercase">
+            <label htmlFor="licenseExpiry" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               License Expiry Date
             </label>
             <input
               type="date"
               id="licenseExpiry"
               name="licenseExpiry"
-              className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.licenseExpiry}
               onChange={handleChange}
               required
@@ -239,14 +239,14 @@ export default function DriverFormModal({
 
           {/* Contact Number */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="contactNumber" className="text-xs font-semibold text-text-secondary uppercase">
+            <label htmlFor="contactNumber" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               Contact Number
             </label>
             <input
               type="text"
               id="contactNumber"
               name="contactNumber"
-              className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               placeholder="e.g. +1 (555) 019-2834"
               value={formData.contactNumber}
               onChange={handleChange}
@@ -260,7 +260,7 @@ export default function DriverFormModal({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Safety Score */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="safetyScore" className="text-xs font-semibold text-text-secondary uppercase">
+            <label htmlFor="safetyScore" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               Safety Score (0 - 100)
             </label>
             <input
@@ -270,7 +270,7 @@ export default function DriverFormModal({
               min="0"
               max="100"
               step="0.1"
-              className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.safetyScore}
               onChange={handleChange}
             />
@@ -279,13 +279,13 @@ export default function DriverFormModal({
 
           {/* Status */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="status" className="text-xs font-semibold text-text-secondary uppercase">
+            <label htmlFor="status" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               Duty Status
             </label>
             <select
               id="status"
               name="status"
-              className="w-full bg-bg-input border border-border focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text transition-colors"
+              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.status}
               onChange={handleChange}
             >
