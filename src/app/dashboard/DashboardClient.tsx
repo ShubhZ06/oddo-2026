@@ -155,7 +155,7 @@ export default function DashboardClient({
       </div>
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
+      <div className={`grid grid-cols-2 md:grid-cols-4 ${isDriver ? 'lg:grid-cols-5' : 'lg:grid-cols-7'} gap-4 mb-10`}>
         {kpis.map((kpi, i) => (
           <div key={i} className={`bg-white rounded-2xl p-5 border border-gray-100 shadow-sm relative overflow-hidden flex flex-col justify-between h-[120px]`}>
             <div className={`absolute left-0 top-0 bottom-0 w-1 ${kpi.border}`}></div>
@@ -169,7 +169,7 @@ export default function DashboardClient({
       <div className="grid lg:grid-cols-3 gap-8">
         
         {/* Recent Trips Table */}
-        <div className="lg:col-span-2 flex flex-col">
+        <div className={`flex flex-col ${!isDriver ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-black tracking-tight">Recent Trips</h2>
           </div>
