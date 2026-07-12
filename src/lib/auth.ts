@@ -83,7 +83,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Fuel & Expenses",
-    href: "/fuel-expenses",
+    href: "/expenses",
     icon: "Fuel",
     roles: ["FLEET_MANAGER", "DRIVER", "FINANCIAL_ANALYST"],
   },

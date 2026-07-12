@@ -142,7 +142,7 @@ export default function MaintenanceClient({
           return (
             <button
               onClick={() => handleCloseMaintenance(log.id)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-success/10 hover:bg-success/20 text-success rounded-lg text-xs font-semibold border border-success/20 transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-black rounded-lg text-xs font-bold shadow-sm transition-colors cursor-pointer"
             >
               <CheckCircle size={14} />
               Close Case
@@ -150,8 +150,8 @@ export default function MaintenanceClient({
           );
         }
         return (
-          <span className="inline-flex items-center gap-1.5 text-xs text-text-muted font-medium py-1.5">
-            <CheckCircle size={14} className="text-text-muted" />
+          <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 font-bold py-1.5">
+            <CheckCircle size={14} className="text-gray-400" />
             Completed
           </span>
         );
@@ -169,8 +169,8 @@ export default function MaintenanceClient({
       {/* Header section */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Maintenance Workflows</h1>
-          <p className="text-text-secondary text-sm">
+          <h1 className="text-[26px] font-bold mb-1 text-black tracking-tight">Maintenance Workflows</h1>
+          <p className="text-gray-500 text-sm">
             Manage your shop orders, track maintenance expenditures, and monitor repair status.
           </p>
         </div>
@@ -210,8 +210,8 @@ export default function MaintenanceClient({
 
       {/* Work Orders Table */}
       <div className="flex flex-col gap-4">
-        <div className="flex items-center justify-between border-b border-border-default pb-4">
-          <h2 className="text-lg font-semibold">Repair & Service Logs</h2>
+        <div className="flex items-center justify-between pb-2">
+          <h2 className="text-xl font-bold text-black tracking-tight">Repair & Service Logs</h2>
         </div>
 
         <DataTable
@@ -222,7 +222,7 @@ export default function MaintenanceClient({
           actions={
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity whitespace-nowrap"
+              className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-[14px] text-sm font-semibold hover:bg-gray-800 transition-colors shadow-sm cursor-pointer whitespace-nowrap"
             >
               <Plus size={18} />
               Log Repair

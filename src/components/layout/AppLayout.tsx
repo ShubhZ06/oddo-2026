@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import Header from "./Header";
 import ToastContainer from "@/components/ui/Toast";
 
 export default function AppLayout({
@@ -30,10 +29,9 @@ export default function AppLayout({
   }
 
   return (
-    <div className="min-h-screen bg-surface-primary flex">
+    <div className="min-h-screen bg-[#f4f5f5] flex">
       <Sidebar />
-      <div className="flex-1 ml-64 flex flex-col h-screen">
-        <Header />
+      <div className="flex-1 pl-[332px] flex flex-col h-screen">
         <main className="flex-1 p-8 overflow-y-auto">{children}</main>
       </div>
       <ToastContainer />

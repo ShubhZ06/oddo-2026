@@ -1,6 +1,6 @@
 import AppLayout from "@/components/layout/AppLayout";
 
-export default function FuelExpensesLayout({
+export default function ExpensesLayout({
   children,
 }: {
   children: React.ReactNode;

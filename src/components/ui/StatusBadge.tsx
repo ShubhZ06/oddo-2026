@@ -6,11 +6,11 @@ interface StatusBadgeProps {
 }
 
 const colorMap: Record<string, string> = {
-  success: "bg-success/15 text-success",
-  info: "bg-info/15 text-info",
-  warning: "bg-warning/15 text-warning",
-  danger: "bg-danger/15 text-danger",
-  muted: "bg-text-muted/15 text-text-muted",
+  success: "bg-green-500 text-white border-green-600",
+  info: "bg-blue-500 text-white border-blue-600",
+  warning: "bg-orange-500 text-white border-orange-600",
+  danger: "bg-red-500 text-white border-red-600",
+  muted: "bg-gray-200 text-gray-700 border-gray-300",
 };
 
 export default function StatusBadge({ status, label }: StatusBadgeProps) {
@@ -20,7 +20,7 @@ export default function StatusBadge({ status, label }: StatusBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full uppercase tracking-wide whitespace-nowrap ${classes}`}
+      className={`px-3 py-1 rounded-lg text-xs font-bold border shadow-sm whitespace-nowrap inline-flex items-center justify-center ${classes}`}
     >
       {displayLabel}
     </span>
