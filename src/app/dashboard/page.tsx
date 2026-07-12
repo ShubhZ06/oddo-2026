@@ -70,15 +70,15 @@ export default function DashboardPage() {
         </div>
         
         {/* Placeholder Filter Bar */}
-        <div className="flex items-center gap-3 bg-surface-secondary p-1.5 rounded-lg border border-border-default">
-          <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none border-r border-border-default">
+        <div className="flex items-center gap-3 bg-bg-secondary p-1.5 rounded-lg border border-border">
+          <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none border-r border-border">
             <option>All Regions</option>
             <option>North</option>
             <option>South</option>
             <option>East</option>
             <option>West</option>
           </select>
-          <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none text-text-primary">
+          <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none text-text">
             <option>Last 7 Days</option>
             <option>Last 30 Days</option>
             <option>This Month</option>
@@ -125,12 +125,12 @@ export default function DashboardPage() {
       {/* Charts & Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Chart */}
-        <div className="lg:col-span-2 bg-surface-secondary border border-border-default rounded-xl p-6">
+        <div className="lg:col-span-2 bg-bg-secondary border border-border rounded-xl p-6">
           <BarChart data={barChartData} title="Trip Volume (Last 7 Days)" />
         </div>
 
         {/* Status Distribution */}
-        <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex flex-col items-center justify-center">
+        <div className="bg-bg-secondary border border-border rounded-xl p-6 flex flex-col items-center justify-center">
           <h3 className="w-full text-left font-semibold mb-4">Vehicle Status</h3>
           <div className="w-full h-[250px] relative">
              <DoughnutChart data={doughnutData} />
@@ -142,7 +142,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Activity */}
-        <div className="lg:col-span-3 bg-surface-secondary border border-border-default rounded-xl p-6">
+        <div className="lg:col-span-3 bg-bg-secondary border border-border rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-semibold">Recent Activity</h3>
             <button className="text-sm text-primary-light hover:underline">View All</button>
@@ -150,7 +150,7 @@ export default function DashboardPage() {
           
           <div className="flex flex-col gap-4">
             {RECENT_ACTIVITY.map((activity) => (
-              <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-white/3 border border-border-default transition-colors hover:bg-white/5">
+              <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-white/3 border border-border transition-colors hover:bg-white/5">
                 <div className="shrink-0 mt-1">
                   <StatusBadge status={activity.status} label={activity.status === "muted" ? "SYSTEM" : "ALERT"} />
                 </div>

@@ -18,7 +18,7 @@ export default function StatCard({
   trend,
 }: StatCardProps) {
   return (
-    <div className="p-6 bg-white/3 border border-border-default rounded-xl transition-all hover:border-border-hover hover:-translate-y-0.5">
+    <div className="p-6 bg-white/3 border border-border rounded-xl transition-all hover:border-border-hover hover:-translate-y-0.5">
       <div className="flex items-center justify-between mb-3">
         <span className="text-sm text-text-secondary font-medium">{label}</span>
         <div

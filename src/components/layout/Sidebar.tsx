@@ -17,8 +17,8 @@ export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(userRole));
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-surface-secondary border-r border-border-default flex flex-col animate-fade-in z-40">
-      <div className="h-16 flex items-center px-6 border-b border-border-default shrink-0">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-bg-secondary border-r border-border flex flex-col animate-fade-in z-40">
+      <div className="h-16 flex items-center px-6 border-b border-border shrink-0">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
           <div className="w-8 h-8 rounded-md bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
             <Truck size={18} color="white" />
@@ -44,7 +44,7 @@ export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
               className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive
                   ? "bg-primary/10 text-primary-light"
-                  : "text-text-secondary hover:bg-white/5 hover:text-text-primary"
+                  : "text-text-secondary hover:bg-white/5 hover:text-text"
               }`}
             >
               {/* Note: In a real app we'd map string names to Lucide icons dynamically, 
@@ -57,7 +57,7 @@ export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
         })}
       </div>
 
-      <div className="p-4 border-t border-border-default shrink-0">
+      <div className="p-4 border-t border-border shrink-0">
         <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-danger hover:bg-danger/10 w-full transition-colors">
           <LogOut size={18} />
           Sign Out

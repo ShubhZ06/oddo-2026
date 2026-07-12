@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* ===================================================
    TransitOps — Global Design System
    =================================================== */
@@ -12,7 +14,7 @@
 }
 
 /* ---------- Custom Properties (Light / Default) ---------- */
-:root {
+@theme {
   /* Brand palette */
   --color-primary: #6C5CE7;
   --color-primary-light: #A29BFE;

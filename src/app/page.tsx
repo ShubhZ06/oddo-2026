@@ -162,7 +162,7 @@ export default function LandingPage() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
           scrolled
-            ? "bg-surface-primary/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]"
+            ? "bg-bg/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]"
             : "bg-transparent"
         }`}
         id="navbar"
@@ -181,13 +181,13 @@ export default function LandingPage() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
+            <a href="#features" className="text-sm font-medium text-text-secondary hover:text-text transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
               Features
             </a>
-            <a href="#workflow" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
+            <a href="#workflow" className="text-sm font-medium text-text-secondary hover:text-text transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
               How It Works
             </a>
-            <a href="#roles" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
+            <a href="#roles" className="text-sm font-medium text-text-secondary hover:text-text transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-gradient-to-r after:from-primary after:to-primary-light after:rounded-full after:transition-all hover:after:w-full">
               Roles
             </a>
           </div>
@@ -195,7 +195,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-4">
             <Link
               href="/login"
-              className="px-5 py-2.5 text-sm font-semibold border border-border-default rounded-lg hover:border-primary-light hover:bg-primary/10 transition-all hover:-translate-y-0.5"
+              className="px-5 py-2.5 text-sm font-semibold border border-border rounded-lg hover:border-primary-light hover:bg-primary/10 transition-all hover:-translate-y-0.5"
             >
               Sign In
             </Link>
@@ -209,7 +209,7 @@ export default function LandingPage() {
           </div>
 
           <button
-            className="md:hidden text-text-primary p-2 cursor-pointer"
+            className="md:hidden text-text p-2 cursor-pointer"
             onClick={() => setMobileMenuOpen(true)}
             aria-label="Open menu"
             id="mobile-menu-open"
@@ -221,9 +221,9 @@ export default function LandingPage() {
 
       {/* ===== Mobile Menu ===== */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] bg-surface-primary/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 animate-fade-in">
+        <div className="fixed inset-0 z-[60] bg-bg/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 animate-fade-in">
           <button
-            className="absolute top-6 right-6 text-text-primary p-2 cursor-pointer"
+            className="absolute top-6 right-6 text-text p-2 cursor-pointer"
             onClick={() => setMobileMenuOpen(false)}
             aria-label="Close menu"
           >
@@ -292,7 +292,7 @@ export default function LandingPage() {
             </Link>
             <a
               href="#features"
-              className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border-default rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
               id="hero-cta-secondary"
             >
               Explore Features
@@ -343,7 +343,7 @@ export default function LandingPage() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="relative p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-xl transition-all hover:border-border-hover hover:bg-surface-hover hover:-translate-y-1 hover:shadow-xl group overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-primary-light before:opacity-0 before:transition-opacity hover:before:opacity-100"
+                className="relative p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border rounded-xl transition-all hover:border-border-hover hover:bg-surface-hover hover:-translate-y-1 hover:shadow-xl group overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-primary-light before:opacity-0 before:transition-opacity hover:before:opacity-100"
               >
                 <div
                   className={`w-[52px] h-[52px] rounded-lg flex items-center justify-center mb-5 transition-transform group-hover:scale-110 ${feature.iconBg} ${feature.iconColor}`}
@@ -361,7 +361,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== Workflow ===== */}
-      <section className="py-32 bg-surface-secondary relative overflow-hidden" id="workflow">
+      <section className="py-32 bg-bg-secondary relative overflow-hidden" id="workflow">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(108,92,231,0.15)_0%,transparent_70%)] pointer-events-none" />
 
         <div className="max-w-[1200px] mx-auto px-6 relative">
@@ -383,7 +383,7 @@ export default function LandingPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Visual card */}
-            <div className="bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-xl p-8">
+            <div className="bg-gradient-to-br from-white/5 to-white/2 border border-border rounded-xl p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-3 h-3 rounded-full bg-danger" />
                 <div className="w-3 h-3 rounded-full bg-warning" />
@@ -393,19 +393,19 @@ export default function LandingPage() {
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border">
                   <div className="text-2xl font-bold text-primary-light mb-1">24</div>
                   <div className="text-xs text-text-muted uppercase tracking-wider">Active Vehicles</div>
                 </div>
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border">
                   <div className="text-2xl font-bold text-secondary mb-1">18</div>
                   <div className="text-xs text-text-muted uppercase tracking-wider">Drivers On Duty</div>
                 </div>
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border">
                   <div className="text-2xl font-bold text-accent mb-1">12</div>
                   <div className="text-xs text-text-muted uppercase tracking-wider">Active Trips</div>
                 </div>
-                <div className="p-4 bg-white/3 rounded-lg border border-border-default">
+                <div className="p-4 bg-white/3 rounded-lg border border-border">
                   <div className="text-2xl font-bold text-success mb-1">87%</div>
                   <div className="text-xs text-text-muted uppercase tracking-wider">Fleet Utilization</div>
                 </div>
@@ -457,7 +457,7 @@ export default function LandingPage() {
             {roles.map((role) => (
               <div
                 key={role.name}
-                className="text-center p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-xl transition-all hover:-translate-y-1.5 hover:border-border-hover hover:shadow-xl group"
+                className="text-center p-8 bg-gradient-to-br from-white/5 to-white/2 border border-border rounded-xl transition-all hover:-translate-y-1.5 hover:border-border-hover hover:shadow-xl group"
               >
                 <div
                   className={`w-[72px] h-[72px] rounded-full flex items-center justify-center mx-auto mb-5 transition-transform group-hover:scale-110 ${role.avatarBg} ${role.avatarColor}`}
@@ -477,7 +477,7 @@ export default function LandingPage() {
       {/* ===== CTA ===== */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="relative text-center py-16 px-8 bg-gradient-to-br from-white/5 to-white/2 border border-border-default rounded-2xl overflow-hidden">
+          <div className="relative text-center py-16 px-8 bg-gradient-to-br from-white/5 to-white/2 border border-border rounded-2xl overflow-hidden">
             <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-[radial-gradient(ellipse_at_center,rgba(108,92,231,0.08)_0%,transparent_60%)] pointer-events-none" />
 
             <h2 className="text-4xl font-bold mb-4 relative">
@@ -498,7 +498,7 @@ export default function LandingPage() {
               </Link>
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border-default rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold border border-border rounded-xl transition-all hover:border-primary-light hover:bg-primary/10 hover:-translate-y-0.5"
                 id="cta-secondary"
               >
                 Learn More
@@ -509,7 +509,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== Footer ===== */}
-      <footer className="py-12 border-t border-border-default" id="footer">
+      <footer className="py-12 border-t border-border" id="footer">
         <div className="flex items-center justify-between max-w-[1200px] mx-auto px-6 flex-col md:flex-row gap-6">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-md bg-gradient-to-br from-primary to-primary-light flex items-center justify-center">
