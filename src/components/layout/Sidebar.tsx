@@ -27,14 +27,38 @@ const ICON_MAP: Record<string, React.ComponentType<any>> = {
   Settings,
 };
 
-interface SidebarProps {
-  userRole?: Role;
-}
+import { useState, useEffect } from "react";
 
-export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
+export default function Sidebar() {
   const pathname = usePathname();
-  
-  const navItems = NAV_ITEMS.filter((item) => item.roles.includes(userRole));
+  const [userRole, setUserRole] = useState<Role>("FLEET_MANAGER");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const sessionStr = localStorage.getItem("transitops_session");
+    if (sessionStr) {
+      try {
+        const session = JSON.parse(sessionStr);
+        if (session.role) {
+          setUserRole(session.role as Role);
+        }
+      } catch (e) {
+        console.error("Failed to parse session", e);
+      }
+    }
+    setMounted(false); // Wait, we set mounted to true to ensure it matches client render.
+    setMounted(true);
+  }, []);
+
+  // Filter items. If not mounted yet (SSR/first load), use the full or default list.
+  const navItems = mounted 
+    ? NAV_ITEMS.filter((item) => item.roles.includes(userRole))
+    : NAV_ITEMS.filter((item) => item.roles.includes("FLEET_MANAGER"));
+
+  const handleSignOut = () => {
+    localStorage.removeItem("transitops_session");
+    window.location.href = "/login";
+  };
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-64 bg-surface-secondary border-r border-border-default-default-default flex flex-col animate-fade-in z-40">
@@ -76,7 +100,10 @@ export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
       </div>
 
       <div className="p-4 border-t border-border-default-default-default shrink-0">
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-danger hover:bg-danger/10 w-full transition-colors">
+        <button 
+          onClick={handleSignOut}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-danger hover:bg-danger/10 w-full transition-colors cursor-pointer"
+        >
           <LogOut size={18} />
           Sign Out
         </button>

@@ -1,11 +1,12 @@
-import { Inter } from "next/font/google";
+import { Architects_Daughter } from "next/font/google";
 import "./globals.css";
 import type { Metadata } from "next";
 import ToastContainer from "@/components/ui/Toast";
 
-const inter = Inter({
+const architectsDaughter = Architects_Daughter({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-architects",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${architectsDaughter.className} ${architectsDaughter.variable}`}>
       <body>
         {children}
         <ToastContainer />

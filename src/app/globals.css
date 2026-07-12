@@ -6,35 +6,38 @@
 
 @theme {
   /* Brand palette */
-  --color-primary: #6C5CE7;
-  --color-primary-light: #A29BFE;
-  --color-primary-dark: #4B3DB8;
-  --color-secondary: #00CEC9;
-  --color-secondary-light: #81ECEC;
-  --color-accent: #FD79A8;
-  --color-accent-light: #FDCB6E;
+  --color-primary: #8B5CF6;
+  --color-primary-light: #A78BFA;
+  --color-primary-dark: #7C3AED;
+  --color-secondary: #D946EF;
+  --color-secondary-light: #F472B6;
+  --color-accent: #EC4899;
+  --color-accent-light: #FCD34D;
 
   /* Semantic */
-  --color-success: #00B894;
-  --color-warning: #FDCB6E;
-  --color-danger: #E17055;
-  --color-info: #74B9FF;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
 
   /* Dark surfaces */
-  --color-surface-primary: #0F0F1A;
-  --color-surface-secondary: #1A1A2E;
-  --color-surface-tertiary: #16213E;
-  --color-surface-card: #1A1A2E;
-  --color-surface-hover: #222240;
+  --color-surface-primary: #050508;
+  --color-surface-secondary: #0C0A14;
+  --color-surface-tertiary: #141124;
+  --color-surface-card: #0C0A14;
+  --color-surface-hover: #1D1730;
 
   /* Text */
-  --color-text-primary: #F0F0F5;
-  --color-text-secondary: #A0A0B8;
-  --color-text-muted: #6C6C80;
+  --color-text-primary: #F5F3FF;
+  --color-text-secondary: #C4B5FD;
+  --color-text-muted: #7C3AED;
 
   /* Borders */
-  --color-border-default: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-default: rgba(139, 92, 246, 0.12);
+  --color-border-hover: rgba(139, 92, 246, 0.25);
+
+  /* Font Family */
+  --font-sans: var(--font-architects), sans-serif;
 
   /* Animations */
   --animate-fade-in: fade-in 0.5s ease-out;
@@ -102,7 +105,8 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  body {
+  body, button, input, select, textarea {
+    font-family: var(--font-architects), sans-serif;
     color: var(--color-text-primary);
     background-color: var(--color-surface-primary);
   }

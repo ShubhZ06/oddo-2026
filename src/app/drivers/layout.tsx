@@ -1,18 +1,9 @@
-import Sidebar from "@/components/layout/Sidebar";
-import Header from "@/components/layout/Header";
+import AppLayout from "@/components/layout/AppLayout";
 
 export default function DriversLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="min-h-screen bg-surface-primary flex">
-      <Sidebar />
-      <div className="flex-1 ml-64 flex flex-col">
-        <Header />
-        <main className="flex-1 p-8 overflow-y-auto">{children}</main>
-      </div>
-    </div>
-  );
+  return <AppLayout>{children}</AppLayout>;
 }
