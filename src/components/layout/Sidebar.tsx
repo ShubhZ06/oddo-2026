@@ -2,9 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Truck, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Truck,
+  Users,
+  Route,
+  Wrench,
+  Fuel,
+  BarChart3,
+  Settings,
+  LogOut,
+} from "lucide-react";
 import { NAV_ITEMS } from "@/lib/auth";
 import type { Role } from "@/types";
+
+const ICON_MAP: Record<string, React.ComponentType<any>> = {
+  LayoutDashboard,
+  Truck,
+  Users,
+  Route,
+  Wrench,
+  Fuel,
+  BarChart3,
+  Settings,
+};
 
 interface SidebarProps {
   userRole?: Role;
@@ -13,7 +34,6 @@ interface SidebarProps {
 export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
   const pathname = usePathname();
   
-  // For now, since auth is skipped, we show all items the role has access to
   const navItems = NAV_ITEMS.filter((item) => item.roles.includes(userRole));
 
   return (
@@ -36,6 +56,7 @@ export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
         
         {navItems.map((item) => {
           const isActive = pathname.startsWith(item.href);
+          const IconComponent = ICON_MAP[item.icon] || Truck;
           
           return (
             <Link
@@ -47,10 +68,7 @@ export default function Sidebar({ userRole = "FLEET_MANAGER" }: SidebarProps) {
                   : "text-text-secondary hover:bg-white/5 hover:text-text"
               }`}
             >
-              {/* Note: In a real app we'd map string names to Lucide icons dynamically, 
-                  but for this quick sidebar we'll just use a generic dot if the icon isn't found, 
-                  or we can map them. Since we saved strings in auth.ts, let's just render the string name for now 
-                  or use a simple mapping. */}
+              <IconComponent size={18} className="shrink-0" />
               <span>{item.label}</span>
             </Link>
           );
