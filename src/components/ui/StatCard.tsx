@@ -18,9 +18,9 @@ export default function StatCard({
   trend,
 }: StatCardProps) {
   return (
-    <div className="p-6 bg-white/3 border border-border rounded-xl transition-all hover:border-border-hover hover:-translate-y-0.5">
+    <div className="p-6 bg-white/3 border border-border-default rounded-xl transition-all hover:border-border-default-hover hover:-translate-y-0.5">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-text-secondary font-medium">{label}</span>
+        <span className="text-sm text-text-primary-secondary font-medium">{label}</span>
         <div
           className={`w-10 h-10 rounded-lg flex items-center justify-center ${iconBg} ${iconColor}`}
         >
@@ -29,7 +29,7 @@ export default function StatCard({
       </div>
       <div className="text-3xl font-bold mb-1 leading-tight">{value}</div>
       {trend && (
-        <div className="flex items-center gap-2 text-xs text-text-muted">
+        <div className="flex items-center gap-2 text-xs text-text-primary-muted">
           <span className={trend.isPositive ? "text-success" : "text-danger"}>
             {trend.isPositive ? "↑" : "↓"} {trend.value}
           </span>

@@ -10,7 +10,7 @@ const colorMap: Record<string, string> = {
   info: "bg-info/15 text-info",
   warning: "bg-warning/15 text-warning",
   danger: "bg-danger/15 text-danger",
-  muted: "bg-text-muted/15 text-text-muted",
+  muted: "bg-text-muted/15 text-text-primary-muted",
 };
 
 export default function StatusBadge({ status, label }: StatusBadgeProps) {
