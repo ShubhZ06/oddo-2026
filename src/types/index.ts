@@ -99,6 +99,7 @@ export interface Trip {
   completedAt: string | null;
   vehicle?: Vehicle;
   driver?: Driver;
+  expenses?: any[];
 }
 
 export interface TripFormData {
