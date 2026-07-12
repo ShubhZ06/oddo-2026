@@ -1,41 +1,26 @@
-"use client";
-
 import { Truck, AlertTriangle, Route, Users, TrendingUp } from "lucide-react";
 import StatCard from "@/components/ui/StatCard";
 import BarChart from "@/components/charts/BarChart";
 import DoughnutChart from "@/components/charts/DoughnutChart";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { formatNumber, formatPercent, titleCase } from "@/lib/utils";
-import { useApp } from "@/context/AppContext";
+import prisma from "@/lib/prisma";
 
-// Mock Data (remaining static components)
-const barChartData = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  datasets: [
-    {
-      label: "Completed Trips",
-      data: [12, 19, 15, 22, 28, 14, 10],
-      backgroundColor: "rgba(108, 92, 231, 0.8)",
-      borderRadius: 4,
-    },
-    {
-      label: "Cancelled Trips",
-      data: [1, 0, 2, 1, 0, 3, 0],
-      backgroundColor: "rgba(225, 112, 85, 0.8)",
-      borderRadius: 4,
-    },
-  ],
-};
+export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const { vehicles, maintenanceLogs } = useApp();
+export default async function DashboardPage() {
+  const vehicles = await prisma.vehicle.findMany();
+  const maintenanceLogs = await prisma.maintenanceLog.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 3,
+    include: { vehicle: true }
+  });
 
-  // Dynamic calculations from shared registry state
   const totalVehicles = vehicles.length;
-  const inShopCount = vehicles.filter((v) => v.status === "IN_SHOP").length;
-  const availableCount = vehicles.filter((v) => v.status === "AVAILABLE").length;
-  const onTripCount = vehicles.filter((v) => v.status === "ON_TRIP").length;
-  const retiredCount = vehicles.filter((v) => v.status === "RETIRED").length;
+  const inShopCount = vehicles.filter((v: any) => v.status === "IN_SHOP").length;
+  const availableCount = vehicles.filter((v: any) => v.status === "AVAILABLE").length;
+  const onTripCount = vehicles.filter((v: any) => v.status === "ON_TRIP").length;
+  const retiredCount = vehicles.filter((v: any) => v.status === "RETIRED").length;
 
   const nonRetiredCount = totalVehicles - retiredCount;
   const utilizationRate = nonRetiredCount > 0 ? (onTripCount / nonRetiredCount) * 100 : 0;
@@ -67,17 +52,31 @@ export default function DashboardPage() {
     ],
   };
 
-  // Activity feed dynamically sourced from actual logs
+  const barChartData = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        label: "Completed Trips",
+        data: [12, 19, 15, 22, 28, 14, 10],
+        backgroundColor: "rgba(108, 92, 231, 0.8)",
+        borderRadius: 4,
+      },
+      {
+        label: "Cancelled Trips",
+        data: [1, 0, 2, 1, 0, 3, 0],
+        backgroundColor: "rgba(225, 112, 85, 0.8)",
+        borderRadius: 4,
+      },
+    ],
+  };
+
   const dynamicActivity = [
-    ...maintenanceLogs.slice(0, 3).map((l) => {
-      const v = vehicles.find((vehicle) => vehicle.id === l.vehicleId);
-      return {
-        id: `m-${l.id}`,
-        message: `Vehicle ${v?.registrationNumber || `ID:${l.vehicleId}`} reported for ${titleCase(l.type)} - ${l.status}`,
-        time: l.status === "OPEN" ? "Active Repair" : `Closed Case`,
-        status: l.status === "OPEN" ? "warning" : "success",
-      };
-    }),
+    ...maintenanceLogs.map((l: any) => ({
+      id: `m-${l.id}`,
+      message: `Vehicle ${l.vehicle?.registrationNumber || `ID:${l.vehicleId}`} reported for ${titleCase(l.type)} - ${l.status}`,
+      time: l.status === "OPEN" ? "Active Repair" : `Closed Case`,
+      status: l.status === "OPEN" ? "warning" : "success",
+    })),
     { id: "sys-1", message: "Fleet smart systems initialized", time: "Ready", status: "muted" },
   ];
 
@@ -86,10 +85,9 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-1">Dashboard Overview</h1>
-          <p className="text-text-primary-primary-primary-secondary text-sm">Real-time metrics and fleet status</p>
+          <p className="text-text-secondary text-sm">Real-time metrics and fleet status</p>
         </div>
         
-        {/* Filter Bar */}
         <div className="flex items-center gap-3 bg-surface-secondary p-1.5 rounded-lg border border-border-default">
           <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none border-r border-border-default">
             <option>All Regions</option>
@@ -98,7 +96,7 @@ export default function DashboardPage() {
             <option>East</option>
             <option>West</option>
           </select>
-          <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none text-text-primary-primary-primary">
+          <select className="bg-transparent text-sm px-3 py-1.5 focus:outline-none text-text-primary">
             <option>Last 7 Days</option>
             <option>Last 30 Days</option>
             <option>This Month</option>
@@ -106,7 +104,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* KPI Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           label="Total Active Vehicles"
@@ -142,27 +139,23 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Charts & Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Chart */}
-        <div className="lg:col-span-2 bg-surface-secondary border border-border-default-default-default rounded-xl p-6">
+        <div className="lg:col-span-2 bg-surface-secondary border border-border-default rounded-xl p-6">
           <BarChart data={barChartData} title="Trip Volume (Last 7 Days)" />
         </div>
 
-        {/* Status Distribution */}
-        <div className="bg-surface-secondary border border-border-default-default-default rounded-xl p-6 flex flex-col items-center justify-center">
+        <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex flex-col items-center justify-center">
           <h3 className="w-full text-left font-semibold mb-4">Vehicle Status</h3>
           <div className="w-full h-[250px] relative">
              <DoughnutChart data={dynamicDoughnutData} />
              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-4">
                 <span className="text-3xl font-bold">{totalVehicles}</span>
-                <span className="text-xs text-text-primary-muted">Total Fleet</span>
+                <span className="text-xs text-text-muted">Total Fleet</span>
              </div>
           </div>
         </div>
 
-        {/* Recent Activity */}
-        <div className="lg:col-span-3 bg-surface-secondary border border-border-default-default-default rounded-xl p-6">
+        <div className="lg:col-span-3 bg-surface-secondary border border-border-default rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-semibold">Recent Activity</h3>
             <button className="text-sm text-primary-light hover:underline">View All</button>
@@ -172,11 +165,11 @@ export default function DashboardPage() {
             {dynamicActivity.map((activity) => (
               <div key={activity.id} className="flex items-start gap-4 p-4 rounded-lg bg-white/3 border border-border-default transition-colors hover:bg-white/5">
                 <div className="shrink-0 mt-1">
-                  <StatusBadge status={activity.status} label={activity.status === "muted" ? "SYSTEM" : "ALERT"} />
+                  <StatusBadge status={activity.status as any} label={activity.status === "muted" ? "SYSTEM" : "ALERT"} />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{activity.message}</p>
-                  <span className="text-xs text-text-primary-primary-primary-muted">{activity.time}</span>
+                  <span className="text-xs text-text-muted">{activity.time}</span>
                 </div>
               </div>
             ))}

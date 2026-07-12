@@ -62,7 +62,7 @@ export default function DriverDetailModal({
 
   const footer = (
     <button
-      className="px-4 py-2 bg-white/5 hover:bg-white/10 text-text-primary-primary-secondary hover:text-text-primary-primary border border-border-default-default rounded-lg transition-colors cursor-pointer text-sm font-medium"
+      className="px-4 py-2 bg-white/5 hover:bg-white/10 text-text-primary-primary-secondary hover:text-text-primary-primary border border-border-default rounded-lg transition-colors cursor-pointer text-sm font-medium"
       onClick={onClose}
     >
       Close Details
@@ -78,7 +78,7 @@ export default function DriverDetailModal({
     >
       <div className="flex flex-col gap-6 max-h-[75vh] overflow-y-auto pr-1">
         {/* Header Profile Summary */}
-        <div className="flex items-center gap-4 p-4 rounded-xl bg-white/3 border border-border-default-default">
+        <div className="flex items-center gap-4 p-4 rounded-xl bg-white/3 border border-border-default">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/30 to-primary-light/10 border border-primary/20 flex items-center justify-center text-primary-light">
             <User size={32} />
           </div>
@@ -120,17 +120,17 @@ export default function DriverDetailModal({
         {/* Detailed Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* License Details */}
-          <div className="p-4 rounded-xl border border-border-default-default bg-white/2 flex flex-col gap-3">
+          <div className="p-4 rounded-xl border border-border-default bg-white/2 flex flex-col gap-3">
             <h4 className="text-xs font-bold text-text-primary-primary-muted uppercase tracking-wider flex items-center gap-1.5">
               <Award size={14} className="text-primary-light" /> Credentials & License
             </h4>
             
             <div className="flex flex-col gap-2.5 text-sm">
-              <div className="flex justify-between items-center py-1 border-b border-border-default-default/40">
+              <div className="flex justify-between items-center py-1 border-b border-border-default/40">
                 <span className="text-text-primary-primary-secondary">License Number:</span>
                 <span className="font-semibold font-mono">{driver.licenseNumber}</span>
               </div>
-              <div className="flex justify-between items-center py-1 border-b border-border-default-default/40">
+              <div className="flex justify-between items-center py-1 border-b border-border-default/40">
                 <span className="text-text-primary-primary-secondary">Category:</span>
                 <span className="font-semibold px-2 py-0.5 bg-primary/10 text-primary-light rounded text-xs">
                   {driver.licenseCategory}
@@ -147,7 +147,7 @@ export default function DriverDetailModal({
           </div>
 
           {/* Safety Performance */}
-          <div className={`p-4 rounded-xl border border-border-default-default bg-white/2 flex flex-col gap-3`}>
+          <div className={`p-4 rounded-xl border border-border-default bg-white/2 flex flex-col gap-3`}>
             <h4 className="text-xs font-bold text-text-primary-primary-muted uppercase tracking-wider flex items-center gap-1.5">
               <Shield size={14} className="text-primary-light" /> Safety Scorecard
             </h4>
@@ -176,13 +176,13 @@ export default function DriverDetailModal({
         </div>
 
         {/* Operational Statistics (Simulated Performance Analytics) */}
-        <div className="p-4 rounded-xl border border-border-default-default bg-white/2 flex flex-col gap-4">
+        <div className="p-4 rounded-xl border border-border-default bg-white/2 flex flex-col gap-4">
           <h4 className="text-xs font-bold text-text-primary-primary-muted uppercase tracking-wider flex items-center gap-1.5">
             <Truck size={14} className="text-primary-light" /> Operational Performance (YTD)
           </h4>
 
           <div className="grid grid-cols-3 gap-2 text-center">
-            <div className="p-3 bg-white/2 rounded-lg border border-border-default-default/40">
+            <div className="p-3 bg-white/2 rounded-lg border border-border-default/40">
               <div className="text-2xl font-bold text-primary-light">
                 {driver.id * 3 + 14}
               </div>
@@ -190,7 +190,7 @@ export default function DriverDetailModal({
                 Trips Done
               </div>
             </div>
-            <div className="p-3 bg-white/2 rounded-lg border border-border-default-default/40">
+            <div className="p-3 bg-white/2 rounded-lg border border-border-default/40">
               <div className="text-2xl font-bold text-secondary">
                 {((driver.id * 280) + 2400).toLocaleString()} <span className="text-xs font-normal">km</span>
               </div>
@@ -198,7 +198,7 @@ export default function DriverDetailModal({
                 Distance
               </div>
             </div>
-            <div className="p-3 bg-white/2 rounded-lg border border-border-default-default/40">
+            <div className="p-3 bg-white/2 rounded-lg border border-border-default/40">
               <div className="text-2xl font-bold text-success">
                 {(6.8 - (driver.id * 0.2)).toFixed(1)} <span className="text-xs font-normal">km/L</span>
               </div>
@@ -208,7 +208,7 @@ export default function DriverDetailModal({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 text-xs text-text-primary-primary-secondary bg-white/3 p-3 rounded-lg border border-border-default-default/30">
+          <div className="flex flex-col gap-2 text-xs text-text-primary-primary-secondary bg-white/3 p-3 rounded-lg border border-border-default/30">
             <div className="flex justify-between items-center">
               <span>Average Incident Rate:</span>
               <span className="font-semibold text-text-primary-primary">0.02 / 1,000 km</span>

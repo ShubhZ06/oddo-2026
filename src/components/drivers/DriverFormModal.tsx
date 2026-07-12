@@ -136,7 +136,7 @@ export default function DriverFormModal({
     <>
       <button
         type="button"
-        className="px-4 py-2 border border-border-default-default rounded-lg text-text-primary-primary-secondary hover:bg-white/5 transition-colors cursor-pointer text-sm font-medium"
+        className="px-4 py-2 border border-border-default rounded-lg text-text-primary-primary-secondary hover:bg-white/5 transition-colors cursor-pointer text-sm font-medium"
         onClick={onClose}
         disabled={loading}
       >
@@ -170,7 +170,7 @@ export default function DriverFormModal({
             type="text"
             id="name"
             name="name"
-            className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+            className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
             placeholder="e.g. John Doe"
             value={formData.name}
             onChange={handleChange}
@@ -190,7 +190,7 @@ export default function DriverFormModal({
               type="text"
               id="licenseNumber"
               name="licenseNumber"
-              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               placeholder="e.g. DL-109283-A"
               value={formData.licenseNumber}
               onChange={handleChange}
@@ -207,7 +207,7 @@ export default function DriverFormModal({
             <select
               id="licenseCategory"
               name="licenseCategory"
-              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.licenseCategory}
               onChange={handleChange}
             >
@@ -229,7 +229,7 @@ export default function DriverFormModal({
               type="date"
               id="licenseExpiry"
               name="licenseExpiry"
-              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.licenseExpiry}
               onChange={handleChange}
               required
@@ -246,7 +246,7 @@ export default function DriverFormModal({
               type="text"
               id="contactNumber"
               name="contactNumber"
-              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               placeholder="e.g. +1 (555) 019-2834"
               value={formData.contactNumber}
               onChange={handleChange}
@@ -270,7 +270,7 @@ export default function DriverFormModal({
               min="0"
               max="100"
               step="0.1"
-              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.safetyScore}
               onChange={handleChange}
             />
@@ -285,7 +285,7 @@ export default function DriverFormModal({
             <select
               id="status"
               name="status"
-              className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
               value={formData.status}
               onChange={handleChange}
             >

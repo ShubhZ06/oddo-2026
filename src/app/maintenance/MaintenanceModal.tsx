@@ -75,7 +75,7 @@ export default function MaintenanceModal({
     >
       <form id="maintenance-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-primary-secondary">
+          <label className="text-sm font-medium text-text-secondary">
             Select Vehicle
           </label>
           <select
@@ -100,7 +100,7 @@ export default function MaintenanceModal({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-text-primary-secondary">
+            <label className="text-sm font-medium text-text-secondary">
               Maintenance Type
             </label>
             <select
@@ -117,7 +117,7 @@ export default function MaintenanceModal({
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm font-medium text-text-primary-secondary">
+            <label className="text-sm font-medium text-text-secondary">
               Estimated Cost (₹)
             </label>
             <input
@@ -134,7 +134,7 @@ export default function MaintenanceModal({
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-text-primary-secondary">
+          <label className="text-sm font-medium text-text-secondary">
             Description
           </label>
           <textarea

@@ -45,7 +45,7 @@ export async function PATCH(
       const wasDispatched = trip.status === "DISPATCHED";
 
       // 2. Transaction to update statuses
-      updatedTrip = await prisma.$transaction(async (tx) => {
+      updatedTrip = await prisma.$transaction(async (tx: any) => {
         if (wasDispatched) {
           // Restore vehicle status to AVAILABLE
           await tx.vehicle.update({

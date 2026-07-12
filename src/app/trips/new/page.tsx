@@ -193,9 +193,9 @@ export default function NewTripPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="bg-surface-secondary border border-border-default-default rounded-xl p-6 md:p-8 flex flex-col gap-6"
+        className="bg-surface-secondary border border-border-default rounded-xl p-6 md:p-8 flex flex-col gap-6"
       >
-        <div className="text-sm font-semibold text-text-primary-primary-secondary border-b border-border-default-default pb-2 uppercase tracking-wider">
+        <div className="text-sm font-semibold text-text-primary-primary-secondary border-b border-border-default pb-2 uppercase tracking-wider">
           Asset Assignments
         </div>
 
@@ -215,7 +215,7 @@ export default function NewTripPage() {
                 value={formData.vehicleId}
                 onChange={handleVehicleChange}
                 disabled={loadingAssets || submitting}
-                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <option value="">-- Choose a Vehicle --</option>
                 {vehicles.map((v) => (
@@ -247,7 +247,7 @@ export default function NewTripPage() {
                 value={formData.driverId}
                 onChange={handleDriverChange}
                 disabled={loadingAssets || submitting}
-                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <option value="">-- Choose a Driver --</option>
                 {drivers.map((d) => (
@@ -266,7 +266,7 @@ export default function NewTripPage() {
           </div>
         </div>
 
-        <div className="text-sm font-semibold text-text-primary-primary-secondary border-b border-border-default-default pb-2 uppercase tracking-wider mt-2">
+        <div className="text-sm font-semibold text-text-primary-primary-secondary border-b border-border-default pb-2 uppercase tracking-wider mt-2">
           Route & Manifest Details
         </div>
 
@@ -287,7 +287,7 @@ export default function NewTripPage() {
                 value={formData.source}
                 onChange={(e) => setFormData((prev) => ({ ...prev, source: e.target.value }))}
                 required
-                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
+                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
@@ -304,7 +304,7 @@ export default function NewTripPage() {
                 value={formData.destination}
                 onChange={(e) => setFormData((prev) => ({ ...prev, destination: e.target.value }))}
                 required
-                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
+                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
@@ -329,7 +329,7 @@ export default function NewTripPage() {
                 className={`w-full bg-surface-primary border rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-1 transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted ${
                   cargoError
                     ? "border-danger focus:border-danger focus:ring-danger"
-                    : "border-border-default-default focus:border-primary-light focus:ring-primary-light"
+                    : "border-border-default focus:border-primary-light focus:ring-primary-light"
                 }`}
               />
             </div>
@@ -355,7 +355,7 @@ export default function NewTripPage() {
                 onChange={(e) => setFormData((prev) => ({ ...prev, distanceKm: e.target.value }))}
                 required
                 min="1"
-                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
+                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
@@ -374,17 +374,17 @@ export default function NewTripPage() {
                 onChange={(e) => setFormData((prev) => ({ ...prev, revenue: e.target.value }))}
                 required
                 min="0"
-                className="w-full bg-surface-primary border border-border-default-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
+                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary placeholder:text-text-primary-primary-muted"
               />
             </div>
           </div>
         </div>
 
         {/* Submit Bar */}
-        <div className="flex items-center justify-end gap-3 mt-4 border-t border-border-default-default pt-6">
+        <div className="flex items-center justify-end gap-3 mt-4 border-t border-border-default pt-6">
           <Link
             href="/trips"
-            className="px-5 py-2.5 text-sm font-semibold border border-border-default-default rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-text-primary-primary-secondary hover:text-text-primary-primary"
+            className="px-5 py-2.5 text-sm font-semibold border border-border-default rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-text-primary-primary-secondary hover:text-text-primary-primary"
           >
             Cancel
           </Link>

@@ -81,7 +81,7 @@ export default function MaintenancePage() {
             <span className="font-semibold text-text-primary">
               {vehicle?.registrationNumber || `ID: ${log.vehicleId}`}
             </span>
-            <span className="text-xs text-text-primary-secondary">
+            <span className="text-xs text-text-secondary">
               {vehicle?.nameModel || "Unknown Model"}
             </span>
           </div>
@@ -91,7 +91,7 @@ export default function MaintenancePage() {
     {
       header: "Type",
       cell: (log: MaintenanceLog) => (
-        <span className="text-sm font-medium text-text-primary-secondary">
+        <span className="text-sm font-medium text-text-secondary">
           {titleCase(log.type)}
         </span>
       ),
@@ -99,7 +99,7 @@ export default function MaintenancePage() {
     {
       header: "Description",
       cell: (log: MaintenanceLog) => (
-        <div className="max-w-xs truncate text-text-primary-secondary" title={log.description || ""}>
+        <div className="max-w-xs truncate text-text-secondary" title={log.description || ""}>
           {log.description || <span className="italic text-text-muted">No description</span>}
         </div>
       ),
@@ -119,13 +119,13 @@ export default function MaintenancePage() {
     {
       header: "Logged Date",
       cell: (log: MaintenanceLog) => (
-        <span className="text-text-primary-secondary">{formatDate(log.createdAt)}</span>
+        <span className="text-text-secondary">{formatDate(log.createdAt)}</span>
       ),
     },
     {
       header: "Closed Date",
       cell: (log: MaintenanceLog) => (
-        <span className="text-text-primary-secondary">
+        <span className="text-text-secondary">
           {log.closedAt ? formatDate(log.closedAt) : <span className="text-text-muted">—</span>}
         </span>
       ),
@@ -145,8 +145,8 @@ export default function MaintenancePage() {
           );
         }
         return (
-          <span className="inline-flex items-center gap-1.5 text-xs text-text-primary-muted font-medium py-1.5">
-            <CheckCircle size={14} className="text-text-primary-muted" />
+          <span className="inline-flex items-center gap-1.5 text-xs text-text-muted font-medium py-1.5">
+            <CheckCircle size={14} className="text-text-muted" />
             Completed
           </span>
         );
@@ -165,7 +165,7 @@ export default function MaintenancePage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold mb-1">Maintenance Workflows</h1>
-          <p className="text-text-primary-secondary text-sm">
+          <p className="text-text-secondary text-sm">
             Manage your shop orders, track maintenance expenditures, and monitor repair status.
           </p>
         </div>

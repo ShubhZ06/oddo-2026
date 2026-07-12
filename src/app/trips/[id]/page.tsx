@@ -183,7 +183,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
 
   if (loading) {
     return (
-      <div className="py-20 flex flex-col items-center justify-center text-text-primary-secondary gap-3 animate-fade-in">
+      <div className="py-20 flex flex-col items-center justify-center text-text-secondary gap-3 animate-fade-in">
         <Clock className="animate-spin text-primary-light" size={32} />
         <span className="text-sm">Fetching manifest details...</span>
       </div>
@@ -192,10 +192,10 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
 
   if (!trip) {
     return (
-      <div className="py-20 flex flex-col items-center justify-center text-text-primary-secondary gap-3 max-w-[600px] mx-auto text-center">
+      <div className="py-20 flex flex-col items-center justify-center text-text-secondary gap-3 max-w-[600px] mx-auto text-center">
         <AlertTriangle size={48} className="text-danger animate-pulse" />
         <h2 className="text-xl font-bold">Trip Manifest Not Found</h2>
-        <p className="text-sm text-text-primary-muted">
+        <p className="text-sm text-text-muted">
           The requested trip ID does not exist in the system, or you do not have permission to view it.
         </p>
         <Link
@@ -219,7 +219,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
         <div>
           <Link
             href="/trips"
-            className="inline-flex items-center gap-1.5 text-xs text-text-primary-secondary hover:text-primary-light transition-colors font-medium mb-3 cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs text-text-secondary hover:text-primary-light transition-colors font-medium mb-3 cursor-pointer"
           >
             <ArrowLeft size={14} />
             Back to Trips
@@ -228,7 +228,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
             <Route className="text-primary-light" size={24} />
             Trip Manifest #{trip.id}
           </h1>
-          <p className="text-text-primary-secondary text-sm">
+          <p className="text-text-secondary text-sm">
             Route: {trip.source} to {trip.destination}
           </p>
         </div>
@@ -283,7 +283,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
         <div className="lg:col-span-2 flex flex-col gap-6">
           <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-border-default pb-4">
-              <span className="text-sm font-semibold text-text-primary-secondary uppercase tracking-wider">
+              <span className="text-sm font-semibold text-text-secondary uppercase tracking-wider">
                 Manifest Route Info
               </span>
               <StatusBadge status={trip.status} label={trip.status} />
@@ -294,21 +294,21 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
               <div className="flex items-start gap-3">
                 <MapPin className="text-primary-light mt-1 shrink-0" size={20} />
                 <div>
-                  <span className="text-xs text-text-primary-muted font-medium uppercase tracking-wider block mb-1">
+                  <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
                     Origin / Source
                   </span>
                   <span className="font-semibold text-text-primary">{trip.source}</span>
                 </div>
               </div>
 
-              <div className="hidden md:flex items-center text-text-primary-muted shrink-0 px-4">
+              <div className="hidden md:flex items-center text-text-muted shrink-0 px-4">
                 ................ <Route size={20} className="mx-2 text-primary/40 animate-pulse" /> ................
               </div>
 
               <div className="flex items-start gap-3">
                 <MapPin className="text-accent mt-1 shrink-0" size={20} />
                 <div>
-                  <span className="text-xs text-text-primary-muted font-medium uppercase tracking-wider block mb-1">
+                  <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
                     Destination
                   </span>
                   <span className="font-semibold text-text-primary">{trip.destination}</span>
@@ -319,7 +319,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
             {/* Details Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2">
               <div>
-                <span className="text-xs text-text-primary-muted font-medium uppercase tracking-wider block mb-1">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
                   Revenue
                 </span>
                 <span className="text-lg font-bold text-success">
@@ -328,7 +328,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
               </div>
 
               <div>
-                <span className="text-xs text-text-primary-muted font-medium uppercase tracking-wider block mb-1">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
                   Est. Distance
                 </span>
                 <span className="text-lg font-bold text-text-primary">
@@ -337,7 +337,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
               </div>
 
               <div>
-                <span className="text-xs text-text-primary-muted font-medium uppercase tracking-wider block mb-1">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
                   Cargo Weight
                 </span>
                 <span className="text-lg font-bold text-text-primary">
@@ -346,10 +346,10 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
               </div>
 
               <div>
-                <span className="text-xs text-text-primary-muted font-medium uppercase tracking-wider block mb-1">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider block mb-1">
                   Max Load Allowed
                 </span>
-                <span className="text-lg font-semibold text-text-primary-secondary">
+                <span className="text-lg font-semibold text-text-secondary">
                   {trip.vehicle ? `${formatNumber(trip.vehicle.maxLoadCapacityKg)} kg` : "N/A"}
                 </span>
               </div>
@@ -358,24 +358,24 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
             {/* Post-Completion Readings */}
             {trip.status === "COMPLETED" && (
               <div className="border-t border-border-default/80 pt-6 mt-2">
-                <span className="text-xs font-semibold text-text-primary-secondary uppercase tracking-wider block mb-3">
+                <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider block mb-3">
                   Completion Readings
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 bg-primary/5 border border-primary/15 rounded-xl p-4">
                   <div>
-                    <span className="text-xs text-text-primary-muted block mb-1">Final Odometer</span>
+                    <span className="text-xs text-text-muted block mb-1">Final Odometer</span>
                     <span className="text-base font-bold text-text-primary">
                       {formatNumber(trip.finalOdometer || 0)} km
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs text-text-primary-muted block mb-1">Fuel Consumed</span>
+                    <span className="text-xs text-text-muted block mb-1">Fuel Consumed</span>
                     <span className="text-base font-bold text-text-primary">
                       {trip.fuelConsumedLiters} Liters
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs text-text-primary-muted block mb-1">Avg. Consumption</span>
+                    <span className="text-xs text-text-muted block mb-1">Avg. Consumption</span>
                     <span className="text-base font-bold text-primary-light">
                       {trip.finalOdometer && trip.fuelConsumedLiters && trip.fuelConsumedLiters > 0
                         ? `${((trip.finalOdometer - trip.vehicle!.odometerKm) / trip.fuelConsumedLiters).toFixed(2)} km/L`
@@ -387,7 +387,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
             )}
 
             {/* Audit Dates timeline */}
-            <div className="border-t border-border-default/80 pt-6 flex flex-wrap gap-x-8 gap-y-3 text-xs text-text-primary-muted">
+            <div className="border-t border-border-default/80 pt-6 flex flex-wrap gap-x-8 gap-y-3 text-xs text-text-muted">
               <span className="flex items-center gap-1.5">
                 <Calendar size={14} />
                 Created: {formatDateTime(trip.createdAt)}
@@ -409,12 +409,12 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
 
           {/* Linked Invoices/Tolls details */}
           <div className="bg-surface-secondary border border-border-default rounded-xl p-6">
-            <h3 className="text-sm font-semibold text-text-primary-secondary uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-4">
               Trip Operational Expenses
             </h3>
             {(!trip.expenses || trip.expenses.length === 0) ? (
-              <div className="p-8 border border-dashed border-border-default rounded-xl text-center text-text-primary-secondary text-xs flex flex-col items-center gap-2 bg-white/1">
-                <FileText size={24} className="text-text-primary-muted" />
+              <div className="p-8 border border-dashed border-border-default rounded-xl text-center text-text-secondary text-xs flex flex-col items-center gap-2 bg-white/1">
+                <FileText size={24} className="text-text-muted" />
                 <span>No expense reports logged during this trip.</span>
               </div>
             ) : (
@@ -423,11 +423,11 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
                   <div key={expense.id} className="flex justify-between items-center p-3 rounded-lg bg-white/2 border border-border-default/50 text-xs">
                     <div>
                       <span className="font-semibold block">{expense.category}</span>
-                      <span className="text-text-primary-muted">{expense.description || "No description"}</span>
+                      <span className="text-text-muted">{expense.description || "No description"}</span>
                     </div>
                     <div className="text-right">
                       <span className="font-bold text-danger block">{formatCurrency(expense.amount)}</span>
-                      <span className="text-text-primary-muted">{formatDate(expense.date)}</span>
+                      <span className="text-text-muted">{formatDate(expense.date)}</span>
                     </div>
                   </div>
                 ))}
@@ -441,7 +441,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
           {/* Vehicle Assignment Card */}
           <div className="bg-surface-secondary border border-border-default rounded-xl p-5 flex flex-col gap-4">
             <div className="flex items-center justify-between border-b border-border-default pb-3">
-              <span className="text-xs font-bold text-text-primary-secondary uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-bold text-text-secondary uppercase tracking-wider flex items-center gap-1.5">
                 <Truck size={14} className="text-primary-light" />
                 Vehicle Asset
               </span>
@@ -458,25 +458,25 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
                 >
                   {trip.vehicle.registrationNumber}
                 </Link>
-                <span className="text-xs text-text-primary-secondary">
+                <span className="text-xs text-text-secondary">
                   Model: {trip.vehicle.nameModel}
                 </span>
-                <span className="text-xs text-text-primary-secondary">
+                <span className="text-xs text-text-secondary">
                   Current Odometer: {formatNumber(trip.vehicle.odometerKm)} km
                 </span>
-                <span className="text-xs text-text-primary-secondary">
+                <span className="text-xs text-text-secondary">
                   Acquisition cost: {formatCurrency(trip.vehicle.acquisitionCost)}
                 </span>
               </div>
             ) : (
-              <span className="text-xs text-text-primary-muted">Loading asset details...</span>
+              <span className="text-xs text-text-muted">Loading asset details...</span>
             )}
           </div>
 
           {/* Driver Assignment Card */}
           <div className="bg-surface-secondary border border-border-default rounded-xl p-5 flex flex-col gap-4">
             <div className="flex items-center justify-between border-b border-border-default pb-3">
-              <span className="text-xs font-bold text-text-primary-secondary uppercase tracking-wider flex items-center gap-1.5">
+              <span className="text-xs font-bold text-text-secondary uppercase tracking-wider flex items-center gap-1.5">
                 <User size={14} className="text-secondary" />
                 Assigned Personnel
               </span>
@@ -490,14 +490,14 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
                 <span className="font-bold text-sm text-text-primary">
                   {trip.driver.name}
                 </span>
-                <span className="text-xs text-text-primary-secondary">
+                <span className="text-xs text-text-secondary">
                   License: {trip.driver.licenseNumber} ({trip.driver.licenseCategory})
                 </span>
-                <span className="text-xs text-text-primary-secondary">
+                <span className="text-xs text-text-secondary">
                   Expiry: {formatDate(trip.driver.licenseExpiry)}
                 </span>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="text-xs text-text-primary-secondary">Safety Rating:</span>
+                  <span className="text-xs text-text-secondary">Safety Rating:</span>
                   <span
                     className={`text-xs font-bold px-1.5 py-0.5 rounded ${
                       trip.driver.safetyScore >= 90
@@ -512,7 +512,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
                 </div>
               </div>
             ) : (
-              <span className="text-xs text-text-primary-muted">Loading personnel details...</span>
+              <span className="text-xs text-text-muted">Loading personnel details...</span>
             )}
           </div>
         </div>
@@ -527,7 +527,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
           <>
             <button
               onClick={() => setIsCompleteModalOpen(false)}
-              className="px-4 py-2 text-sm font-semibold border border-border-default rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-text-primary-secondary hover:text-text-primary"
+              className="px-4 py-2 text-sm font-semibold border border-border-default rounded-lg hover:bg-white/5 transition-colors cursor-pointer text-text-secondary hover:text-text-primary"
             >
               Back
             </button>
@@ -542,7 +542,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
         }
       >
         <form onSubmit={handleCompleteSubmit} className="flex flex-col gap-4">
-          <div className="bg-white/2 border border-border-default p-4 rounded-xl flex items-center gap-3 text-xs text-text-primary-secondary">
+          <div className="bg-white/2 border border-border-default p-4 rounded-xl flex items-center gap-3 text-xs text-text-secondary">
             <Info size={16} className="text-primary-light shrink-0" />
             <div>
               Starting Odometer: <span className="font-semibold text-text-primary">{trip.vehicle?.odometerKm} km</span>.
@@ -552,7 +552,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
 
           {/* Odometer Field */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-primary-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Final Odometer Reading (km)
             </label>
             <input
@@ -577,7 +577,7 @@ export default function TripDetailPage({ params }: TripDetailPageProps) {
 
           {/* Fuel Consumed Field */}
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-semibold text-text-primary-secondary uppercase tracking-wider">
+            <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Fuel Consumed (Liters)
             </label>
             <input

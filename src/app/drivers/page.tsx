@@ -173,7 +173,7 @@ export default function DriversPage() {
       </div>
 
       {/* Filter / Action Bar */}
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-surface-secondary p-4 rounded-xl border border-border-default-default">
+      <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-surface-secondary p-4 rounded-xl border border-border-default">
         {/* Search Input */}
         <div className="relative w-full md:max-w-md">
           <Search
@@ -185,7 +185,7 @@ export default function DriversPage() {
             placeholder="Search by name or license number..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-surface-secondary border border-border-default-default focus:border-primary/50 outline-none rounded-lg pl-10 pr-4 py-2.5 text-sm text-text-primary-primary transition-colors"
+            className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg pl-10 pr-4 py-2.5 text-sm text-text-primary-primary transition-colors"
           />
         </div>
 
@@ -194,7 +194,7 @@ export default function DriversPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-surface-secondary border border-border-default-default rounded-lg px-3 py-2.5 text-sm text-text-primary-primary focus:outline-none focus:border-primary/50"
+            className="bg-surface-secondary border border-border-default rounded-lg px-3 py-2.5 text-sm text-text-primary-primary focus:outline-none focus:border-primary/50"
           >
             <option value="">All Duty Statuses</option>
             <option value="AVAILABLE">Available</option>
@@ -205,7 +205,7 @@ export default function DriversPage() {
 
           <button
             onClick={fetchDrivers}
-            className="p-2.5 bg-surface-secondary border border-border-default-default hover:bg-white/5 text-text-primary-primary-secondary hover:text-text-primary-primary rounded-lg transition-colors cursor-pointer"
+            className="p-2.5 bg-surface-secondary border border-border-default hover:bg-white/5 text-text-primary-primary-secondary hover:text-text-primary-primary rounded-lg transition-colors cursor-pointer"
             title="Refresh Directory"
           >
             <RefreshCw size={18} className={loading ? "animate-spin" : ""} />
@@ -220,14 +220,14 @@ export default function DriversPage() {
           {[1, 2, 3].map((n) => (
             <div
               key={n}
-              className="h-[210px] rounded-xl border border-border-default-default bg-surface-secondary/40 animate-pulse"
+              className="h-[210px] rounded-xl border border-border-default bg-surface-secondary/40 animate-pulse"
             ></div>
           ))}
         </div>
       ) : drivers.length === 0 ? (
         // Empty State
-        <div className="flex flex-col items-center justify-center p-16 bg-surface-secondary border border-border-default-default rounded-xl text-center">
-          <div className="w-16 h-16 rounded-full bg-white/3 flex items-center justify-center text-text-primary-primary-muted mb-4 border border-border-default-default/50">
+        <div className="flex flex-col items-center justify-center p-16 bg-surface-secondary border border-border-default rounded-xl text-center">
+          <div className="w-16 h-16 rounded-full bg-white/3 flex items-center justify-center text-text-primary-primary-muted mb-4 border border-border-default/50">
             <Users size={28} />
           </div>
           <h3 className="text-lg font-bold mb-1">No Drivers Found</h3>
@@ -240,7 +240,7 @@ export default function DriversPage() {
                 setSearchQuery("");
                 setStatusFilter("");
               }}
-              className="px-4 py-2 border border-border-default-default rounded-lg text-text-primary-primary hover:bg-white/5 transition-colors cursor-pointer text-sm font-semibold"
+              className="px-4 py-2 border border-border-default rounded-lg text-text-primary-primary hover:bg-white/5 transition-colors cursor-pointer text-sm font-semibold"
             >
               Clear Filters
             </button>
@@ -256,7 +256,7 @@ export default function DriversPage() {
             return (
               <div
                 key={driver.id}
-                className="group relative bg-surface-secondary border border-border-default-default rounded-xl p-5 hover:border-primary/45 hover:bg-surface-hover transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex flex-col gap-4 overflow-hidden"
+                className="group relative bg-surface-secondary border border-border-default rounded-xl p-5 hover:border-primary/45 hover:bg-surface-hover transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 flex flex-col gap-4 overflow-hidden"
               >
                 {/* Status indicator glow strip */}
                 <div
@@ -285,7 +285,7 @@ export default function DriversPage() {
                 </div>
 
                 {/* Card Content Details */}
-                <div className="flex flex-col gap-2.5 text-xs border-t border-border-default-default/40 pt-4 flex-1">
+                <div className="flex flex-col gap-2.5 text-xs border-t border-border-default/40 pt-4 flex-1">
                   <div className="flex justify-between">
                     <span className="text-text-primary-primary-secondary">Category:</span>
                     <span className="font-semibold text-text-primary-primary">{driver.licenseCategory}</span>
@@ -326,10 +326,10 @@ export default function DriversPage() {
                 </div>
 
                 {/* Card Actions Footer */}
-                <div className="flex items-center gap-2 border-t border-border-default-default/40 pt-4 shrink-0">
+                <div className="flex items-center gap-2 border-t border-border-default/40 pt-4 shrink-0">
                   <button
                     onClick={() => handleView(driver)}
-                    className="flex-1 flex items-center justify-center gap-1.5 bg-white/3 hover:bg-white/7 border border-border-default-default hover:border-border-default-default-hover text-text-primary-primary-secondary hover:text-text-primary-primary py-2 rounded-lg transition-colors cursor-pointer text-xs font-semibold"
+                    className="flex-1 flex items-center justify-center gap-1.5 bg-white/3 hover:bg-white/7 border border-border-default hover:border-border-default-hover text-text-primary-primary-secondary hover:text-text-primary-primary py-2 rounded-lg transition-colors cursor-pointer text-xs font-semibold"
                   >
                     <Eye size={14} />
                     View Details
@@ -337,7 +337,7 @@ export default function DriversPage() {
 
                   <button
                     onClick={() => handleEdit(driver)}
-                    className="p-2 bg-white/3 hover:bg-white/7 border border-border-default-default hover:border-border-default-default-hover text-text-primary-primary-secondary hover:text-text-primary-primary rounded-lg transition-colors cursor-pointer"
+                    className="p-2 bg-white/3 hover:bg-white/7 border border-border-default hover:border-border-default-hover text-text-primary-primary-secondary hover:text-text-primary-primary rounded-lg transition-colors cursor-pointer"
                     title="Edit Details"
                   >
                     <Edit2 size={14} />

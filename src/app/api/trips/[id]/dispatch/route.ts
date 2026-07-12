@@ -68,7 +68,7 @@ export async function PATCH(
       }
 
       // 3. Atomically perform the status updates in a Prisma Transaction
-      updatedTrip = await prisma.$transaction(async (tx) => {
+      updatedTrip = await prisma.$transaction(async (tx: any) => {
         // Update vehicle status
         await tx.vehicle.update({
           where: { id: trip.vehicleId },

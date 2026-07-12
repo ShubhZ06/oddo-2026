@@ -122,8 +122,8 @@ export default function SettingsPage() {
           {/* PROFILE TAB */}
           {activeTab === "profile" && (
             <div className="flex flex-col gap-8 animate-fade-in">
-              <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default-default">
+              <div className="bg-surface-secondary border border-border-default rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default">
                   <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light">
                     <User size={20} />
                   </div>
@@ -140,7 +140,7 @@ export default function SettingsPage() {
                       type="text"
                       value={profileData.name}
                       onChange={(e) => setProfileData({...profileData, name: e.target.value})}
-                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
@@ -149,19 +149,19 @@ export default function SettingsPage() {
                       type="email"
                       value={profileData.email}
                       onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="md:col-span-2 flex justify-end">
-                    <button className="px-5 py-2.5 bg-surface-primary border border-border-default-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
+                    <button className="px-5 py-2.5 bg-surface-primary border border-border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
                       Save Changes
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default-default">
+              <div className="bg-surface-secondary border border-border-default rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default">
                   <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent">
                     <Lock size={20} />
                   </div>
@@ -178,7 +178,7 @@ export default function SettingsPage() {
                       type="password"
                       value={profileData.currentPassword}
                       onChange={(e) => setProfileData({...profileData, currentPassword: e.target.value})}
-                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="flex flex-col gap-1.5 md:col-span-2">
@@ -187,7 +187,7 @@ export default function SettingsPage() {
                       type="password"
                       value={profileData.newPassword}
                       onChange={(e) => setProfileData({...profileData, newPassword: e.target.value})}
-                      className="bg-surface-primary border border-border-default-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                      className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
                     />
                   </div>
                   <div className="md:col-span-2 flex justify-end">
@@ -203,7 +203,7 @@ export default function SettingsPage() {
           {/* USERS TAB */}
           {activeTab === "users" && (
             <div className="animate-fade-in flex flex-col gap-6">
-              <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6 flex items-start gap-4">
+              <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary-light shrink-0">
                   <Shield size={24} />
                 </div>
@@ -235,9 +235,9 @@ export default function SettingsPage() {
 
           {/* SYSTEM TAB */}
           {activeTab === "system" && (
-            <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6 animate-fade-in">
+            <div className="bg-surface-secondary border border-border-default rounded-xl p-6 animate-fade-in">
               <h2 className="text-lg font-semibold mb-6">System Preferences</h2>
-              <div className="text-text-primary-primary-muted text-sm py-12 text-center border-2 border-dashed border-border-default-default rounded-xl">
+              <div className="text-text-primary-primary-muted text-sm py-12 text-center border-2 border-dashed border-border-default rounded-xl">
                 Global settings, notifications, and integration options will go here.
               </div>
             </div>

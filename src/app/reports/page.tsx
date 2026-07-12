@@ -82,12 +82,12 @@ export default function ReportsPage() {
         </div>
         
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-surface-secondary p-1.5 rounded-lg border border-border-default-default">
+          <div className="flex items-center gap-2 bg-surface-secondary p-1.5 rounded-lg border border-border-default">
             <Calendar size={16} className="text-text-primary-primary-muted ml-2" />
             <select 
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="bg-transparent text-sm px-2 py-1.5 focus:outline-none border-r border-border-default-default cursor-pointer text-text-primary-primary"
+              className="bg-transparent text-sm px-2 py-1.5 focus:outline-none border-r border-border-default cursor-pointer text-text-primary-primary"
             >
               <option>Last 30 Days</option>
               <option>Last 3 Months</option>
@@ -105,7 +105,7 @@ export default function ReportsPage() {
               <option>South Zone</option>
             </select>
           </div>
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-secondary border border-border-default-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-secondary border border-border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
             <Download size={16} />
             Export CSV
           </button>
@@ -151,7 +151,7 @@ export default function ReportsPage() {
       {/* Main Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Trend Chart */}
-        <div className="lg:col-span-3 bg-surface-secondary border border-border-default-default rounded-xl p-6">
+        <div className="lg:col-span-3 bg-surface-secondary border border-border-default rounded-xl p-6">
           <div className="mb-4">
             <h3 className="font-semibold">Revenue vs Expenses Trend</h3>
             <p className="text-xs text-text-primary-primary-muted">Financial performance over {dateRange.toLowerCase()}</p>
@@ -162,7 +162,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Expense Breakdown */}
-        <div className="lg:col-span-2 bg-surface-secondary border border-border-default-default rounded-xl p-6">
+        <div className="lg:col-span-2 bg-surface-secondary border border-border-default rounded-xl p-6">
           <div className="mb-4">
             <h3 className="font-semibold">Expense Breakdown</h3>
             <p className="text-xs text-text-primary-primary-muted">Distribution of costs by category</p>
@@ -173,7 +173,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Utilization */}
-        <div className="bg-surface-secondary border border-border-default-default rounded-xl p-6 flex flex-col">
+        <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex flex-col">
           <div className="mb-4">
             <h3 className="font-semibold">Fleet Utilization</h3>
             <p className="text-xs text-text-primary-primary-muted">Overall vehicle status</p>

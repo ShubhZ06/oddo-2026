@@ -81,7 +81,7 @@ export async function PATCH(
       }
 
       // 2. Transaction to update statuses and log readings
-      updatedTrip = await prisma.$transaction(async (tx) => {
+      updatedTrip = await prisma.$transaction(async (tx: any) => {
         // Update vehicle status & odometer
         await tx.vehicle.update({
           where: { id: trip.vehicleId },

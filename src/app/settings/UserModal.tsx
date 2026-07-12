@@ -32,7 +32,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
       <button 
         type="button" 
         onClick={onClose}
-        className="px-4 py-2 rounded-lg text-sm font-medium border border-border-default-default hover:bg-surface-hover transition-colors"
+        className="px-4 py-2 rounded-lg text-sm font-medium border border-border-default hover:bg-surface-hover transition-colors"
       >
         Cancel
       </button>
@@ -61,7 +61,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
             type="text"
             value={formData.name}
             onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
             placeholder="e.g. Jane Doe"
           />
         </div>
@@ -73,7 +73,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
             type="email"
             value={formData.email}
             onChange={(e) => setFormData({...formData, email: e.target.value})}
-            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
             placeholder="e.g. jane@transitops.com"
           />
         </div>
@@ -83,7 +83,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
           <select
             value={formData.role}
             onChange={(e) => setFormData({...formData, role: e.target.value as Role})}
-            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
           >
             {ROLES.map(r => (
               <option key={r} value={r}>{getRoleDisplayName(r)}</option>
@@ -100,7 +100,7 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
             type="password"
             value={formData.password}
             onChange={(e) => setFormData({...formData, password: e.target.value})}
-            className="bg-surface-primary border border-border-default-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
+            className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
             placeholder="••••••••"
           />
         </div>
