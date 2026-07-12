@@ -92,9 +92,9 @@ export default function LoginPage() {
         
         <div className="flex items-center gap-3 mb-12">
           <div className="w-10 h-10 bg-black flex items-center justify-center rounded">
-            <div className="text-white font-black text-lg">LL</div>
+            <div className="text-white font-black text-lg">RM</div>
           </div>
-          <span className="font-bold text-3xl tracking-tight">LoadLogic</span>
+          <span className="font-bold text-3xl tracking-tight">RouteMinds</span>
         </div>
 
         <div className="max-w-sm mt-auto z-10">
@@ -123,9 +123,9 @@ export default function LoginPage() {
         {/* Mobile header (hidden on lg) */}
         <div className="lg:hidden w-full max-w-md mb-8 flex items-center gap-3">
           <div className="w-8 h-8 bg-black flex items-center justify-center rounded">
-            <div className="text-white font-black text-sm">LL</div>
+            <div className="text-white font-black text-sm">RM</div>
           </div>
-          <span className="font-bold text-xl tracking-tight">LoadLogic</span>
+          <span className="font-bold text-xl tracking-tight">RouteMinds</span>
         </div>
 
         <div className="w-full max-w-md bg-white p-8 md:p-10 rounded-[32px] shadow-sm border border-[#e5e7eb]">

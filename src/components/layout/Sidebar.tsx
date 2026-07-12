@@ -51,9 +51,9 @@ export default function Sidebar() {
       {/* Brand */}
       <div className="flex items-center gap-3 mb-8">
         <div className="w-8 h-8 bg-black flex items-center justify-center rounded">
-          <div className="text-white font-black text-sm">LL</div>
+          <div className="text-white font-black text-sm">RM</div>
         </div>
-        <span className="font-bold text-xl text-black tracking-tight">LoadLogic</span>
+        <span className="font-bold text-xl text-black tracking-tight">RouteMinds</span>
       </div>
 
       {/* User Profile */}

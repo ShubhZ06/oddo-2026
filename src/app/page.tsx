@@ -12,7 +12,7 @@ export default function LandingPage() {
 
         <div className="relative z-10 text-center max-w-[900px] px-6 flex flex-col items-center pointer-events-none">
           <h1 className="text-7xl md:text-8xl lg:text-9xl font-extrabold leading-tight tracking-tighter mb-6 text-white drop-shadow-2xl">
-            LoadLogic
+            RouteMinds
           </h1>
 
           <div className="pointer-events-auto mt-8">
