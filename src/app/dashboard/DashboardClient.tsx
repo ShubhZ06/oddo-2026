@@ -208,13 +208,13 @@ export default function DashboardClient({
               <h2 className="text-2xl font-bold text-black tracking-tight">Vehicle Status</h2>
             </div>
             
-            <div className="bg-[#eef2ef] rounded-[32px] p-8 flex flex-col gap-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-[32px] p-8 flex flex-col gap-6 shadow-sm border border-gray-100">
                {vehicleStatus.map((status, i) => (
                   <div key={i} className="flex flex-col gap-2">
                      <div className="flex items-center justify-between text-sm">
                         <span className="font-bold text-gray-700">{status.label}</span>
                      </div>
-                     <div className="w-full h-2 bg-white rounded-full overflow-hidden shadow-inner">
+                     <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden shadow-inner">
                         <div className={`h-full ${status.color} rounded-full`} style={{ width: `${status.percent}%` }}></div>
                      </div>
                   </div>
