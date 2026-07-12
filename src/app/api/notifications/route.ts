@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -16,6 +16,9 @@ export async function GET() {
   const notifications: AppNotification[] = [];
 
   try {
+    if (!prisma) {
+      return NextResponse.json({ notifications: [], total: 0 });
+    }
     const now = new Date();
     const in30Days = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 

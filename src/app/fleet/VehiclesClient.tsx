@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/auth/AuthProvider";
 import DataTable from "@/components/ui/DataTable";
 import StatusBadge from "@/components/ui/StatusBadge";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, formatCurrency } from "@/lib/utils";
 import VehicleModal from "./VehicleModal";
 import { showToast } from "@/components/ui/Toast";
 import { retireVehicle } from "@/actions/vehicle";
@@ -78,7 +78,7 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
     { header: "Type", accessorKey: "type" as const },
     { header: "Capacity", cell: (v: any) => `${formatNumber(v.maxLoadCapacityKg)} kg` },
     { header: "Odometer", cell: (v: any) => `${formatNumber(v.odometerKm)} km` },
-    { header: "Region", cell: (v: any) => v.region || "—" },
+    { header: "Acquisition Cost", cell: (v: any) => formatCurrency(v.acquisitionCost) },
     { header: "Status", cell: (v: any) => <StatusBadge status={v.status} /> },
     {
       header: "Actions",
@@ -86,7 +86,7 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
         <div className="flex items-center gap-1">
           <Link
             href={`/fleet/${v.id}`}
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-black hover:bg-gray-100 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-black hover:bg-gray-100 transition-colors"
             title="View Details"
           >
             <Eye size={15} />
@@ -95,7 +95,7 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
             <>
               <button
                 onClick={() => handleEdit(v)}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                 title="Edit"
               >
                 <Edit2 size={15} />
@@ -103,7 +103,7 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
               <button
                 onClick={() => handleRetire(v.id, v.registrationNumber)}
                 disabled={v.status === "RETIRED"}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-red-600 hover:bg-red-50 disabled:text-gray-300 disabled:hover:bg-transparent disabled:hover:text-gray-300 disabled:cursor-not-allowed transition-colors"
                 title="Retire Vehicle"
               >
                 <Trash2 size={15} />
