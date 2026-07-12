@@ -5,16 +5,26 @@ import DoughnutChart from "@/components/charts/DoughnutChart";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { formatNumber, formatPercent, titleCase } from "@/lib/utils";
 import prisma from "@/lib/prisma";
+import { DataStore } from "@/lib/data-store";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const vehicles = await prisma.vehicle.findMany();
-  const maintenanceLogs = await prisma.maintenanceLog.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 3,
-    include: { vehicle: true }
-  });
+  let vehicles: any[] = [];
+  let maintenanceLogs: any[] = [];
+
+  try {
+    vehicles = await prisma.vehicle.findMany();
+    maintenanceLogs = await prisma.maintenanceLog.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 3,
+      include: { vehicle: true }
+    });
+  } catch (error) {
+    console.warn("Database connection failed on dashboard, falling back to JSON DataStore.", error);
+    vehicles = DataStore.getVehicles();
+    maintenanceLogs = DataStore.getMaintenanceLogs().slice(0, 3);
+  }
 
   const totalVehicles = vehicles.length;
   const inShopCount = vehicles.filter((v: any) => v.status === "IN_SHOP").length;
