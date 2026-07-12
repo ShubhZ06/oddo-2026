@@ -69,7 +69,7 @@ export default function LoginPage() {
       setFailedAttempts(nextAttempts);
       setErrorMessage("Invalid credentials");
       
-      if (nextAttempts >= 3) {
+      if (nextAttempts >= 5) {
         setIsLocked(true);
         setErrorMessage("Account locked/disabled");
       }
