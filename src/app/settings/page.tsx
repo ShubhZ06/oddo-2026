@@ -6,6 +6,7 @@ import DataTable from "@/components/ui/DataTable";
 import { formatDate } from "@/lib/utils";
 import { getRoleDisplayName } from "@/lib/auth";
 import UserModal from "./UserModal";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 // Mock User Data
 const MOCK_USERS = [
@@ -16,6 +17,9 @@ const MOCK_USERS = [
 ];
 
 export default function SettingsPage() {
+  const { user } = useAuth();
+  const isManager = user?.role === "FLEET_MANAGER" || user?.role === "SAFETY_OFFICER";
+  
   const [activeTab, setActiveTab] = useState<"profile" | "users" | "system">("profile");
   
   // Profile State
@@ -96,24 +100,28 @@ export default function SettingsPage() {
             <User size={18} />
             My Profile
           </button>
-          <button
-            onClick={() => setActiveTab("users")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
-              activeTab === "users" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
-            }`}
-          >
-            <Users size={18} />
-            User Management
-          </button>
-          <button
-            onClick={() => setActiveTab("system")}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
-              activeTab === "system" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
-            }`}
-          >
-            <Settings2 size={18} />
-            System Preferences
-          </button>
+          {isManager && (
+            <button
+              onClick={() => setActiveTab("users")}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
+                activeTab === "users" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
+              }`}
+            >
+              <Users size={18} />
+              User Management
+            </button>
+          )}
+          {isManager && (
+            <button
+              onClick={() => setActiveTab("system")}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
+                activeTab === "system" ? "bg-primary/10 text-primary-light" : "hover:bg-surface-hover text-text-primary-primary-secondary hover:text-text-primary-primary"
+              }`}
+            >
+              <Settings2 size={18} />
+              System Preferences
+            </button>
+          )}
         </div>
 
         {/* Tab Content */}
@@ -201,7 +209,7 @@ export default function SettingsPage() {
           )}
 
           {/* USERS TAB */}
-          {activeTab === "users" && (
+          {isManager && activeTab === "users" && (
             <div className="animate-fade-in flex flex-col gap-6">
               <div className="bg-surface-secondary border border-border-default rounded-xl p-6 flex items-start gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary-light shrink-0">
@@ -234,7 +242,7 @@ export default function SettingsPage() {
           )}
 
           {/* SYSTEM TAB */}
-          {activeTab === "system" && (
+          {isManager && activeTab === "system" && (
             <div className="flex flex-col gap-8 animate-fade-in">
               {/* General Settings */}
               <div className="bg-surface-secondary border border-border-default rounded-xl p-6">

@@ -8,8 +8,7 @@ import BarChart from "@/components/charts/BarChart";
 import DoughnutChart from "@/components/charts/DoughnutChart";
 import LineChart from "@/components/charts/LineChart";
 import { formatNumber } from "@/lib/utils";
-
-
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default function ReportsPage() {
   const [dateRange, setDateRange] = useState("This Month");
@@ -132,7 +131,8 @@ export default function ReportsPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 animate-fade-in max-w-[1400px] mx-auto">
+    <ProtectedRoute allowedRoles={["FLEET_MANAGER", "FINANCIAL_ANALYST"]}>
+      <div className="flex flex-col gap-6 animate-fade-in max-w-[1400px] mx-auto">
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -249,6 +249,7 @@ export default function ReportsPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

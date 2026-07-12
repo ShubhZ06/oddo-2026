@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getRoleDisplayName } from "@/lib/auth";
 import {
   LayoutDashboard,
   Truck,
@@ -31,27 +32,13 @@ const ICON_MAP: Record<string, React.ComponentType<any>> = {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [userRole, setUserRole] = useState<Role>("FLEET_MANAGER");
-  const [mounted, setMounted] = useState(false);
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    const sessionStr = localStorage.getItem("transitops_session");
-    if (sessionStr) {
-      try {
-        const session = JSON.parse(sessionStr);
-        if (session.role) {
-          setUserRole(session.role as Role);
-        }
-      } catch (e) {
-        console.error("Failed to parse session", e);
-      }
-    }
-    setMounted(true);
-  }, []);
+  const userRole = user?.role || "FLEET_MANAGER";
 
-  const navItems = mounted 
+  const navItems = !loading 
     ? NAV_ITEMS.filter((item) => item.roles.includes(userRole))
-    : NAV_ITEMS.filter((item) => item.roles.includes("FLEET_MANAGER"));
+    : [];
 
   const handleSignOut = () => {
     localStorage.removeItem("transitops_session");
@@ -76,8 +63,8 @@ export default function Sidebar() {
              <div className="absolute inset-0 bg-[url('https://i.pravatar.cc/150?img=11')] bg-cover" />
           </div>
           <div>
-            <div className="text-sm font-semibold text-black">Ethan Miller</div>
-            <div className="text-xs text-gray-500">Admin</div>
+            <div className="text-sm font-semibold text-black">{user?.name || "User"}</div>
+            <div className="text-xs text-gray-500">{user?.role === "FLEET_MANAGER" ? "Admin" : getRoleDisplayName(userRole)}</div>
           </div>
         </div>
         <Link 

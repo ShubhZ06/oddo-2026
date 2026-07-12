@@ -1,36 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Plus, Filter, MoreHorizontal, ArrowDownUp } from "lucide-react";
 import Select from "@/components/ui/Select";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  const isDriver = user?.role === "DRIVER";
   const [vehicleType, setVehicleType] = useState("Vehicle Type: All");
   const [status, setStatus] = useState("Status: All");
   const [region, setRegion] = useState("Region: All");
+  const [dashboardData, setDashboardData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchDashboard() {
+      try {
+        const res = await fetch("/api/dashboard");
+        if (res.ok) {
+          const data = await res.json();
+          setDashboardData(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch dashboard data", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchDashboard();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-[400px]">
+        <div className="w-8 h-8 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
   const kpis = [
-    { label: "ACTIVE VEHICLES", value: "53", border: "border-blue-500" },
-    { label: "AVAILABLE VEHICLES", value: "42", border: "border-green-500" },
-    { label: "VEHICLES IN MAINTENANCE", value: "05", border: "border-orange-500" },
-    { label: "ACTIVE TRIPS", value: "18", border: "border-blue-400" },
-    { label: "PENDING TRIPS", value: "09", border: "border-gray-400" },
-    { label: "DRIVERS ON DUTY", value: "26", border: "border-purple-500" },
-    { label: "FLEET UTILIZATION", value: "81%", border: "border-green-400" },
+    { label: "ACTIVE VEHICLES", value: dashboardData?.kpis.activeVehicles?.toString().padStart(2, '0') || "00", border: "border-blue-500" },
+    { label: "AVAILABLE VEHICLES", value: dashboardData?.kpis.availableVehicles?.toString().padStart(2, '0') || "00", border: "border-green-500" },
+    { label: "VEHICLES IN MAINTENANCE", value: dashboardData?.kpis.maintenanceVehicles?.toString().padStart(2, '0') || "00", border: "border-orange-500" },
+    { label: "ACTIVE TRIPS", value: dashboardData?.kpis.activeTrips?.toString().padStart(2, '0') || "00", border: "border-blue-400" },
+    { label: "PENDING TRIPS", value: dashboardData?.kpis.pendingTrips?.toString().padStart(2, '0') || "00", border: "border-gray-400" },
+    { label: "DRIVERS ON DUTY", value: dashboardData?.kpis.driversOnDuty?.toString().padStart(2, '0') || "00", border: "border-purple-500", hideForDriver: true },
+    { label: "FLEET UTILIZATION", value: `${dashboardData?.kpis.fleetUtilization || 0}%`, border: "border-green-400", hideForDriver: true },
   ];
 
-  const recentTrips = [
-    { id: "TR001", vehicle: "VAN-05", driver: "Alex", status: "On Trip", statusColor: "bg-blue-50 text-blue-700 border-blue-200", eta: "45 min" },
-    { id: "TR002", vehicle: "TRX-12", driver: "John", status: "Completed", statusColor: "bg-green-50 text-green-700 border-green-200", eta: "—" },
-    { id: "TR003", vehicle: "MINI-08", driver: "Priya", status: "Dispatched", statusColor: "bg-indigo-50 text-indigo-700 border-indigo-200", eta: "1h 10m" },
-    { id: "TR004", vehicle: "—", driver: "—", status: "Draft", statusColor: "bg-gray-50 text-gray-600 border-gray-200", eta: "Awaiting vehicle" },
-  ];
+  const visibleKpis = isDriver ? kpis.filter(k => !k.hideForDriver) : kpis;
 
-  const vehicleStatus = [
-    { label: "Available", percent: 70, color: "bg-green-500" },
-    { label: "On Trip", percent: 25, color: "bg-blue-500" },
-    { label: "In Shop", percent: 8, color: "bg-orange-500" },
-    { label: "Retired", percent: 3, color: "bg-red-400" },
-  ];
+  const recentTrips: any[] = dashboardData?.recentTrips || [];
+  const vehicleStatus: any[] = dashboardData?.vehicleStatus || [];
 
   return (
     <div className="flex flex-col animate-fade-in w-full max-w-[1400px] mx-auto">
@@ -91,7 +113,7 @@ export default function DashboardPage() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-10">
-        {kpis.map((kpi, i) => (
+        {visibleKpis.map((kpi, i) => (
           <div key={i} className={`bg-white rounded-2xl p-5 border border-gray-100 shadow-sm relative overflow-hidden flex flex-col justify-between h-[120px]`}>
             {/* Left border accent reflecting the design from the image */}
             <div className={`absolute left-0 top-0 bottom-0 w-1 ${kpi.border}`}></div>
@@ -125,46 +147,52 @@ export default function DashboardPage() {
 
           {/* Table Rows */}
           <div className="flex flex-col gap-3">
-             {recentTrips.map((trip, i) => (
-                <div key={i} className="grid grid-cols-6 gap-4 items-center bg-white px-6 py-4 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                   <div className="col-span-1 font-bold text-sm text-black truncate">{trip.id}</div>
-                   <div className="col-span-1 font-semibold text-sm text-gray-700 truncate">{trip.vehicle}</div>
-                   <div className="col-span-1 font-semibold text-sm text-gray-700 truncate">{trip.driver}</div>
-                   <div className="col-span-1 flex justify-center">
-                      <span className={`px-3 py-1 rounded-lg text-[11px] uppercase tracking-wider font-bold border ${trip.statusColor}`}>
-                        {trip.status}
-                      </span>
-                   </div>
-                   <div className="col-span-1 text-center font-semibold text-sm text-gray-600 truncate">{trip.eta}</div>
-                   <div className="col-span-1 flex justify-end">
-                      <button className="w-8 h-8 flex items-center justify-center bg-gray-50 border border-gray-200 rounded-full text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer">
-                         <MoreHorizontal size={16} />
-                      </button>
-                   </div>
-                </div>
-             ))}
+             {recentTrips.length === 0 ? (
+               <div className="text-center py-8 text-sm text-gray-500">No recent trips found.</div>
+             ) : (
+               recentTrips.map((trip, i) => (
+                  <div key={i} className="grid grid-cols-6 gap-4 items-center bg-white px-6 py-4 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                     <div className="col-span-1 font-bold text-sm text-black truncate">{trip.id}</div>
+                     <div className="col-span-1 font-semibold text-sm text-gray-700 truncate">{trip.vehicle}</div>
+                     <div className="col-span-1 font-semibold text-sm text-gray-700 truncate">{trip.driver}</div>
+                     <div className="col-span-1 flex justify-center">
+                        <span className={`px-3 py-1 rounded-lg text-[11px] uppercase tracking-wider font-bold border ${trip.statusColor}`}>
+                          {trip.status}
+                        </span>
+                     </div>
+                     <div className="col-span-1 text-center font-semibold text-sm text-gray-600 truncate">{trip.eta}</div>
+                     <div className="col-span-1 flex justify-end">
+                        <button className="w-8 h-8 flex items-center justify-center bg-gray-50 border border-gray-200 rounded-full text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer">
+                           <MoreHorizontal size={16} />
+                        </button>
+                     </div>
+                  </div>
+               ))
+             )}
           </div>
         </div>
 
-        {/* Vehicle Status */}
-        <div className="lg:col-span-1 flex flex-col">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-black tracking-tight">Vehicle Status</h2>
+        {/* Vehicle Status (Hidden for Drivers) */}
+        {!isDriver && (
+          <div className="lg:col-span-1 flex flex-col">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-black tracking-tight">Vehicle Status</h2>
+            </div>
+            
+            <div className="bg-[#eef2ef] rounded-[32px] p-8 flex flex-col gap-6 shadow-sm border border-gray-100">
+               {vehicleStatus.map((status, i) => (
+                  <div key={i} className="flex flex-col gap-2">
+                     <div className="flex items-center justify-between text-sm">
+                        <span className="font-bold text-gray-700">{status.label}</span>
+                     </div>
+                     <div className="w-full h-2 bg-white rounded-full overflow-hidden shadow-inner">
+                        <div className={`h-full ${status.color} rounded-full`} style={{ width: `${status.percent}%` }}></div>
+                     </div>
+                  </div>
+               ))}
+            </div>
           </div>
-          
-          <div className="bg-[#eef2ef] rounded-[32px] p-8 flex flex-col gap-6 shadow-sm border border-gray-100">
-             {vehicleStatus.map((status, i) => (
-                <div key={i} className="flex flex-col gap-2">
-                   <div className="flex items-center justify-between text-sm">
-                      <span className="font-bold text-gray-700">{status.label}</span>
-                   </div>
-                   <div className="w-full h-2 bg-white rounded-full overflow-hidden shadow-inner">
-                      <div className={`h-full ${status.color} rounded-full`} style={{ width: `${status.percent}%` }}></div>
-                   </div>
-                </div>
-             ))}
-          </div>
-        </div>
+        )}
 
       </div>
     </div>
