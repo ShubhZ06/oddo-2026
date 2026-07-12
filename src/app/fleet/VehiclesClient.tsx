@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Edit2, Trash2, Eye } from "lucide-react";
+import { Plus, Edit2, Trash2, Eye, Search } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/components/auth/AuthProvider";
 import DataTable from "@/components/ui/DataTable";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { formatNumber } from "@/lib/utils";
@@ -11,14 +12,47 @@ import { showToast } from "@/components/ui/Toast";
 import { retireVehicle } from "@/actions/vehicle";
 
 export default function VehiclesClient({ initialVehicles }: { initialVehicles: any[] }) {
+  const { user } = useAuth();
+  const isAdmin = user?.role === "FLEET_MANAGER";
+  
   const [searchQuery, setSearchQuery] = useState("");
+  const [regNoSearch, setRegNoSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<any>(null);
 
-  const filteredVehicles = initialVehicles.filter(v => 
-    v.registrationNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    v.nameModel.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter out retired/in-shop for non-admins
+  const visibleVehicles = initialVehicles.filter(v => {
+    if (isAdmin) return true;
+    return v.status !== "RETIRED" && v.status !== "IN_SHOP";
+  });
+
+  const uniqueTypes = Array.from(new Set(visibleVehicles.map(v => v.type))).filter(Boolean);
+
+  const filteredVehicles = visibleVehicles.filter(v => {
+    const cleanSearch = searchQuery.toLowerCase().trim();
+    
+    // The main search bar works with all keywords
+    const matchesGeneric = 
+      v.registrationNumber.toLowerCase().includes(cleanSearch) ||
+      v.nameModel.toLowerCase().includes(cleanSearch) ||
+      (v.status || "").toLowerCase().includes(cleanSearch) ||
+      (v.odometerKm?.toString() || "").includes(cleanSearch) ||
+      (v.maxLoadCapacityKg?.toString() || "").includes(cleanSearch.replace(/kg/i, "").trim()) ||
+      (`${v.maxLoadCapacityKg || 0} kg`).includes(cleanSearch) ||
+      (`${v.maxLoadCapacityKg || 0}kg`).includes(cleanSearch) ||
+      (v.region || "").toLowerCase().includes(cleanSearch);
+      
+    // Specific Reg No Search
+    const matchesRegNo = v.registrationNumber.toLowerCase().includes(regNoSearch.toLowerCase().trim());
+    
+    // Dropdown filters
+    const matchesType = typeFilter === "All" || v.type === typeFilter;
+    const matchesStatus = statusFilter === "All" || (v.status || "").toUpperCase() === statusFilter.toUpperCase();
+    
+    return matchesGeneric && matchesRegNo && matchesType && matchesStatus;
+  });
 
   const handleEdit = (vehicle: any) => {
     setEditingVehicle(vehicle);
@@ -91,11 +125,70 @@ export default function VehiclesClient({ initialVehicles }: { initialVehicles: a
         </div>
       </div>
 
+      <div className="flex flex-col gap-4 mb-2">
+        {/* Main Search Bar */}
+        <div className="relative w-full sm:w-80">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <input 
+            type="text" 
+            placeholder="Search by any keyword..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2 text-sm text-gray-700 outline-none focus:border-black shadow-sm transition-all font-medium"
+          />
+        </div>
+
+        {/* Custom Filters */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="text-xs font-bold text-gray-400 tracking-wider mr-2 uppercase">Filters:</div>
+          
+          {/* 1) Type Filter */}
+          <div className="relative w-40">
+            <select 
+              value={typeFilter}
+              onChange={(e) => setTypeFilter(e.target.value)}
+              className="appearance-none w-full bg-white border border-gray-200 text-gray-700 text-sm font-semibold py-2.5 pl-4 pr-10 rounded-xl outline-none focus:border-black cursor-pointer shadow-sm"
+            >
+              <option value="All">Type: All</option>
+              {uniqueTypes.map(t => (
+                <option key={t as string} value={t as string}>{t as string}</option>
+              ))}
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
+          </div>
+
+          {/* 2) Status Filter */}
+          <div className="relative w-40">
+            <select 
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="appearance-none w-full bg-white border border-gray-200 text-gray-700 text-sm font-semibold py-2.5 pl-4 pr-10 rounded-xl outline-none focus:border-black cursor-pointer shadow-sm"
+            >
+              <option value="All">Status: All</option>
+              <option value="Available">Available</option>
+              <option value="On_Trip">On Trip</option>
+              <option value="In_Shop">In Shop</option>
+              <option value="Retired">Retired</option>
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
+          </div>
+          
+          {/* 3) Reg No Search */}
+          <div className="relative w-64">
+            <input 
+              type="text" 
+              placeholder="Search reg.no....." 
+              value={regNoSearch}
+              onChange={(e) => setRegNoSearch(e.target.value)}
+              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm text-gray-700 outline-none focus:border-black shadow-sm transition-all font-medium"
+            />
+          </div>
+        </div>
+      </div>
+
       <DataTable 
         data={filteredVehicles}
         columns={columns}
-        searchPlaceholder="Search by reg no. or model..."
-        onSearch={setSearchQuery}
         actions={
           <button 
             onClick={() => setIsModalOpen(true)}

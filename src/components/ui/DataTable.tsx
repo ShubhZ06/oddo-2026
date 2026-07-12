@@ -36,20 +36,18 @@ export default function DataTable<T extends { id: string | number }>({
     <div className="flex flex-col gap-4">
       {/* Table Toolbar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
-        <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-          <input
-            type="text"
-            placeholder={searchPlaceholder}
-            onChange={(e) => onSearch?.(e.target.value)}
-            className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2 text-sm text-gray-700 outline-none focus:border-black shadow-sm transition-all font-medium"
-          />
-        </div>
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-semibold hover:bg-gray-50 transition-colors shadow-sm text-gray-700">
-            <SlidersHorizontal size={16} />
-            Filters
-          </button>
+        {onSearch && (
+          <div className="relative w-full sm:w-80">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              onChange={(e) => onSearch(e.target.value)}
+              className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2 text-sm text-gray-700 outline-none focus:border-black shadow-sm transition-all font-medium"
+            />
+          </div>
+        )}
+        <div className="flex items-center gap-3 w-full sm:w-auto ml-auto">
           {actions}
         </div>
       </div>
