@@ -1,8 +1,21 @@
 import fs from "fs";
 import path from "path";
-import type { Driver, DriverFormData } from "@/types";
+import type {
+  Driver,
+  DriverFormData,
+  Vehicle,
+  VehicleFormData,
+  Trip,
+  TripFormData,
+  TripCompleteData,
+} from "@/types";
 
 const DATA_FILE_PATH = path.join(process.cwd(), "src/lib/drivers-data.json");
+const VEHICLES_FILE_PATH = path.join(process.cwd(), "src/lib/vehicles-data.json");
+const TRIPS_FILE_PATH = path.join(process.cwd(), "src/lib/trips-data.json");
+const MAINTENANCE_FILE_PATH = path.join(process.cwd(), "src/lib/maintenance-data.json");
+const FUEL_LOGS_FILE_PATH = path.join(process.cwd(), "src/lib/fuel-logs-data.json");
+const EXPENSES_FILE_PATH = path.join(process.cwd(), "src/lib/expenses-data.json");
 
 // Initial mock data to seed the file if it doesn't exist
 const INITIAL_DRIVERS: Driver[] = [
@@ -97,7 +110,83 @@ function writeDriversToFile(drivers: Driver[]): void {
   }
 }
 
+// Helper for Vehicles
+function getVehiclesFromFile(): Vehicle[] {
+  try {
+    if (!fs.existsSync(VEHICLES_FILE_PATH)) {
+      return [];
+    }
+    const data = fs.readFileSync(VEHICLES_FILE_PATH, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error reading vehicles from file, returning empty list:", error);
+    return [];
+  }
+}
+
+function writeVehiclesToFile(vehicles: Vehicle[]): void {
+  try {
+    fs.writeFileSync(VEHICLES_FILE_PATH, JSON.stringify(vehicles, null, 2));
+  } catch (error) {
+    console.error("Error writing vehicles to file:", error);
+  }
+}
+
+// Helper for Trips
+function getTripsFromFile(): Trip[] {
+  try {
+    if (!fs.existsSync(TRIPS_FILE_PATH)) {
+      return [];
+    }
+    const data = fs.readFileSync(TRIPS_FILE_PATH, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error reading trips from file, returning empty list:", error);
+    return [];
+  }
+}
+
+function writeTripsToFile(trips: Trip[]): void {
+  try {
+    fs.writeFileSync(TRIPS_FILE_PATH, JSON.stringify(trips, null, 2));
+  } catch (error) {
+    console.error("Error writing trips to file:", error);
+  }
+}
+
+// Helpers for Maintenance, Fuel Logs, Expenses
+function getMaintenanceFromFile(): any[] {
+  try {
+    if (!fs.existsSync(MAINTENANCE_FILE_PATH)) return [];
+    return JSON.parse(fs.readFileSync(MAINTENANCE_FILE_PATH, "utf-8"));
+  } catch (error) {
+    console.error("Error reading maintenance from file:", error);
+    return [];
+  }
+}
+
+function getFuelLogsFromFile(): any[] {
+  try {
+    if (!fs.existsSync(FUEL_LOGS_FILE_PATH)) return [];
+    return JSON.parse(fs.readFileSync(FUEL_LOGS_FILE_PATH, "utf-8"));
+  } catch (error) {
+    console.error("Error reading fuel logs from file:", error);
+    return [];
+  }
+}
+
+function getExpensesFromFile(): any[] {
+  try {
+    if (!fs.existsSync(EXPENSES_FILE_PATH)) return [];
+    return JSON.parse(fs.readFileSync(EXPENSES_FILE_PATH, "utf-8"));
+  } catch (error) {
+    console.error("Error reading expenses from file:", error);
+    return [];
+  }
+}
+
 export const DataStore = {
+  // ---------- DRIVERS ----------
   getDrivers: (): Driver[] => {
     return getDriversFromFile();
   },
@@ -183,4 +272,366 @@ export const DataStore = {
     writeDriversToFile(filtered);
     return true;
   },
+
+  // ---------- VEHICLES ----------
+  getVehicles: (): Vehicle[] => {
+    return getVehiclesFromFile();
+  },
+
+  getVehicleById: (id: number): Vehicle | undefined => {
+    const vehicles = getVehiclesFromFile();
+    return vehicles.find((v) => v.id === id);
+  },
+
+  getAvailableVehicles: (): Vehicle[] => {
+    const vehicles = getVehiclesFromFile();
+    return vehicles
+      .filter((v) => v.status === "AVAILABLE")
+      .sort((a, b) => a.registrationNumber.localeCompare(b.registrationNumber));
+  },
+
+  updateVehicleStatus: (id: number, status: any): Vehicle => {
+    const vehicles = getVehiclesFromFile();
+    const index = vehicles.findIndex((v) => v.id === id);
+    if (index === -1) {
+      throw new Error(`Vehicle with ID ${id} not found.`);
+    }
+    vehicles[index].status = status;
+    vehicles[index].updatedAt = new Date().toISOString();
+    writeVehiclesToFile(vehicles);
+    return vehicles[index];
+  },
+
+  updateVehicleOdometer: (id: number, odometerKm: number): Vehicle => {
+    const vehicles = getVehiclesFromFile();
+    const index = vehicles.findIndex((v) => v.id === id);
+    if (index === -1) {
+      throw new Error(`Vehicle with ID ${id} not found.`);
+    }
+    vehicles[index].odometerKm = odometerKm;
+    vehicles[index].updatedAt = new Date().toISOString();
+    writeVehiclesToFile(vehicles);
+    return vehicles[index];
+  },
+
+  // ---------- TRIPS ----------
+  getTrips: (): Trip[] => {
+    const trips = getTripsFromFile();
+    const vehicles = getVehiclesFromFile();
+    const drivers = getDriversFromFile();
+
+    return trips.map((t) => ({
+      ...t,
+      vehicle: vehicles.find((v) => v.id === t.vehicleId),
+      driver: drivers.find((d) => d.id === t.driverId),
+    }));
+  },
+
+  getTripById: (id: number): (Trip & { fuelLogs: any[]; expenses: any[] }) | undefined => {
+    const trips = getTripsFromFile();
+    const trip = trips.find((t) => t.id === id);
+    if (!trip) return undefined;
+
+    const vehicles = getVehiclesFromFile();
+    const drivers = getDriversFromFile();
+
+    return {
+      ...trip,
+      vehicle: vehicles.find((v) => v.id === trip.vehicleId),
+      driver: drivers.find((d) => d.id === trip.driverId),
+      fuelLogs: [],
+      expenses: [],
+    };
+  },
+
+  createTrip: (formData: TripFormData): Trip => {
+    const trips = getTripsFromFile();
+    
+    // Check vehicle status and capacity
+    const vehicles = getVehiclesFromFile();
+    const vehicle = vehicles.find((v) => v.id === Number(formData.vehicleId));
+    if (!vehicle) {
+      throw new Error("Vehicle not found.");
+    }
+    if (vehicle.status !== "AVAILABLE") {
+      throw new Error(`Vehicle is currently not available (status: ${vehicle.status})`);
+    }
+    if (Number(formData.cargoWeightKg) > vehicle.maxLoadCapacityKg) {
+      throw new Error(`Cargo weight (${formData.cargoWeightKg} kg) exceeds vehicle's maximum load capacity (${vehicle.maxLoadCapacityKg} kg)`);
+    }
+
+    // Check driver status and license expiry
+    const drivers = getDriversFromFile();
+    const driver = drivers.find((d) => d.id === Number(formData.driverId));
+    if (!driver) {
+      throw new Error("Driver not found.");
+    }
+    if (driver.status !== "AVAILABLE") {
+      throw new Error(`Driver is currently not available (status: ${driver.status})`);
+    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (new Date(driver.licenseExpiry) < today) {
+      throw new Error("Driver's license is expired");
+    }
+
+    const nextId = trips.length > 0 ? Math.max(...trips.map((t) => t.id)) + 1 : 1;
+    const newTrip: Trip = {
+      id: nextId,
+      vehicleId: Number(formData.vehicleId),
+      driverId: Number(formData.driverId),
+      source: formData.source,
+      destination: formData.destination,
+      cargoWeightKg: Number(formData.cargoWeightKg),
+      distanceKm: Number(formData.distanceKm),
+      revenue: Number(formData.revenue),
+      status: "DRAFT",
+      finalOdometer: null,
+      fuelConsumedLiters: null,
+      createdAt: new Date().toISOString(),
+      dispatchedAt: null,
+      completedAt: null,
+    };
+
+    trips.push(newTrip);
+    writeTripsToFile(trips);
+
+    return {
+      ...newTrip,
+      vehicle,
+      driver,
+    };
+  },
+
+  updateTrip: (id: number, formData: any): Trip => {
+    const trips = getTripsFromFile();
+    const index = trips.findIndex((t) => t.id === id);
+    if (index === -1) {
+      throw new Error(`Trip with ID ${id} not found.`);
+    }
+
+    const trip = trips[index];
+    if (trip.status !== "DRAFT") {
+      throw new Error(`Cannot edit trip in ${trip.status} status. Only DRAFT trips can be edited.`);
+    }
+
+    const vehicles = getVehiclesFromFile();
+    const drivers = getDriversFromFile();
+
+    const updatedTrip: Trip = {
+      ...trip,
+      ...formData,
+      vehicleId: formData.vehicleId !== undefined ? Number(formData.vehicleId) : trip.vehicleId,
+      driverId: formData.driverId !== undefined ? Number(formData.driverId) : trip.driverId,
+      cargoWeightKg: formData.cargoWeightKg !== undefined ? Number(formData.cargoWeightKg) : trip.cargoWeightKg,
+      distanceKm: formData.distanceKm !== undefined ? Number(formData.distanceKm) : trip.distanceKm,
+      revenue: formData.revenue !== undefined ? Number(formData.revenue) : trip.revenue,
+    };
+
+    // Validations on updated vehicle
+    if (formData.vehicleId !== undefined && Number(formData.vehicleId) !== trip.vehicleId) {
+      const vehicle = vehicles.find((v) => v.id === Number(formData.vehicleId));
+      if (!vehicle || vehicle.status !== "AVAILABLE") {
+        throw new Error("New vehicle is not available");
+      }
+      if (updatedTrip.cargoWeightKg > vehicle.maxLoadCapacityKg) {
+        throw new Error(`Cargo weight exceeds new vehicle's capacity (${vehicle.maxLoadCapacityKg} kg)`);
+      }
+    } else if (formData.cargoWeightKg !== undefined) {
+      const vehicle = vehicles.find((v) => v.id === updatedTrip.vehicleId);
+      if (vehicle && updatedTrip.cargoWeightKg > vehicle.maxLoadCapacityKg) {
+        throw new Error(`Cargo weight exceeds vehicle's capacity (${vehicle.maxLoadCapacityKg} kg)`);
+      }
+    }
+
+    // Validations on updated driver
+    if (formData.driverId !== undefined && Number(formData.driverId) !== trip.driverId) {
+      const driver = drivers.find((d) => d.id === Number(formData.driverId));
+      if (!driver || driver.status !== "AVAILABLE") {
+        throw new Error("New driver is not available");
+      }
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (new Date(driver.licenseExpiry) < today) {
+        throw new Error("New driver's license is expired");
+      }
+    }
+
+    trips[index] = updatedTrip;
+    writeTripsToFile(trips);
+
+    return {
+      ...updatedTrip,
+      vehicle: vehicles.find((v) => v.id === updatedTrip.vehicleId),
+      driver: drivers.find((d) => d.id === updatedTrip.driverId),
+    };
+  },
+
+  dispatchTrip: (id: number): Trip => {
+    const trips = getTripsFromFile();
+    const tripIndex = trips.findIndex((t) => t.id === id);
+    if (tripIndex === -1) {
+      throw new Error(`Trip with ID ${id} not found.`);
+    }
+
+    const trip = trips[tripIndex];
+    if (trip.status !== "DRAFT") {
+      throw new Error(`Only DRAFT trips can be dispatched. Current status: ${trip.status}`);
+    }
+
+    const vehicles = getVehiclesFromFile();
+    const vehicleIndex = vehicles.findIndex((v) => v.id === trip.vehicleId);
+    if (vehicleIndex === -1) {
+      throw new Error("Assigned vehicle not found.");
+    }
+    if (vehicles[vehicleIndex].status !== "AVAILABLE") {
+      throw new Error(`Assigned vehicle is not available (current status: ${vehicles[vehicleIndex].status})`);
+    }
+
+    const drivers = getDriversFromFile();
+    const driverIndex = drivers.findIndex((d) => d.id === trip.driverId);
+    if (driverIndex === -1) {
+      throw new Error("Assigned driver not found.");
+    }
+    if (drivers[driverIndex].status !== "AVAILABLE") {
+      throw new Error(`Assigned driver is not available (current status: ${drivers[driverIndex].status})`);
+    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (new Date(drivers[driverIndex].licenseExpiry) < today) {
+      throw new Error("Assigned driver's license has expired and cannot be dispatched");
+    }
+
+    // Update vehicle status
+    vehicles[vehicleIndex].status = "ON_TRIP";
+    vehicles[vehicleIndex].updatedAt = new Date().toISOString();
+    writeVehiclesToFile(vehicles);
+
+    // Update driver status
+    drivers[driverIndex].status = "ON_TRIP";
+    drivers[driverIndex].updatedAt = new Date().toISOString();
+    writeDriversToFile(drivers);
+
+    // Update trip status
+    trips[tripIndex].status = "DISPATCHED";
+    trips[tripIndex].dispatchedAt = new Date().toISOString();
+    writeTripsToFile(trips);
+
+    return {
+      ...trips[tripIndex],
+      vehicle: vehicles[vehicleIndex],
+      driver: drivers[driverIndex],
+    };
+  },
+
+  completeTrip: (id: number, finalOdometer: number, fuelConsumedLiters: number): Trip => {
+    const trips = getTripsFromFile();
+    const tripIndex = trips.findIndex((t) => t.id === id);
+    if (tripIndex === -1) {
+      throw new Error(`Trip with ID ${id} not found.`);
+    }
+
+    const trip = trips[tripIndex];
+    if (trip.status !== "DISPATCHED") {
+      throw new Error(`Only DISPATCHED trips can be completed. Current status: ${trip.status}`);
+    }
+
+    const vehicles = getVehiclesFromFile();
+    const vehicleIndex = vehicles.findIndex((v) => v.id === trip.vehicleId);
+    if (vehicleIndex === -1) {
+      throw new Error("Assigned vehicle not found.");
+    }
+
+    if (finalOdometer < vehicles[vehicleIndex].odometerKm) {
+      throw new Error(`Final odometer (${finalOdometer} km) cannot be less than the vehicle's starting odometer (${vehicles[vehicleIndex].odometerKm} km)`);
+    }
+
+    const drivers = getDriversFromFile();
+    const driverIndex = drivers.findIndex((d) => d.id === trip.driverId);
+    if (driverIndex === -1) {
+      throw new Error("Assigned driver not found.");
+    }
+
+    // Update vehicle status & odometer
+    vehicles[vehicleIndex].status = "AVAILABLE";
+    vehicles[vehicleIndex].odometerKm = finalOdometer;
+    vehicles[vehicleIndex].updatedAt = new Date().toISOString();
+    writeVehiclesToFile(vehicles);
+
+    // Update driver status
+    drivers[driverIndex].status = "AVAILABLE";
+    drivers[driverIndex].updatedAt = new Date().toISOString();
+    writeDriversToFile(drivers);
+
+    // Update trip details
+    trips[tripIndex].status = "COMPLETED";
+    trips[tripIndex].finalOdometer = finalOdometer;
+    trips[tripIndex].fuelConsumedLiters = fuelConsumedLiters;
+    trips[tripIndex].completedAt = new Date().toISOString();
+    writeTripsToFile(trips);
+
+    return {
+      ...trips[tripIndex],
+      vehicle: vehicles[vehicleIndex],
+      driver: drivers[driverIndex],
+    };
+  },
+
+  cancelTrip: (id: number): Trip => {
+    const trips = getTripsFromFile();
+    const tripIndex = trips.findIndex((t) => t.id === id);
+    if (tripIndex === -1) {
+      throw new Error(`Trip with ID ${id} not found.`);
+    }
+
+    const trip = trips[tripIndex];
+    if (trip.status === "COMPLETED" || trip.status === "CANCELLED") {
+      throw new Error(`Cannot cancel a trip in ${trip.status} status`);
+    }
+
+    const wasDispatched = trip.status === "DISPATCHED";
+
+    const vehicles = getVehiclesFromFile();
+    const drivers = getDriversFromFile();
+
+    if (wasDispatched) {
+      const vehicleIndex = vehicles.findIndex((v) => v.id === trip.vehicleId);
+      if (vehicleIndex !== -1) {
+        vehicles[vehicleIndex].status = "AVAILABLE";
+        vehicles[vehicleIndex].updatedAt = new Date().toISOString();
+        writeVehiclesToFile(vehicles);
+      }
+
+      const driverIndex = drivers.findIndex((d) => d.id === trip.driverId);
+      if (driverIndex !== -1) {
+        drivers[driverIndex].status = "AVAILABLE";
+        drivers[driverIndex].updatedAt = new Date().toISOString();
+        writeDriversToFile(drivers);
+      }
+    }
+
+    trips[tripIndex].status = "CANCELLED";
+    writeTripsToFile(trips);
+
+    return {
+      ...trips[tripIndex],
+      vehicle: vehicles.find((v) => v.id === trip.vehicleId),
+      driver: drivers.find((d) => d.id === trip.driverId),
+    };
+  },
+
+  // ---------- OTHER ENTITIES ----------
+  getMaintenanceLogs: (): any[] => {
+    return getMaintenanceFromFile();
+  },
+  
+  getFuelLogs: (): any[] => {
+    return getFuelLogsFromFile();
+  },
+
+  getExpenses: (): any[] => {
+    return getExpensesFromFile();
+  },
 };
+
+export default DataStore;

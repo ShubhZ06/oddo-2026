@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { DataStore } from "@/lib/data-store";
 import prisma from "@/lib/prisma";
 
 export async function PATCH(
@@ -43,75 +44,87 @@ export async function PATCH(
       );
     }
 
-    // 1. Fetch the trip
-    const trip = await prisma.trip.findUnique({
-      where: { id: tripId },
-      include: {
-        vehicle: true,
-        driver: true,
-      },
-    });
-
-    if (!trip) {
-      return NextResponse.json(
-        { success: false, error: "Trip not found" },
-        { status: 404 }
-      );
-    }
-
-    if (trip.status !== "DISPATCHED") {
-      return NextResponse.json(
-        { success: false, error: `Only DISPATCHED trips can be completed. Current status: ${trip.status}` },
-        { status: 400 }
-      );
-    }
-
-    // Odometer validation: final odometer must be >= starting odometer
-    // Starting odometer = vehicle's current odometer (since vehicle was locked to ON_TRIP, it shouldn't have changed)
-    if (odometer < trip.vehicle.odometerKm) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `Final odometer (${odometer} km) cannot be less than the vehicle's starting odometer (${trip.vehicle.odometerKm} km)`,
-        },
-        { status: 400 }
-      );
-    }
-
-    // 2. Transaction to update statuses and log readings
-    const updatedTrip = await prisma.$transaction(async (tx) => {
-      // Update vehicle status & odometer
-      await tx.vehicle.update({
-        where: { id: trip.vehicleId },
-        data: {
-          status: "AVAILABLE",
-          odometerKm: odometer,
-        },
-      });
-
-      // Update driver status
-      await tx.driver.update({
-        where: { id: trip.driverId },
-        data: {
-          status: "AVAILABLE",
-        },
-      });
-
-      // Update trip details
-      return await tx.trip.update({
+    let updatedTrip;
+    try {
+      // 1. Fetch the trip
+      const trip = await prisma.trip.findUnique({
         where: { id: tripId },
-        data: {
-          status: "COMPLETED",
-          finalOdometer: odometer,
-          fuelConsumedLiters: fuel,
-          completedAt: new Date(),
-        },
         include: {
           vehicle: true,
           driver: true,
         },
       });
-    });
+
+      if (!trip) {
+        return NextResponse.json(
+          { success: false, error: "Trip not found" },
+          { status: 404 }
+        );
+      }
+
+      if (trip.status !== "DISPATCHED") {
+        return NextResponse.json(
+          { success: false, error: `Only DISPATCHED trips can be completed. Current status: ${trip.status}` },
+          { status: 400 }
+        );
+      }
+
+      // Odometer validation: final odometer must be >= starting odometer
+      if (odometer < trip.vehicle.odometerKm) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: `Final odometer (${odometer} km) cannot be less than the vehicle's starting odometer (${trip.vehicle.odometerKm} km)`,
+          },
+          { status: 400 }
+        );
+      }
+
+      // 2. Transaction to update statuses and log readings
+      updatedTrip = await prisma.$transaction(async (tx) => {
+        // Update vehicle status & odometer
+        await tx.vehicle.update({
+          where: { id: trip.vehicleId },
+          data: {
+            status: "AVAILABLE",
+            odometerKm: odometer,
+          },
+        });
+
+        // Update driver status
+        await tx.driver.update({
+          where: { id: trip.driverId },
+          data: {
+            status: "AVAILABLE",
+          },
+        });
+
+        // Update trip details
+        return await tx.trip.update({
+          where: { id: tripId },
+          data: {
+            status: "COMPLETED",
+            finalOdometer: odometer,
+            fuelConsumedLiters: fuel,
+            completedAt: new Date(),
+          },
+          include: {
+            vehicle: true,
+            driver: true,
+          },
+        });
+      });
+    } catch (dbError) {
+      console.warn("Database connection failed, falling back to JSON DataStore.");
+      try {
+        updatedTrip = DataStore.completeTrip(tripId, odometer, fuel);
+      } catch (storeError: any) {
+        return NextResponse.json(
+          { success: false, error: storeError.message || "Failed to complete trip" },
+          { status: 400 }
+        );
+      }
+    }
 
     return NextResponse.json({ success: true, data: updatedTrip });
   } catch (error: any) {
