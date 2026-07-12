@@ -16,6 +16,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { showToast } from "@/components/ui/Toast";
+import Select from "@/components/ui/Select";
 import type { Vehicle, Driver } from "@/types";
 
 export default function NewTripPage() {
@@ -71,16 +72,14 @@ export default function NewTripPage() {
   };
 
   // Asset selection handles
-  const handleVehicleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const id = e.target.value;
+  const handleVehicleChange = (id: string) => {
     setFormData((prev) => ({ ...prev, vehicleId: id }));
     const vehicle = vehicles.find((v) => v.id === Number(id)) || null;
     setSelectedVehicle(vehicle);
     validateCargo(formData.cargoWeightKg, vehicle);
   };
 
-  const handleDriverChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const id = e.target.value;
+  const handleDriverChange = (id: string) => {
     setFormData((prev) => ({ ...prev, driverId: id }));
     const driver = drivers.find((d) => d.id === Number(id)) || null;
     setSelectedDriver(driver);
@@ -206,25 +205,17 @@ export default function NewTripPage() {
             <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Select Available Vehicle
             </label>
-            <div className="relative">
-              <Truck
-                className="absolute left-3 top-3 text-text-primary-primary-muted pointer-events-none"
-                size={18}
-              />
-              <select
-                value={formData.vehicleId}
-                onChange={handleVehicleChange}
-                disabled={loadingAssets || submitting}
-                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <option value="">-- Choose a Vehicle --</option>
-                {vehicles.map((v) => (
-                  <option key={v.id} value={v.id}>
-                    {v.registrationNumber} - {v.nameModel} (Max: {v.maxLoadCapacityKg} kg)
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Select
+              value={formData.vehicleId}
+              onChange={handleVehicleChange}
+              icon={<Truck size={18} />}
+              options={vehicles.map((v) => ({
+                label: `${v.registrationNumber} - ${v.nameModel} (Max: ${v.maxLoadCapacityKg} kg)`,
+                value: v.id.toString(),
+              }))}
+              placeholder="-- Choose a Vehicle --"
+              className="w-full"
+            />
             {selectedVehicle && (
               <div className="text-xs text-success flex items-center gap-1 mt-1 bg-success/5 px-2 py-1 rounded border border-success/15 w-fit">
                 <CheckCircle2 size={12} />
@@ -238,25 +229,17 @@ export default function NewTripPage() {
             <label className="text-xs font-semibold text-text-primary-primary-secondary uppercase tracking-wider">
               Select Available Driver
             </label>
-            <div className="relative">
-              <User
-                className="absolute left-3 top-3 text-text-primary-primary-muted pointer-events-none"
-                size={18}
-              />
-              <select
-                value={formData.driverId}
-                onChange={handleDriverChange}
-                disabled={loadingAssets || submitting}
-                className="w-full bg-surface-primary border border-border-default rounded-lg pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary-light focus:ring-1 focus:ring-primary-light transition-all text-text-primary-primary appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <option value="">-- Choose a Driver --</option>
-                {drivers.map((d) => (
-                  <option key={d.id} value={d.id}>
-                    {d.name} (Safety Score: {d.safetyScore}/100)
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Select
+              value={formData.driverId}
+              onChange={handleDriverChange}
+              icon={<User size={18} />}
+              options={drivers.map((d) => ({
+                label: `${d.name} (Safety Score: ${d.safetyScore}/100)`,
+                value: d.id.toString(),
+              }))}
+              placeholder="-- Choose a Driver --"
+              className="w-full"
+            />
             {selectedDriver && (
               <div className="text-xs text-secondary flex items-center gap-1 mt-1 bg-secondary/5 px-2 py-1 rounded border border-secondary/15 w-fit">
                 <CheckCircle2 size={12} />

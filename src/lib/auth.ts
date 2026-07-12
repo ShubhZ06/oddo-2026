@@ -93,12 +93,6 @@ export const NAV_ITEMS: NavItem[] = [
     icon: "BarChart3",
     roles: ["FLEET_MANAGER", "FINANCIAL_ANALYST"],
   },
-  {
-    label: "Settings",
-    href: "/settings",
-    icon: "Settings",
-    roles: ["FLEET_MANAGER"],
-  },
 ];
 
 /**

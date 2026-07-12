@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
+import Select from "@/components/ui/Select";
 import type { Vehicle, Trip } from "@/types";
 
 interface FuelModalProps {
@@ -91,39 +92,35 @@ export default function FuelModal({
             <label className="text-sm font-bold text-gray-700">
               Select Vehicle
             </label>
-            <select
+            <Select
               required
               value={vehicleId}
-              onChange={(e) => setVehicleId(e.target.value)}
-              className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:border-black focus:outline-none transition-colors text-gray-700 font-semibold shadow-sm"
-            >
-              <option value="">-- Choose a Vehicle --</option>
-              {vehicles.map((v) => (
-                <option key={v.id} value={v.id}>
-                  {v.registrationNumber}
-                </option>
-              ))}
-            </select>
+              onChange={setVehicleId}
+              options={vehicles.map((v) => ({
+                label: v.registrationNumber,
+                value: v.id.toString(),
+              }))}
+              placeholder="-- Choose a Vehicle --"
+              className="w-full"
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-bold text-gray-700">
               Trip (Optional)
             </label>
-            <select
+            <Select
               value={tripId}
-              onChange={(e) => setTripId(e.target.value)}
-              className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm focus:border-black focus:outline-none transition-colors text-gray-700 font-semibold shadow-sm"
-            >
-              <option value="">-- None --</option>
-              {trips
+              onChange={setTripId}
+              options={trips
                 .filter((t) => !vehicleId || t.vehicleId.toString() === vehicleId)
-                .map((t) => (
-                  <option key={t.id} value={t.id}>
-                    Trip #{t.id} ({t.source} to {t.destination})
-                  </option>
-                ))}
-            </select>
+                .map((t) => ({
+                  label: `Trip #${t.id} (${t.source} to ${t.destination})`,
+                  value: t.id.toString(),
+                }))}
+              placeholder="-- None --"
+              className="w-full"
+            />
           </div>
         </div>
 

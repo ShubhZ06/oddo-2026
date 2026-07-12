@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Modal from "@/components/ui/Modal";
+import Select from "@/components/ui/Select";
 import { showToast } from "@/components/ui/Toast";
 import type { Driver, DriverStatus } from "@/types";
 
@@ -204,18 +205,17 @@ export default function DriverFormModal({
             <label htmlFor="licenseCategory" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               License Class/Category
             </label>
-            <select
-              id="licenseCategory"
-              name="licenseCategory"
-              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+            <Select
               value={formData.licenseCategory}
-              onChange={handleChange}
-            >
-              <option value="Class A CDL">Class A CDL (Heavy Trucks)</option>
-              <option value="Class B CDL">Class B CDL (Buses/Straight Trucks)</option>
-              <option value="Class C">Class C (Cars/Standard Vans)</option>
-              <option value="Specialized">Specialized/Hazardous</option>
-            </select>
+              onChange={(val) => handleChange({ target: { name: 'licenseCategory', value: val } } as any)}
+              options={[
+                { label: "Class A CDL (Heavy Trucks)", value: "Class A CDL" },
+                { label: "Class B CDL (Buses/Straight Trucks)", value: "Class B CDL" },
+                { label: "Class C (Cars/Standard Vans)", value: "Class C" },
+                { label: "Specialized/Hazardous", value: "Specialized" },
+              ]}
+              className="w-full"
+            />
           </div>
         </div>
 
@@ -282,18 +282,17 @@ export default function DriverFormModal({
             <label htmlFor="status" className="text-xs font-semibold text-text-primary-primary-secondary uppercase">
               Duty Status
             </label>
-            <select
-              id="status"
-              name="status"
-              className="w-full bg-surface-secondary border border-border-default focus:border-primary/50 outline-none rounded-lg px-3 py-2 text-sm text-text-primary-primary transition-colors"
+            <Select
               value={formData.status}
-              onChange={handleChange}
-            >
-              <option value="AVAILABLE">Available / On Duty</option>
-              <option value="ON_TRIP">On Trip</option>
-              <option value="OFF_DUTY">Off Duty</option>
-              <option value="SUSPENDED">Suspended</option>
-            </select>
+              onChange={(val) => handleChange({ target: { name: 'status', value: val } } as any)}
+              options={[
+                { label: "Available / On Duty", value: "AVAILABLE" },
+                { label: "On Trip", value: "ON_TRIP" },
+                { label: "Off Duty", value: "OFF_DUTY" },
+                { label: "Suspended", value: "SUSPENDED" },
+              ]}
+              className="w-full"
+            />
           </div>
         </div>
       </form>

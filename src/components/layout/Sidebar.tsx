@@ -80,9 +80,13 @@ export default function Sidebar() {
             <div className="text-xs text-gray-500">Admin</div>
           </div>
         </div>
-        <button className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-[#e5e7eb] text-black">
-          <Bell size={16} />
-        </button>
+        <Link 
+          href="/settings"
+          title="Settings"
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-[#e5e7eb] text-black hover:bg-gray-200 transition-colors cursor-pointer"
+        >
+          <Settings size={16} />
+        </Link>
       </div>
 
       {/* Nav */}

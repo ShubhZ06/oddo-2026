@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import Select from "@/components/ui/Select";
 
 type RoleType = "FLEET_MANAGER" | "DRIVER" | "SAFETY_OFFICER" | "FINANCIAL_ANALYST";
 
@@ -158,21 +159,17 @@ export default function LoginPage() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-semibold text-gray-700">Role</label>
-              <div className="relative">
-                <select
+                <Select
                   value={role}
-                  onChange={(e) => setRole(e.target.value as RoleType)}
-                  className="w-full bg-white text-black border border-gray-300 focus:border-black focus:ring-1 focus:ring-black px-4 py-3 rounded-xl text-sm transition-all outline-none appearance-none cursor-pointer"
-                >
-                  <option value="FLEET_MANAGER">Fleet Manager</option>
-                  <option value="DRIVER">Dispatcher</option>
-                  <option value="SAFETY_OFFICER">Safety Officer</option>
-                  <option value="FINANCIAL_ANALYST">Financial Analyst</option>
-                </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">
-                  ▼
-                </div>
-              </div>
+                  onChange={(val) => setRole(val as RoleType)}
+                  options={[
+                    { label: "Fleet Manager", value: "FLEET_MANAGER" },
+                    { label: "Dispatcher", value: "DRIVER" },
+                    { label: "Safety Officer", value: "SAFETY_OFFICER" },
+                    { label: "Financial Analyst", value: "FINANCIAL_ANALYST" },
+                  ]}
+                  className="w-full"
+                />
             </div>
 
             <div className="flex items-center justify-between text-sm mt-1">

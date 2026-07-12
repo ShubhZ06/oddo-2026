@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
+import Select from "@/components/ui/Select";
 import type { Role } from "@/types";
 import { getRoleDisplayName } from "@/lib/auth";
 
@@ -80,15 +81,12 @@ export default function UserModal({ isOpen, onClose, user }: UserModalProps) {
 
         <div className="flex flex-col gap-1.5">
           <label className="text-sm font-medium text-text-primary-primary-secondary">System Role</label>
-          <select
+          <Select
             value={formData.role}
-            onChange={(e) => setFormData({...formData, role: e.target.value as Role})}
-            className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
-          >
-            {ROLES.map(r => (
-              <option key={r} value={r}>{getRoleDisplayName(r)}</option>
-            ))}
-          </select>
+            onChange={(val) => setFormData({...formData, role: val as Role})}
+            options={ROLES.map(r => ({ label: getRoleDisplayName(r), value: r }))}
+            className="w-full"
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">

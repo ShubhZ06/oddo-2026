@@ -84,9 +84,9 @@ export default function SettingsPage() {
         <p className="text-text-primary-primary-secondary text-sm">Manage your profile, system users, and application preferences.</p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col gap-6">
         {/* Settings Navigation */}
-        <div className="w-full md:w-64 shrink-0 flex flex-col gap-2">
+        <div className="flex flex-row flex-wrap gap-2 border-b border-border-default pb-4">
           <button
             onClick={() => setActiveTab("profile")}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all text-left ${
@@ -235,10 +235,103 @@ export default function SettingsPage() {
 
           {/* SYSTEM TAB */}
           {activeTab === "system" && (
-            <div className="bg-surface-secondary border border-border-default rounded-xl p-6 animate-fade-in">
-              <h2 className="text-lg font-semibold mb-6">System Preferences</h2>
-              <div className="text-text-primary-primary-muted text-sm py-12 text-center border-2 border-dashed border-border-default rounded-xl">
-                Global settings, notifications, and integration options will go here.
+            <div className="flex flex-col gap-8 animate-fade-in">
+              {/* General Settings */}
+              <div className="bg-surface-secondary border border-border-default rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-light">
+                    <Settings2 size={20} />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold">General Options</h2>
+                    <p className="text-sm text-text-primary-primary-secondary">Manage global system configurations.</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Company Name</label>
+                    <input 
+                      type="text"
+                      defaultValue="TransitOps Logistics"
+                      className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Default Currency</label>
+                    <select className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors">
+                      <option>INR (₹)</option>
+                      <option>USD ($)</option>
+                      <option>EUR (€)</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Timezone</label>
+                    <select className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors">
+                      <option>Asia/Kolkata (IST)</option>
+                      <option>America/New_York (EST)</option>
+                      <option>Europe/London (GMT)</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-sm font-medium text-text-primary-primary-secondary">Date Format</label>
+                    <select className="bg-surface-primary border border-border-default rounded-lg px-4 py-2.5 text-sm focus:border-primary-light focus:outline-none transition-colors">
+                      <option>DD/MM/YYYY</option>
+                      <option>MM/DD/YYYY</option>
+                      <option>YYYY-MM-DD</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2 flex justify-end">
+                    <button className="px-5 py-2.5 bg-surface-primary border border-border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
+                      Save General Settings
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Notifications */}
+              <div className="bg-surface-secondary border border-border-default rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border-default">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold">Notification Preferences</h2>
+                    <p className="text-sm text-text-primary-primary-secondary">Configure how alerts and reports are delivered.</p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4 max-w-2xl">
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold">Email Alerts for Maintenance</span>
+                      <span className="text-xs text-text-primary-primary-secondary">Receive an email when a vehicle is marked for maintenance.</span>
+                    </div>
+                    <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-border-default accent-primary-light" />
+                  </label>
+                  
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold">Weekly Financial Digest</span>
+                      <span className="text-xs text-text-primary-primary-secondary">A summary of fuel and trip expenses every Monday.</span>
+                    </div>
+                    <input type="checkbox" defaultChecked className="w-4 h-4 rounded border-border-default accent-primary-light" />
+                  </label>
+
+                  <label className="flex items-center justify-between cursor-pointer">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold">SMS Alerts for Drivers</span>
+                      <span className="text-xs text-text-primary-primary-secondary">Send an SMS to a driver when a new trip is assigned.</span>
+                    </div>
+                    <input type="checkbox" className="w-4 h-4 rounded border-border-default accent-primary-light" />
+                  </label>
+
+                  <div className="flex justify-end mt-4">
+                    <button className="px-5 py-2.5 bg-surface-primary border border-border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors">
+                      Update Notification Settings
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           )}

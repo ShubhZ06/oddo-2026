@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
+import Select from "@/components/ui/Select";
 import type { Vehicle, MaintenanceType } from "@/types";
 
 interface MaintenanceModalProps {
@@ -78,19 +79,17 @@ export default function MaintenanceModal({
           <label className="text-sm font-medium text-text-secondary">
             Select Vehicle
           </label>
-          <select
+          <Select
             required
             value={vehicleId}
-            onChange={(e) => setVehicleId(e.target.value)}
-            className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
-          >
-            <option value="">-- Choose a Vehicle --</option>
-            {vehicles.map((v) => (
-              <option key={v.id} value={v.id}>
-                {v.registrationNumber} — {v.nameModel} ({v.status})
-              </option>
-            ))}
-          </select>
+            onChange={setVehicleId}
+            options={vehicles.map((v) => ({
+              label: `${v.registrationNumber} — ${v.nameModel} (${v.status})`,
+              value: v.id.toString(),
+            }))}
+            placeholder="-- Choose a Vehicle --"
+            className="w-full"
+          />
           {vehicles.length === 0 && (
             <p className="text-xs text-danger font-medium mt-1">
               No vehicles available for maintenance. All vehicles are currently in the shop, retired, or on active trips.
@@ -103,17 +102,18 @@ export default function MaintenanceModal({
             <label className="text-sm font-medium text-text-secondary">
               Maintenance Type
             </label>
-            <select
+            <Select
               value={type}
-              onChange={(e) => setType(e.target.value as MaintenanceType)}
-              className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
-            >
-              <option value="GENERAL">General Maintenance</option>
-              <option value="OIL_CHANGE">Oil Change</option>
-              <option value="TIRE_REPLACEMENT">Tire Replacement</option>
-              <option value="ENGINE_REPAIR">Engine Repair</option>
-              <option value="BRAKE_SERVICE">Brake Service</option>
-            </select>
+              onChange={(val) => setType(val as MaintenanceType)}
+              options={[
+                { label: "General Maintenance", value: "GENERAL" },
+                { label: "Oil Change", value: "OIL_CHANGE" },
+                { label: "Tire Replacement", value: "TIRE_REPLACEMENT" },
+                { label: "Engine Repair", value: "ENGINE_REPAIR" },
+                { label: "Brake Service", value: "BRAKE_SERVICE" },
+              ]}
+              className="w-full"
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">

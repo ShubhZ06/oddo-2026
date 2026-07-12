@@ -1,9 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import { Search, Plus, Filter, MoreHorizontal, ArrowDownUp } from "lucide-react";
-
-
-export const dynamic = "force-dynamic";
+import Select from "@/components/ui/Select";
 
 export default function DashboardPage() {
+  const [vehicleType, setVehicleType] = useState("Vehicle Type: All");
+  const [status, setStatus] = useState("Status: All");
+  const [region, setRegion] = useState("Region: All");
   const kpis = [
     { label: "ACTIVE VEHICLES", value: "53", border: "border-blue-500" },
     { label: "AVAILABLE VEHICLES", value: "42", border: "border-green-500" },
@@ -48,16 +52,41 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6 z-10 relative">
         <div className="text-xs font-bold text-gray-400 tracking-wider mr-2 uppercase">Filters:</div>
-        {["Vehicle Type: All", "Status: All", "Region: All"].map((filter, i) => (
-          <div key={i} className="relative w-40">
-            <select className="appearance-none w-full bg-white border border-gray-200 text-gray-700 text-sm font-semibold py-2.5 pl-4 pr-10 rounded-xl outline-none focus:border-black cursor-pointer shadow-sm">
-              <option>{filter}</option>
-            </select>
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 text-xs">▼</div>
-          </div>
-        ))}
+        <div className="flex gap-3 flex-wrap">
+          <Select 
+            value={vehicleType}
+            onChange={setVehicleType}
+            options={[
+              { label: "Vehicle Type: All", value: "Vehicle Type: All" },
+              { label: "Vans", value: "Vans" },
+              { label: "Trucks", value: "Trucks" },
+            ]}
+            className="w-48"
+          />
+          <Select 
+            value={status}
+            onChange={setStatus}
+            options={[
+              { label: "Status: All", value: "Status: All" },
+              { label: "Available", value: "Available" },
+              { label: "On Trip", value: "On Trip" },
+              { label: "Maintenance", value: "Maintenance" },
+            ]}
+            className="w-40"
+          />
+          <Select 
+            value={region}
+            onChange={setRegion}
+            options={[
+              { label: "Region: All", value: "Region: All" },
+              { label: "North", value: "North" },
+              { label: "South", value: "South" },
+            ]}
+            className="w-40"
+          />
+        </div>
       </div>
 
       {/* KPIs */}

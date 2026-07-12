@@ -29,10 +29,10 @@ const ICONS = {
 };
 
 const TYPE_STYLES = {
-  success: "border-success/30 bg-success/10 text-success",
-  error: "border-danger/30 bg-danger/10 text-danger",
-  warning: "border-warning/30 bg-warning/10 text-warning",
-  info: "border-info/30 bg-info/10 text-info",
+  success: "border-success bg-white text-gray-800",
+  error: "border-danger bg-white text-gray-800",
+  warning: "border-warning bg-white text-gray-800",
+  info: "border-info bg-white text-gray-800",
 };
 
 export default function ToastContainer() {
@@ -69,10 +69,10 @@ export default function ToastContainer() {
         return (
           <div
             key={toast.id}
-            className={`flex items-center gap-3 px-4 py-3 rounded-lg border backdrop-blur-md shadow-lg animate-fade-in-down ${TYPE_STYLES[toast.type]}`}
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl border border-l-[4px] border-y-gray-200 border-r-gray-200 shadow-sm animate-fade-in-down ${TYPE_STYLES[toast.type]}`}
           >
-            <Icon size={18} className="shrink-0" />
-            <span className="flex-1 text-sm font-medium">{toast.message}</span>
+            <Icon size={18} className={`shrink-0 text-${toast.type}`} />
+            <span className="flex-1 text-sm font-semibold">{toast.message}</span>
             <button
               className="shrink-0 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
               onClick={() => removeToast(toast.id)}

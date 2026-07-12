@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Modal from "@/components/ui/Modal";
+import Select from "@/components/ui/Select";
 import { showToast } from "@/components/ui/Toast";
 import { addVehicle, updateVehicle } from "@/actions/vehicle";
 
@@ -133,16 +134,17 @@ export default function VehicleModal({ isOpen, onClose, vehicle }: VehicleModalP
 
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-text-secondary">Type</label>
-            <select
+            <Select
               value={formData.type}
-              onChange={(e) => setFormData({...formData, type: e.target.value as any})}
-              className="bg-surface-primary border border-border-default rounded-lg px-3 py-2 text-sm focus:border-primary-light focus:outline-none transition-colors"
-            >
-              <option value="TRUCK">Truck</option>
-              <option value="VAN">Van</option>
-              <option value="CAR">Car</option>
-              <option value="BUS">Bus</option>
-            </select>
+              onChange={(val) => setFormData({...formData, type: val as any})}
+              options={[
+                { label: "Truck", value: "TRUCK" },
+                { label: "Van", value: "VAN" },
+                { label: "Car", value: "CAR" },
+                { label: "Bus", value: "BUS" },
+              ]}
+              className="w-full"
+            />
           </div>
 
           <div className="flex flex-col gap-1.5">
